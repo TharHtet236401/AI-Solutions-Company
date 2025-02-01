@@ -1,0 +1,285 @@
+/* Industries Hero Section */
+.industries-hero {
+    min-height: 80vh;
+    background: #10375B;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animated Background */
+.animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circuit-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(52, 152, 219, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(52, 152, 219, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: circuitMove 20s linear infinite;
+}
+
+/* Hero Content */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+/* Hero Stats */
+.hero-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.stat-pill {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Industries Showcase Section */
+.industries-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 6rem 2rem;
+}
+
+.industries-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.industry-slide {
+    min-width: calc(33.333% - 1.334rem);
+    flex: 0 0 calc(33.333% - 1.334rem);
+    box-sizing: border-box;
+}
+
+/* Industry Cards */
+.industry-item {
+    background: linear-gradient(145deg, #ffffff, #f5f8fa);
+    border-radius: 25px;
+    padding: 2.5rem;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(52, 152, 219, 0.1);
+}
+
+/* Achievement Badges */
+.achievement-badges {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    justify-content: space-between;
+}
+
+.badge {
+    flex: 1;
+    background: rgba(52, 152, 219, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(52, 152, 219, 0.1);
+}
+
+/* Slider Navigation */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3498db;
+    font-size: 1.2rem;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* Success Metrics Section */
+.success-metrics {
+    padding: 6rem 8%;
+    background: #fff;
+}
+
+.metrics-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Testimonials Section */
+.industry-testimonials {
+    padding: 6rem 8%;
+    background: linear-gradient(135deg, #10375B, #1a4b76);
+    color: white;
+}
+
+/* CTA Section */
+.industries-cta {
+    padding: 6rem 8%;
+    background: #f8f9fa;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .industries-container {
+        padding: 2rem 1rem;
+    }
+
+    .industries-slider {
+        margin: 0;
+        padding: 0;
+    }
+
+    .slider-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        transform: none !important;
+        transition: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .industry-slide {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        min-width: unset;
+        flex: unset;
+    }
+
+    .slider-btn,
+    .slider-dots {
+        display: none;
+    }
+
+    .achievement-badges,
+    .industry-features {
+        display: none;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-pill {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .industries-container {
+        padding: 4rem 1rem;
+    }
+
+    .slider-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        transform: none !important;
+        transition: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .industry-slide {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        min-width: unset;
+        flex: unset;
+    }
+
+    .slider-btn,
+    .slider-dots {
+        display: none;
+    }
+
+    .achievement-badges,
+    .industry-features {
+        display: none;
+    }
+}
+
+/* Animations */
+@keyframes circuitMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50px); }
+} 

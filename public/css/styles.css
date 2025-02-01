@@ -3215,33 +3215,33 @@ img {
 /* Sliding Cards Styles */
 .industries-slider {
     position: relative;
-    overflow: hidden; /* Change back to hidden */
+    overflow: hidden;
     padding: 2rem 0;
-    margin: 0 auto; /* Changed from margin: 0 4rem */
+    margin: 0 auto;
     max-width: 1400px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .slider-container {
     display: flex;
     transition: transform 0.5s ease;
     gap: 2rem;
-    padding: 1rem 3rem; /* Added horizontal padding to make space for arrows */
+    padding: 1rem 3rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .industry-slide {
     min-width: calc(33.333% - 1.334rem);
-    flex: 0 0 calc(33.333% - 1.334rem); /* Add flex property */
-    opacity: 0.7;
-    transform: scale(0.95);
-    transition: all 0.5s ease;
-    pointer-events: none; /* Disable interaction for inactive slides */
+    flex: 0 0 calc(33.333% - 1.334rem);
+    box-sizing: border-box;
 }
 
 .industry-slide.active {
     opacity: 1;
     transform: scale(1);
-    pointer-events: auto; /* Enable interaction for active slide */
+    pointer-events: auto;
 }
 
 /* Update Navigation Buttons */
@@ -3266,11 +3266,11 @@ img {
 }
 
 .prev-btn {
-    left: 10px; /* Changed from -60px */
+    left: 10px;
 }
 
 .next-btn {
-    right: 10px; /* Changed from -60px */
+    right: 10px;
 }
 
 .slider-btn:hover {
@@ -3511,6 +3511,243 @@ img {
         display: none;
     }
 
+    .industry-features {
+        display: none;
+    }
+}
+
+/* Industries Showcase Responsive Layout */
+@media screen and (max-width: 768px) {
+    .industries-slider {
+        overflow: visible;
+        padding: 0;
+        margin: 0;
+    }
+
+    .slider-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        transform: none !important;
+        transition: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .industry-slide {
+        width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+        min-width: unset;
+        flex: unset;
+    }
+
+    .industry-item {
+        height: auto;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    /* Add container padding instead */
+    .industries-container {
+        padding: 2rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+}
+
+/* Tablet layout - 2 columns */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .industries-slider {
+        overflow: visible;
+        padding: 0;
+        margin: 0;
+    }
+
+    .slider-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        transform: none !important;
+        transition: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .industry-slide {
+        width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+        min-width: unset;
+        flex: unset;
+    }
+
+    .industries-container {
+        padding: 2rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+}
+
+/* Base Slider Styles */
+.industries-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 6rem 2rem;
+}
+
+.industries-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.industry-slide {
+    min-width: calc(33.333% - 1.334rem);
+    flex: 0 0 calc(33.333% - 1.334rem);
+    box-sizing: border-box;
+}
+
+/* Slider Navigation */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3498db;
+    font-size: 1.2rem;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+.slider-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+}
+
+.slider-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f1f1f1;
+    color: #999;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .industries-container {
+        padding: 2rem 1rem;
+    }
+
+    .industries-slider {
+        margin: 0;
+        padding: 0;
+    }
+
+    .slider-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        transform: none !important;
+        transition: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .industry-slide {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        min-width: unset;
+        flex: unset;
+    }
+
+    .industry-item {
+        height: auto;
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Hide slider controls */
+    .slider-btn,
+    .slider-dots {
+        display: none;
+    }
+
+    /* Hide features on mobile */
+    .achievement-badges,
+    .industry-features {
+        display: none;
+    }
+}
+
+/* Tablet Styles */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .industries-container {
+        padding: 4rem 1rem;
+    }
+
+    .industries-slider {
+        margin: 0;
+        padding: 0;
+    }
+
+    .slider-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        transform: none !important;
+        transition: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .industry-slide {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        min-width: unset;
+        flex: unset;
+    }
+
+    /* Hide slider controls */
+    .slider-btn,
+    .slider-dots {
+        display: none;
+    }
+
+    /* Hide features on tablet */
+    .achievement-badges,
     .industry-features {
         display: none;
     }
