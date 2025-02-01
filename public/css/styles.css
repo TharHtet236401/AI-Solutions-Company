@@ -32,7 +32,7 @@ nav ul li a {
 /* Footer Styles */
 .site-footer {
     margin-top: auto;
-    background-color: #2c3e50;
+    background-color: #10375B;
     color: #ecf0f1;
     padding: 60px 0 20px;
     font-family: 'Arial', sans-serif;
@@ -111,7 +111,7 @@ nav ul li a {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-color: #34495e;
+    background-color: #1a4b76;
     color: #ecf0f1;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -126,7 +126,7 @@ nav ul li a {
     text-align: center;
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 1px solid #34495e;
+    border-top: 1px solid #1a4b76;
 }
 
 .footer-bottom p {
@@ -231,7 +231,7 @@ p {
 
 /* Navigation Styles */
 .main-nav {
-    background: #2c3e50;
+    background: #10375B;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -245,14 +245,9 @@ p {
 }
 
 .nav-logo {
-    height: 40px;
-    width: 40px;
+    height: 45px;
+    width: auto;
     margin-right: 1rem;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #3498db;
-    padding: 1px;
-    background: white;
     transition: transform 0.3s ease;
 }
 
@@ -298,10 +293,8 @@ p {
     }
 
     .nav-logo {
-        height: 32px;
-        width: 32px;
-        border-width: 1px;
-        padding: 1px;
+        height: 35px;
+        width: auto;
     }
 
     .nav-links {
@@ -1322,7 +1315,7 @@ p {
 
 /* Stats Section */
 .stats-section {
-    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    background: linear-gradient(135deg, #10375B 0%, #3498db 100%);
     padding: 6rem 8%;
     color: #fff;
     width: 100%;
@@ -1485,7 +1478,7 @@ p {
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    background: linear-gradient(135deg, #10375B 0%, #3498db 100%);
     color: #fff;
     border-radius: 10px;
     margin-bottom: 4rem;
@@ -1607,7 +1600,7 @@ img {
         position: absolute;
         top: 100%;
         left: 0;
-        background: #2c3e50;
+        background: #10375B;
         padding: 1rem;
     }
 
