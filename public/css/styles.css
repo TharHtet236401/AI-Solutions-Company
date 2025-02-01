@@ -236,23 +236,19 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1000;
 }
 
 .nav-brand {
     display: flex;
     align-items: center;
+    z-index: 1001;
 }
 
 .nav-logo {
     height: 45px;
     width: auto;
-    margin-right: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.nav-logo:hover {
-    transform: scale(1.1);
 }
 
 .nav-brand a {
@@ -263,15 +259,15 @@ p {
 }
 
 .nav-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links li a {
-    color: #ecf0f1;
+    color: #fff;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
@@ -281,26 +277,92 @@ p {
     color: #3498db;
 }
 
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
 /* Responsive Navigation */
-@media (max-width: 768px) {
-    .main-nav {
-        flex-direction: column;
-        padding: 0.8rem 1rem;
+@media (max-width: 992px) {
+    .hamburger {
+        display: block;
     }
 
-    .nav-brand {
-        margin-bottom: 1rem;
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background: #10375B;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 2rem 2rem;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    /* Hamburger Animation */
+    .hamburger.active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Add overlay when menu is open */
+    .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .nav-overlay.active {
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-nav {
+        padding: 0.8rem 1rem;
     }
 
     .nav-logo {
         height: 35px;
-        width: auto;
     }
 
     .nav-links {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+        width: 100%;
+        padding-top: 70px;
     }
 }
 
@@ -1180,31 +1242,52 @@ p {
     50% { transform: translateY(-20px); }
 }
 
-/* Responsive adjustments for animations */
+/* Responsive adjustments */
 @media (max-width: 992px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    /* Hide animation completely on tablet and mobile */
     .hero-animation {
-        height: 300px;
+        display: none;
+    }
+
+    .hero-buttons {
+        justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
-    .hero-animation {
-        height: 250px;
+    .hero-section {
+        padding: 4rem 1rem;
     }
 
-    .circle-1 {
-        width: 100px;
-        height: 100px;
+    .hero-title {
+        font-size: 2.5rem;
     }
 
-    .circle-2 {
-        width: 70px;
-        height: 70px;
+    .hero-subtitle {
+        font-size: 1.2rem;
     }
 
-    .circle-3 {
-        width: 50px;
-        height: 50px;
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .hero-btn {
+        width: 100%;
+        text-align: center;
     }
 }
 
