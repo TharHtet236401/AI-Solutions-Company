@@ -8,18 +8,105 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
     <%- include('partials/nav-bar') %>
 
-    <section>
-        <h1>Contact Us</h1>
-        <p>Get in touch with us.</p>
+    <section class="page-section">
+        <h1 class="section-title">Contact Us</h1>
+        <p class="section-subtitle">Get in touch with our AI experts</p>
+
+        <div class="contact-container">
+            <!-- Company Info -->
+            <div class="company-info">
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Visit Us</h3>
+                    <p>AI-Solutions Headquarters</p>
+                    <p>Sunderland Technology Hub</p>
+                    <p>Sunderland, UK</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Call Us</h3>
+                    <p>+44 (0) 191 AI-SOLUTIONS</p>
+                    <p>Mon-Fri: 9:00 AM - 5:30 PM GMT</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>contact@aisolutions.tech</p>
+                    <p>support@aisolutions.tech</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <form class="contact-form" action="/submit-contact" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name *</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="JP">Japan</option>
+                                <!-- Add more countries as needed -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title *</label>
+                            <input type="text" id="jobTitle" name="jobTitle" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="details">Project Details *</label>
+                        <textarea id="details" name="details" rows="5" required 
+                            placeholder="Please describe your project or requirements..."></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit" class="submit-btn">
+                            Send Message
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
 
     <%- include('partials/footer') %>
-
 </body>
 </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/nav-bar') %>
+
+    <section class="page-section">
+        <h1 class="section-title">Industries We Serve</h1>
+        <p class="section-subtitle">Transforming businesses across sectors with cutting-edge AI solutions</p>
+
+        <div class="industries-grid">
+            <div class="industry-card">
+                <div class="industry-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h3>Healthcare</h3>
+                <p>Revolutionizing patient care with AI-powered diagnostics and personalized treatment recommendations.</p>
+                <ul class="industry-features">
+                    <li>Medical Image Analysis</li>
+                    <li>Patient Data Analytics</li>
+                    <li>Healthcare Resource Optimization</li>
+                </ul>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Finance</h3>
+                <p>Enhancing financial services with intelligent risk assessment and fraud detection systems.</p>
+                <ul class="industry-features">
+                    <li>Fraud Detection</li>
+                    <li>Risk Management</li>
+                    <li>Automated Trading</li>
+                </ul>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <h3>Manufacturing</h3>
+                <p>Optimizing production processes with predictive maintenance and quality control.</p>
+                <ul class="industry-features">
+                    <li>Predictive Maintenance</li>
+                    <li>Quality Assurance</li>
+                    <li>Supply Chain Optimization</li>
+                </ul>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3>Retail</h3>
+                <p>Personalizing shopping experiences with AI-driven recommendations and inventory management.</p>
+                <ul class="industry-features">
+                    <li>Customer Analytics</li>
+                    <li>Inventory Management</li>
+                    <li>Price Optimization</li>
+                </ul>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Education</h3>
+                <p>Transforming learning with personalized education paths and automated assessments.</p>
+                <ul class="industry-features">
+                    <li>Adaptive Learning</li>
+                    <li>Student Performance Analytics</li>
+                    <li>Automated Grading</li>
+                </ul>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3>Logistics</h3>
+                <p>Streamlining transportation and delivery with intelligent routing and tracking systems.</p>
+                <ul class="industry-features">
+                    <li>Route Optimization</li>
+                    <li>Fleet Management</li>
+                    <li>Delivery Tracking</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+</body>
+</html> 

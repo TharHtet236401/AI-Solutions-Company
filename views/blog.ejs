@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/nav-bar') %>
+
+    <section class="page-section">
+        <h1 class="section-title">AI Solutions Blog</h1>
+        <p class="section-subtitle">Insights, trends, and innovations in artificial intelligence</p>
+
+        <!-- Featured Article -->
+        <div class="featured-article">
+            <div class="featured-image">
+                <img src="/images/blog/ai-future.jpg" alt="The Future of AI">
+                <span class="featured-tag">Featured</span>
+            </div>
+            <div class="featured-content">
+                <div class="article-meta">
+                    <span class="article-date"><i class="far fa-calendar"></i> March 15, 2024</span>
+                    <span class="article-category"><i class="fas fa-tag"></i> AI Trends</span>
+                </div>
+                <h2>The Future of AI: Transforming Industries in 2024 and Beyond</h2>
+                <p>Explore how artificial intelligence is reshaping various sectors and what to expect in the coming years...</p>
+                <a href="#" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/images/blog/machine-learning.jpg" alt="Machine Learning">
+                </div>
+                <div class="blog-content">
+                    <div class="article-meta">
+                        <span class="article-date"><i class="far fa-calendar"></i> March 10, 2024</span>
+                        <span class="article-category"><i class="fas fa-tag"></i> Machine Learning</span>
+                    </div>
+                    <h3>Understanding Deep Learning: A Comprehensive Guide</h3>
+                    <p>Dive deep into the fundamentals of deep learning and its practical applications in modern businesses...</p>
+                    <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/images/blog/chatbots.jpg" alt="AI Chatbots">
+                </div>
+                <div class="blog-content">
+                    <div class="article-meta">
+                        <span class="article-date"><i class="far fa-calendar"></i> March 8, 2024</span>
+                        <span class="article-category"><i class="fas fa-tag"></i> AI Solutions</span>
+                    </div>
+                    <h3>How AI Chatbots Are Revolutionizing Customer Service</h3>
+                    <p>Discover how AI-powered chatbots are transforming customer service and improving user experience...</p>
+                    <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/images/blog/data-analytics.jpg" alt="Data Analytics">
+                </div>
+                <div class="blog-content">
+                    <div class="article-meta">
+                        <span class="article-date"><i class="far fa-calendar"></i> March 5, 2024</span>
+                        <span class="article-category"><i class="fas fa-tag"></i> Data Analytics</span>
+                    </div>
+                    <h3>Predictive Analytics: The Key to Business Intelligence</h3>
+                    <p>Learn how predictive analytics is helping businesses make better decisions and forecast future trends...</p>
+                    <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/images/blog/ai-security.jpg" alt="AI Security">
+                </div>
+                <div class="blog-content">
+                    <div class="article-meta">
+                        <span class="article-date"><i class="far fa-calendar"></i> March 1, 2024</span>
+                        <span class="article-category"><i class="fas fa-tag"></i> Security</span>
+                    </div>
+                    <h3>AI in Cybersecurity: Protecting Digital Assets</h3>
+                    <p>Explore how artificial intelligence is strengthening cybersecurity measures and preventing threats...</p>
+                    <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <span class="page-dots">...</span>
+            <a href="#" class="page-link">10</a>
+            <a href="#" class="page-link next">Next <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+</body>
+</html> 
