@@ -1079,7 +1079,10 @@ p {
     justify-content: space-between;
     gap: 4rem;
     padding: 0 2rem;
-    margin-top: 60px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    transform: translateY(-5%);
 }
 
 .hero-content {
@@ -1134,6 +1137,9 @@ p {
     flex: 1;
     position: relative;
     height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .circle {
@@ -1146,7 +1152,7 @@ p {
     width: 150px;
     height: 150px;
     background: #3498db;
-    top: 20%;
+    top: 10%;
     left: 20%;
     opacity: 0.9;
 }
@@ -1155,7 +1161,7 @@ p {
     width: 100px;
     height: 100px;
     background: #2ecc71;
-    top: 50%;
+    top: 40%;
     right: 20%;
     animation-delay: 1s;
     opacity: 0.8;
@@ -1165,7 +1171,7 @@ p {
     width: 75px;
     height: 75px;
     background: #e74c3c;
-    bottom: 20%;
+    bottom: 30%;
     left: 40%;
     animation-delay: 2s;
     opacity: 0.7;
@@ -1178,16 +1184,13 @@ p {
 
 /* Responsive Design */
 @media (max-width: 992px) {
-    .hero-section {
-        min-height: 100vh;
-    }
-
     .hero-container {
         flex-direction: column;
         justify-content: center;
         text-align: center;
         gap: 2rem;
         padding: 2rem;
+        margin: 0 auto;
     }
 
     .hero-content {
@@ -1209,12 +1212,8 @@ p {
 }
 
 @media (max-width: 768px) {
-    .hero-section {
-        min-height: 100vh;
-    }
-
     .hero-container {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .hero-title {
