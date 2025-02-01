@@ -217,6 +217,22 @@ nav ul li a {
     .footer-links a {
         margin: 5px 0;
     }
+
+    /* Hide footer-bottom on mobile */
+    .footer-bottom {
+        display: none;
+    }
+}
+
+/* Show footer-bottom on larger screens */
+@media (min-width: 769px) {
+    .footer-bottom {
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #1a4b76;
+    }
 }
 
 /* Add some general text styles */
