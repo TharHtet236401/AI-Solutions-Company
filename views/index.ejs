@@ -74,23 +74,27 @@
 
         <!-- Stats Section -->
         <section class="stats-section">
-            <div class="container">
-                <div class="stats-container">
-                    <div class="stat-box">
-                        <div class="stat-number" data-target="95">0</div>
-                        <div class="stat-label">Employee Satisfaction</div>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number-container">
+                        <div class="stat-number">80</div>
                         <div class="stat-symbol">%</div>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="stat-label">Businesses Empowered</div>
+                    <div class="stat-label">Employee Satisfaction</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number-container">
+                        <div class="stat-number">500</div>
                         <div class="stat-symbol">+</div>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-number" data-target="60">0</div>
-                        <div class="stat-label">Cost Reduction</div>
+                    <div class="stat-label">Businesses Empowered</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number-container">
+                        <div class="stat-number">60</div>
                         <div class="stat-symbol">%</div>
                     </div>
+                    <div class="stat-label">Cost Reduction</div>
                 </div>
             </div>
         </section>
@@ -157,27 +161,60 @@
 
     <%- include('partials/footer') %>
 
-    <!-- Add this script for stat counter animation -->
     <script>
-        const stats = document.querySelectorAll('.stat-number');
-        
-        stats.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-target'));
-            const increment = target / 50;
-            let current = 0;
+        // Check if animation has already played
+        const hasAnimationPlayed = localStorage.getItem('statsAnimationPlayed');
 
-            const updateCount = () => {
-                if(current < target) {
-                    current += increment;
-                    stat.textContent = Math.ceil(current);
-                    setTimeout(updateCount, 30);
-                } else {
-                    stat.textContent = target;
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    
+                    // Only animate numbers if animation hasn't played before
+                    if (!hasAnimationPlayed && entry.target.classList.contains('stat-number')) {
+                        const finalNumber = parseInt(entry.target.textContent);
+                        animateCount(entry.target, finalNumber);
+                    }
                 }
-            };
+            });
+        }, observerOptions);
 
-            updateCount();
+        // Observe all stat boxes and numbers
+        document.querySelectorAll('.stat-box, .stat-number').forEach(el => {
+            observer.observe(el);
         });
+
+        // Number counting animation
+        function animateCount(element, final) {
+            let current = 0;
+            const duration = 2000; // 2 seconds
+            const stepTime = 50; // Update every 50ms
+            const steps = duration / stepTime;
+            const increment = final / steps;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= final) {
+                    element.textContent = final;
+                    clearInterval(timer);
+                    // After all animations complete, set the flag
+                    localStorage.setItem('statsAnimationPlayed', 'true');
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, stepTime);
+        }
+
+        // If animation has already played, show final numbers immediately
+        if (hasAnimationPlayed) {
+            document.querySelectorAll('.stat-number').forEach(el => {
+                el.textContent = el.textContent;
+            });
+        }
     </script>
 </body>
 </html>
