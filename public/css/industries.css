@@ -82,6 +82,11 @@
     padding: 6rem 2rem;
 }
 
+.industries-showcase {
+    width: 100%;
+    overflow: hidden;
+}
+
 .industries-slider {
     position: relative;
     overflow: hidden;
@@ -163,8 +168,11 @@
 
 /* Success Metrics Section */
 .success-metrics {
-    padding: 6rem 8%;
+    padding: 6rem 2rem;
     background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .metrics-content {
@@ -174,31 +182,76 @@
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Testimonials Section */
 .industry-testimonials {
-    padding: 6rem 8%;
+    padding: 6rem 2rem;
     background: linear-gradient(135deg, #10375B, #1a4b76);
     color: white;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* CTA Section */
 .industries-cta {
-    padding: 6rem 8%;
+    padding: 6rem 2rem;
     background: #f8f9fa;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Add these styles for industry items */
+.industry-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.industry-icon i {
+    font-size: 2.2rem;
+    color: #3498db;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+.industry-content h3 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.industry-content p,
+.industry-content .achievement-badges,
+.industry-content .industry-features {
+    transition: all 0.3s ease;
 }
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
     .industries-container {
         padding: 2rem 1rem;
+        width: 100%;
+        margin: 0;
     }
 
     .industries-slider {
         margin: 0;
         padding: 0;
+        width: 100%;
     }
 
     .slider-container {
@@ -209,6 +262,7 @@
         transition: none;
         padding: 0;
         margin: 0;
+        width: 100%;
     }
 
     .industry-slide {
@@ -217,6 +271,28 @@
         padding: 0;
         min-width: unset;
         flex: unset;
+    }
+
+    .industry-item {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    /* Ensure content doesn't overflow */
+    .industry-content {
+        width: calc(100% - 60px); /* Account for icon width */
+        overflow: hidden;
+    }
+
+    .industry-content h3 {
+        white-space: normal;
+        word-wrap: break-word;
     }
 
     .slider-btn,
@@ -242,11 +318,58 @@
         width: 100%;
         max-width: 300px;
     }
+
+    .industry-icon {
+        margin-bottom: 0;
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .industry-icon i {
+        font-size: 1.8rem;
+    }
+
+    .industry-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0;
+    }
+
+    /* Hide everything except icon and h3 */
+    .industry-content p,
+    .industry-content .achievement-badges,
+    .industry-content .industry-features {
+        display: none;
+    }
+
+    .success-metrics {
+        padding: 3rem 1rem;
+    }
+
+    .metrics-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .metrics-list li {
+        padding: 1rem;
+    }
+
+    .metrics-visual {
+        width: 100%;
+    }
+
+    .metrics-visual img {
+        width: 100%;
+        height: auto;
+    }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
     .industries-container {
         padding: 4rem 1rem;
+        width: 100%;
+        margin: 0;
     }
 
     .slider-container {
@@ -257,14 +380,20 @@
         transition: none;
         padding: 0;
         margin: 0;
+        width: 100%;
     }
 
-    .industry-slide {
+    .industry-item {
+        padding: 1rem;
         width: 100%;
+        box-sizing: border-box;
         margin: 0;
-        padding: 0;
-        min-width: unset;
-        flex: unset;
+    }
+
+    /* Ensure content doesn't overflow */
+    .industry-content {
+        width: calc(100% - 60px);
+        overflow: hidden;
     }
 
     .slider-btn,
@@ -274,6 +403,29 @@
 
     .achievement-badges,
     .industry-features {
+        display: none;
+    }
+
+    .industry-icon {
+        margin-bottom: 0;
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .industry-icon i {
+        font-size: 1.8rem;
+    }
+
+    .industry-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0;
+    }
+
+    /* Hide everything except icon and h3 */
+    .industry-content p,
+    .industry-content .achievement-badges,
+    .industry-content .industry-features {
         display: none;
     }
 }
