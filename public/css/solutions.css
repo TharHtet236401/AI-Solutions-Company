@@ -294,27 +294,50 @@
 /* Responsive Design */
 @media (max-width: 992px) {
     .solutions-page .solutions-hero {
-        flex-direction: column;
+        min-height: auto;
+        padding: 3rem 2rem;
         text-align: center;
-        padding: 4rem 2rem;
+    }
+
+    .solutions-page .hero-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .solutions-page .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
     }
 
     .solutions-page .hero-cards {
         justify-content: center;
         flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
     }
 
-    .solutions-page .process-timeline {
-        flex-direction: column;
-        gap: 2rem;
+    .solutions-page .hero-card {
+        width: calc(50% - 1rem);
+        min-width: 150px;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .solutions-page .solutions-hero {
+        padding: 2rem 1rem;
+    }
+
+    .solutions-page .hero-card {
+        width: 100%;
+    }
+
+    .solutions-page .hero-content h1 {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .solutions-page .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
     .solutions-page .cta-buttons {
         flex-direction: column;
     }
