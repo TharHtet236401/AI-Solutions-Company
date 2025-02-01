@@ -1,0 +1,325 @@
+/* Solutions Page Specific Styles */
+
+/* Hero Section */
+.solutions-page .solutions-hero {
+    background: linear-gradient(135deg, #10375B, #1a4b76);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 8%;
+    position: relative;
+    overflow: hidden;
+}
+
+.solutions-page .solutions-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/images/grid-pattern.png');
+    opacity: 0.1;
+}
+
+.solutions-page .hero-content {
+    max-width: 600px;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.solutions-page .hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    background: linear-gradient(to right, #fff, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.solutions-page .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.solutions-page .hero-cards {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.solutions-page .hero-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.solutions-page .hero-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.solutions-page .hero-card i {
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+/* Main Solutions Section */
+.solutions-page .main-solutions {
+    padding: 6rem 8%;
+    background: #f8f9fa;
+}
+
+.solutions-page .main-solutions h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #2c3e50;
+}
+
+.solutions-page .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+/* Solution Cards */
+.solutions-page .solution-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.solutions-page .solution-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.solutions-page .solution-card.premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+}
+
+.solutions-page .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.solutions-page .solution-icon {
+    width: 60px;
+    height: 60px;
+    background: #3498db;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.solutions-page .solution-icon i {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.solutions-page .solution-features {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.solutions-page .solution-features li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: #34495e;
+}
+
+.solutions-page .solution-features li i {
+    color: #2ecc71;
+}
+
+.solutions-page .solution-cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.solutions-page .solution-cta:hover {
+    background: #2980b9;
+    transform: translateY(-3px);
+}
+
+/* Process Section */
+.solutions-page .process-section {
+    padding: 6rem 8%;
+    background: #fff;
+}
+
+.solutions-page .process-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 4rem;
+}
+
+.solutions-page .process-step {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.solutions-page .step-number {
+    width: 50px;
+    height: 50px;
+    background: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+    position: relative;
+}
+
+/* Benefits Section */
+.solutions-page .benefits-section {
+    padding: 6rem 8%;
+    background: linear-gradient(135deg, #10375B, #1a4b76);
+    color: #fff;
+}
+
+.solutions-page .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.solutions-page .benefit-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.solutions-page .benefit-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.solutions-page .benefit-card i {
+    font-size: 2.5rem;
+    color: #3498db;
+    margin-bottom: 1.5rem;
+}
+
+/* CTA Section */
+.solutions-page .solutions-cta {
+    padding: 6rem 8%;
+    text-align: center;
+    background: #f8f9fa;
+}
+
+.solutions-page .cta-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.solutions-page .cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.solutions-page .cta-primary,
+.solutions-page .cta-secondary {
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.solutions-page .cta-primary {
+    background: #3498db;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.solutions-page .cta-secondary {
+    background: transparent;
+    color: #3498db;
+    border: 2px solid #3498db;
+}
+
+.solutions-page .cta-primary:hover,
+.solutions-page .cta-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .solutions-page .solutions-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .solutions-page .hero-cards {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .solutions-page .process-timeline {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .solutions-page .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .solutions-page .cta-buttons {
+        flex-direction: column;
+    }
+
+    .solutions-page .solutions-grid {
+        grid-template-columns: 1fr;
+    }
+} 
