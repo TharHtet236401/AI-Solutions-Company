@@ -11,97 +11,383 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="industries-page">
     <%- include('partials/nav-bar') %>
 
-    <section class="page-section">
-        <h1 class="section-title">Industries We Serve</h1>
-        <p class="section-subtitle">Transforming businesses across sectors with cutting-edge AI solutions</p>
-
-        <div class="industries-grid">
-            <div class="industry-card">
-                <div class="industry-icon">
-                    <i class="fas fa-hospital"></i>
-                </div>
-                <h3>Healthcare</h3>
-                <p>Revolutionizing patient care with AI-powered diagnostics and personalized treatment recommendations.</p>
-                <ul class="industry-features">
-                    <li>Medical Image Analysis</li>
-                    <li>Patient Data Analytics</li>
-                    <li>Healthcare Resource Optimization</li>
-                </ul>
+    <!-- Hero Section - Updated with animated background and floating elements -->
+    <section class="industries-hero fade-in-section">
+        <div class="animated-bg">
+            <div class="circuit-lines"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
             </div>
-
-            <div class="industry-card">
-                <div class="industry-icon">
-                    <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div class="hero-content">
+            <h1>Transforming Industries</h1>
+            <p>Pioneering AI Solutions Across Sectors</p>
+            <div class="hero-stats">
+                <div class="stat-pill">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="stat-text">
+                        <span class="stat-number">45%</span>
+                        <span class="stat-label">Cost Reduction</span>
+                    </div>
                 </div>
-                <h3>Finance</h3>
-                <p>Enhancing financial services with intelligent risk assessment and fraud detection systems.</p>
-                <ul class="industry-features">
-                    <li>Fraud Detection</li>
-                    <li>Risk Management</li>
-                    <li>Automated Trading</li>
-                </ul>
+                <div class="stat-pill">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-text">
+                        <span class="stat-number">60%</span>
+                        <span class="stat-label">Time Saved</span>
+                    </div>
+                </div>
+                <div class="stat-pill">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-text">
+                        <span class="stat-number">85%</span>
+                        <span class="stat-label">Accuracy Rate</span>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="industry-card">
-                <div class="industry-icon">
-                    <i class="fas fa-industry"></i>
+    <!-- Industries Grid Section - Updated with sliding cards -->
+    <section class="industries-showcase fade-in-section">
+        <div class="industries-container">
+            <h2>Industries We Transform</h2>
+            <div class="industries-slider">
+                <div class="slider-container">
+                    <!-- Healthcare -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Healthcare</h3>
+                                <p>Revolutionizing patient care with AI-powered solutions</p>
+                                <div class="achievement-badges">
+                                    <!-- Healthcare Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-users"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">10K+</span>
+                                            <span class="badge-label">Patients Served</span>
+                                        </div>
+                                    </div>
+                                    <div class="badge">
+                                        <i class="fas fa-clock"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">24/7</span>
+                                            <span class="badge-label">Support</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> AI-Powered Diagnostics</li>
+                                    <li><i class="fas fa-check"></i> Patient Data Analytics</li>
+                                    <li><i class="fas fa-check"></i> Smart Resource Management</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Manufacturing -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Manufacturing</h3>
+                                <p>Optimizing production processes with smart AI solutions</p>
+                                <div class="achievement-badges">
+                                    <!-- Manufacturing Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-cogs"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">98%</span>
+                                            <span class="badge-label">Uptime</span>
+                                        </div>
+                                    </div>
+                                    <div class="badge">
+                                        <i class="fas fa-industry"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">150+</span>
+                                            <span class="badge-label">Plants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> Predictive Maintenance</li>
+                                    <li><i class="fas fa-check"></i> Quality Control AI</li>
+                                    <li><i class="fas fa-check"></i> Supply Chain Optimization</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Financial Services -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Financial Services</h3>
+                                <p>Enhancing financial operations with AI intelligence</p>
+                                <div class="achievement-badges">
+                                    <!-- Financial Services Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">£1B+</span>
+                                            <span class="badge-label">Protected</span>
+                                        </div>
+                                    </div>
+                                    <div class="badge">
+                                        <i class="fas fa-chart-line"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">500K</span>
+                                            <span class="badge-label">Transactions</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> Fraud Detection</li>
+                                    <li><i class="fas fa-check"></i> Risk Assessment</li>
+                                    <li><i class="fas fa-check"></i> Automated Compliance</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Education -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Education</h3>
+                                <p>Transforming learning experiences with AI technology</p>
+                                <div class="achievement-badges">
+                                    <!-- Education Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-users"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">50K+</span>
+                                            <span class="badge-label">Students Impacted</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> Personalized Learning</li>
+                                    <li><i class="fas fa-check"></i> Automated Assessment</li>
+                                    <li><i class="fas fa-check"></i> Student Analytics</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Retail -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Retail</h3>
+                                <p>Revolutionizing shopping experiences with AI solutions</p>
+                                <div class="achievement-badges">
+                                    <!-- Retail Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">100%</span>
+                                            <span class="badge-label">Inventory Management</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> Inventory Management</li>
+                                    <li><i class="fas fa-check"></i> Customer Analytics</li>
+                                    <li><i class="fas fa-check"></i> Personalized Marketing</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Technology -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Technology</h3>
+                                <p>Accelerating innovation with cutting-edge AI solutions</p>
+                                <div class="achievement-badges">
+                                    <!-- Technology Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-microchip"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">100%</span>
+                                            <span class="badge-label">Code Quality</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> Code Analysis</li>
+                                    <li><i class="fas fa-check"></i> Automated Testing</li>
+                                    <li><i class="fas fa-check"></i> DevOps Integration</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Energy -->
+                    <div class="industry-slide">
+                        <div class="industry-item">
+                            <div class="industry-icon">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <div class="industry-content">
+                                <h3>Energy</h3>
+                                <p>Optimizing energy operations with smart AI solutions</p>
+                                <div class="achievement-badges">
+                                    <!-- Energy Achievements -->
+                                    <div class="badge">
+                                        <i class="fas fa-solar-panel"></i>
+                                        <div class="badge-content">
+                                            <span class="badge-value">20%</span>
+                                            <span class="badge-label">Consumption Reduction</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="industry-features">
+                                    <li><i class="fas fa-check"></i> Smart Grid Management</li>
+                                    <li><i class="fas fa-check"></i> Consumption Analytics</li>
+                                    <li><i class="fas fa-check"></i> Predictive Maintenance</li>
+                                </ul>
+                                <a href="#" class="industry-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3>Manufacturing</h3>
-                <p>Optimizing production processes with predictive maintenance and quality control.</p>
-                <ul class="industry-features">
-                    <li>Predictive Maintenance</li>
-                    <li>Quality Assurance</li>
-                    <li>Supply Chain Optimization</li>
-                </ul>
+                <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
+            <div class="slider-dots"></div>
+        </div>
+    </section>
 
-            <div class="industry-card">
-                <div class="industry-icon">
-                    <i class="fas fa-shopping-cart"></i>
+    <!-- Success Metrics Section -->
+    <section class="success-metrics fade-in-section">
+        <div class="container">
+            <div class="metrics-content">
+                <div class="metrics-text">
+                    <h2>Measurable Impact</h2>
+                    <p>Our AI solutions deliver tangible results across industries</p>
+                    <ul class="metrics-list">
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div class="metric-info">
+                                <h4>Time Savings</h4>
+                                <p>Average 20+ hours saved per week per department</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-chart-bar"></i>
+                            <div class="metric-info">
+                                <h4>Efficiency Boost</h4>
+                                <p>45% average improvement in workflow efficiency</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-pound-sign"></i>
+                            <div class="metric-info">
+                                <h4>Cost Reduction</h4>
+                                <p>£2.5M+ in operational costs saved for clients</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <h3>Retail</h3>
-                <p>Personalizing shopping experiences with AI-driven recommendations and inventory management.</p>
-                <ul class="industry-features">
-                    <li>Customer Analytics</li>
-                    <li>Inventory Management</li>
-                    <li>Price Optimization</li>
-                </ul>
+                <div class="metrics-visual">
+                    <img src="/images/metrics-dashboard.jpg" alt="AI Analytics Dashboard">
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="industry-card">
-                <div class="industry-icon">
-                    <i class="fas fa-graduation-cap"></i>
+    <!-- Client Testimonials -->
+    <section class="industry-testimonials fade-in-section">
+        <div class="container">
+            <h2>Client Success Stories</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"AI-Solutions transformed our workplace efficiency. Their virtual assistant has become an integral part of our daily operations."</p>
+                        <div class="testimonial-author">
+                            <img src="/images/nhs-logo.png" alt="NHS Logo">
+                            <div>
+                                <h4>NHS North East</h4>
+                                <span>Healthcare Partner</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3>Education</h3>
-                <p>Transforming learning with personalized education paths and automated assessments.</p>
-                <ul class="industry-features">
-                    <li>Adaptive Learning</li>
-                    <li>Student Performance Analytics</li>
-                    <li>Automated Grading</li>
-                </ul>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"The AI-powered predictive maintenance system has revolutionized our manufacturing processes. Downtime has been reduced significantly."</p>
+                        <div class="testimonial-author">
+                            <img src="/images/nissan-logo.png" alt="Nissan Logo">
+                            <div>
+                                <h4>Nissan Sunderland</h4>
+                                <span>Manufacturing Partner</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Implementation of AI solutions in our curriculum has shown remarkable improvements in student engagement and performance."</p>
+                        <div class="testimonial-author">
+                            <img src="/images/university-logo.png" alt="University Logo">
+                            <div>
+                                <h4>University of Sunderland</h4>
+                                <span>Education Partner</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="industry-card">
-                <div class="industry-icon">
-                    <i class="fas fa-truck"></i>
+    <!-- CTA Section -->
+    <section class="industries-cta fade-in-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Industry?</h2>
+                <p>Let's discuss how our AI solutions can revolutionize your workplace</p>
+                <div class="cta-buttons">
+                    <a href="/contact" class="btn-primary">Schedule Consultation</a>
+                    <a href="/solutions" class="btn-secondary">Explore Solutions</a>
                 </div>
-                <h3>Logistics</h3>
-                <p>Streamlining transportation and delivery with intelligent routing and tracking systems.</p>
-                <ul class="industry-features">
-                    <li>Route Optimization</li>
-                    <li>Fleet Management</li>
-                    <li>Delivery Tracking</li>
-                </ul>
             </div>
         </div>
     </section>
 
     <%- include('partials/footer') %>
     
-    <!-- Add script reference -->
     <script src="/js/nav.js"></script>
+    <script src="/js/scroll-animations.js"></script>
+    <script src="/js/industry-slider.js"></script>
 </body>
 </html> 
