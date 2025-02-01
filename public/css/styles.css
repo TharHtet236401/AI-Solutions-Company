@@ -3452,70 +3452,66 @@ img {
     animation: pulse 1s infinite;
 }
 
-/* Achievement Badges Styles */
+/* Achievement Badges Styles - Horizontal Layout */
 .achievement-badges {
     display: flex;
     gap: 1rem;
     margin: 1.5rem 0;
-    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .badge {
     flex: 1;
-    min-width: 120px;
-    background: rgba(52, 152, 219, 0.1);
+    background: rgba(52, 152, 219, 0.05);
     padding: 1rem;
     border-radius: 12px;
     display: flex;
     align-items: center;
     gap: 0.8rem;
     transition: all 0.3s ease;
-}
-
-.badge:hover {
-    transform: translateY(-3px);
-    background: rgba(52, 152, 219, 0.15);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(52, 152, 219, 0.1);
 }
 
 .badge i {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #3498db;
     background: white;
-    padding: 0.8rem;
-    border-radius: 10px;
+    padding: 0.6rem;
+    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(52, 152, 219, 0.1);
 }
 
 .badge-content {
-    display: flex;
-    flex-direction: column;
+    text-align: left;
 }
 
 .badge-value {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #2c3e50;
+    display: block;
 }
 
 .badge-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #666;
+    display: block;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .badge {
-        min-width: 100px;
-        padding: 0.8rem;
+/* Hide achievement badges on smaller screens */
+@media (max-width: 992px) {
+    .achievement-badges {
+        display: none;
+    }
+}
+
+/* Hide achievement badges on smaller screens */
+@media (max-width: 992px) {
+    .achievement-badges {
+        display: none;
     }
 
-    .badge i {
-        font-size: 1.2rem;
-        padding: 0.6rem;
-    }
-
-    .badge-value {
-        font-size: 1rem;
+    .industry-features {
+        display: none;
     }
 }
