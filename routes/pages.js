@@ -74,4 +74,16 @@ router.get("/contact", async (req, res) => {
     }
 });
 
+router.get("/admin/login", async (req, res) => {
+    try {
+        res.render("admin/login", { 
+            title: "Admin Login - AI Solutions",
+            error: null 
+        });
+    } catch (error) {
+        console.error("Error rendering admin login page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router; 
