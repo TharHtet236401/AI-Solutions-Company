@@ -61,8 +61,105 @@ function renderInquiries(inquiries) {
     `).join('');
 }
 
-function viewInquiry(id) {
-    window.location.href = `/admin/inquiry/${id}`;
+async function viewInquiry(id) {
+    try {
+        const response = await fetch(`/api/inquiries/${id}`);
+        const data = await response.json();
+        
+        if (data.con) {
+            const inquiry = data.result;
+            showInquiryModal(inquiry);
+        } else {
+            showError('Failed to load inquiry details');
+        }
+    } catch (error) {
+        console.error('Error loading inquiry details:', error);
+        showError('Error loading inquiry details');
+    }
+}
+
+function showInquiryModal(inquiry) {
+    const modal = document.createElement('div');
+    modal.className = 'modal inquiry-modal active';
+    
+    modal.innerHTML = `
+        <div class="modal-content inquiry-detail">
+            <div class="modal-header">
+                <h2>Inquiry Details</h2>
+                <button class="close-btn" onclick="closeInquiryModal(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="inquiry-content">
+                <div class="inquiry-section">
+                    <h3><i class="fas fa-user"></i>Contact Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Full Name</label>
+                            <span>${inquiry.name}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Email Address</label>
+                            <span>${inquiry.email}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Phone Number</label>
+                            <span>${inquiry.phoneNumber}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="inquiry-section">
+                    <h3><i class="fas fa-building"></i>Company Details</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Company Name</label>
+                            <span>${inquiry.companyName}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Location</label>
+                            <span>${inquiry.country}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Position</label>
+                            <span>${inquiry.jobTitle}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="inquiry-section">
+                    <h3><i class="fas fa-briefcase"></i>Job Details</h3>
+                    <div class="job-details">
+                        <p>${inquiry.jobDetails}</p>
+                    </div>
+                </div>
+                
+                <div class="inquiry-section">
+                    <h3><i class="fas fa-info-circle"></i>Status Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Current Status</label>
+                            <span class="status-badge ${inquiry.status.toLowerCase()}">
+                                ${inquiry.status}
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <label>Submission Date</label>
+                            <span>${formatDate(inquiry.createdAt)} at ${formatTime(inquiry.createdAt)}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+function closeInquiryModal(button) {
+    const modal = button.closest('.modal');
+    modal.classList.remove('active');
+    setTimeout(() => modal.remove(), 300);
 }
 
 function openStatusModal(id) {
