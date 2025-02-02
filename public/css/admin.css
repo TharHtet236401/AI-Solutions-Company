@@ -238,6 +238,16 @@ body {
     75% { transform: translateX(5px); }
 }
 
+.success-message {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(46, 204, 113, 0.2);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .login-box {

@@ -1,4 +1,5 @@
 import express from 'express';
+import { checkAuth } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 // Routes with error handling
@@ -74,7 +75,7 @@ router.get("/contact", async (req, res) => {
     }
 });
 
-router.get("/admin/login", async (req, res) => {
+router.get("/admin/login", checkAuth, async (req, res) => {
     try {
         res.render("admin/login", { 
             title: "Admin Login - AI Solutions",
@@ -87,7 +88,7 @@ router.get("/admin/login", async (req, res) => {
 });
 
 // Admin Dashboard Routes
-router.get("/admin/dashboard", async (req, res) => {
+router.get("/admin/dashboard", checkAuth, async (req, res) => {
     try {
         res.render("admin/dashboard", { 
             title: "Admin Dashboard - AI Solutions",
@@ -99,7 +100,7 @@ router.get("/admin/dashboard", async (req, res) => {
     }
 });
 
-router.get("/admin/inquiries", async (req, res) => {
+router.get("/admin/inquiries", checkAuth, async (req, res) => {
     try {
         res.render("admin/inquiries", { 
             title: "Inquiries Management - AI Solutions",
@@ -111,7 +112,7 @@ router.get("/admin/inquiries", async (req, res) => {
     }
 });
 
-router.get("/admin/inquiry/:id", async (req, res) => {
+router.get("/admin/inquiry/:id", checkAuth, async (req, res) => {
     try {
         res.render("admin/inquiry-detail", { 
             title: "Inquiry Detail - AI Solutions",
@@ -125,7 +126,7 @@ router.get("/admin/inquiry/:id", async (req, res) => {
 });
 
 // Add this new route for Reports
-router.get("/admin/reports", async (req, res) => {
+router.get("/admin/reports", checkAuth, async (req, res) => {
     try {
         res.render("admin/reports", { 
             title: "Analytics & Reports - AI Solutions",
@@ -135,6 +136,11 @@ router.get("/admin/reports", async (req, res) => {
         console.error("Error rendering reports page:", error);
         res.status(500).send("Internal Server Error");
     }
+});
+
+router.get("/admin/logout", (req, res) => {
+    res.clearCookie('jwt');
+    res.redirect('/admin/login');
 });
 
 export default router; 

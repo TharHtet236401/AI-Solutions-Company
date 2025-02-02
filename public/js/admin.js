@@ -34,18 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             const data = await response.json();
+            console.log('Login response:', data);  // Debug log
 
-            if (data.con) {
-                // Login successful
-                // Store token if needed
-                if (data.token) {
-                    console.log("token",data.token);
-                    localStorage.setItem('adminToken', data.token);
-                }
-                // Redirect to dashboard
-                window.location.href = '/admin/dashboard';
+            if (data.con === true) {
+                // Show success message
+                showSuccess("Login successful! Redirecting...");
+                
+                // No need to manually set cookie as it's already set by the server
+                // through generateTokenAndSetCookie function
+                
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = '/admin/dashboard';
+                }, 1000);
             } else {
-                // Show error message
                 showError(data.msg || 'Login failed. Please try again.');
             }
         } catch (error) {
@@ -71,6 +73,19 @@ document.addEventListener('DOMContentLoaded', function() {
         adminLoginForm.insertBefore(errorDiv, adminLoginForm.firstChild);
     }
 
+    function showSuccess(message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.textContent = message;
+        
+        const existingMessage = document.querySelector('.success-message, .error-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        adminLoginForm.insertBefore(successDiv, adminLoginForm.firstChild);
+    }
+
     // Add input validation
     const inputs = adminLoginForm.querySelectorAll('input');
     inputs.forEach(input => {
@@ -81,5 +96,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 errorMessage.remove();
             }
         });
+    });
+
+    // Add this function to handle logout
+    async function handleLogout() {
+        try {
+            const response = await fetch('/api/users/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = '/admin/login';
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    }
+
+    // Add click event listener to logout button
+    document.querySelector('.logout-btn')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await handleLogout();
     });
 }); 

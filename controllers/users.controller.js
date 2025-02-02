@@ -34,13 +34,25 @@ export const loginUser = async (req, res) => {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
         console.log(user);
+        
         if (!user) return fError(res, "User not found", 404);
+        
         const isMatch = await decode(password, user.password);
         console.log(isMatch);
         if (!isMatch) return fError(res, "Invalid password", 401);
-        generateTokenAndSetCookie(res, user._id);
-        console.log(req.cookies.jwt);
-        fMsg(res, "User logged in successfully", {user,token:req.cookies.jwt});
+        
+        // Generate token and set cookie
+        const token = generateTokenAndSetCookie(res, user._id);
+        
+        // Send response with user and token
+        return res.status(200).json({
+            con: true,
+            msg: "User logged in successfully",
+            result: {
+                user,
+                token: token  // Send the token directly
+            }
+        });
     } catch (error) {
         console.log(error);
         fError(res, "Error logging in user", 500);
@@ -49,7 +61,14 @@ export const loginUser = async (req, res) => {
 
 export const logoutUser = async (req, res) => {
     try {   
-        res.clearCookie('jwt');
+        // Clear the jwt cookie with the same settings used when setting it
+        res.cookie('jwt', '', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 0 // This makes the cookie expire immediately
+        });
+        
         fMsg(res, "User logged out successfully");
     } catch (error) {
         fError(res, "Error logging out user", 500);

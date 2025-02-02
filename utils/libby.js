@@ -47,6 +47,8 @@ export const generateTokenAndSetCookie = (res, user_id) => {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
         secure: process.env.NODE_ENV === 'development',
     });
+
+    return token;
 };
 
 
