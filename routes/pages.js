@@ -86,4 +86,42 @@ router.get("/admin/login", async (req, res) => {
     }
 });
 
+// Admin Dashboard Routes
+router.get("/admin/dashboard", async (req, res) => {
+    try {
+        res.render("admin/dashboard", { 
+            title: "Admin Dashboard - AI Solutions",
+            activeTab: 'overview'
+        });
+    } catch (error) {
+        console.error("Error rendering admin dashboard:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.get("/admin/inquiries", async (req, res) => {
+    try {
+        res.render("admin/inquiries", { 
+            title: "Inquiries Management - AI Solutions",
+            activeTab: 'inquiries'
+        });
+    } catch (error) {
+        console.error("Error rendering inquiries page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.get("/admin/inquiry/:id", async (req, res) => {
+    try {
+        res.render("admin/inquiry-detail", { 
+            title: "Inquiry Detail - AI Solutions",
+            activeTab: 'inquiries',
+            inquiryId: req.params.id
+        });
+    } catch (error) {
+        console.error("Error rendering inquiry detail:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router; 
