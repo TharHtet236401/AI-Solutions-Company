@@ -4,7 +4,7 @@ import { fMsg, fError } from "../utils/libby.js";
 export const getInquiries = async (req, res) => {
   try {
     const inquiries = await Inquiry.find();
-    fMsg(res, inquiries, 200);
+    fMsg(res, "Inquiries fetched successfully", inquiries, 200);
   } catch (error) {
     fError(res, "Error fetching inquiries", 500);
   }
@@ -45,20 +45,9 @@ export const createInquiry = async (req, res) => {
     status,
     });
     await inquiry.save();
-    fMsg(res, inquiry, 201);
+    fMsg(res, "Inquiry created successfully",inquiry,201);
   } catch (error) {
     fError(res, "Error creating inquiry", 500);
-  }
-};
-
-export const updateInquiry = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
-    const inquiry = await Inquiry.findByIdAndUpdate(id, { status }, { new: true });
-    fMsg(res, inquiry, 200);
-  } catch (error) {
-    fError(res, "Error updating inquiry", 500);
   }
 };
 
@@ -69,6 +58,28 @@ export const deleteInquiry = async (req, res) => {
     fMsg(res, "Inquiry deleted successfully", 200);
   } catch (error) {
     fError(res, "Error deleting inquiry", 500);
+  }
+};
+
+export const updateInquiryStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const updatedInquiry = await Inquiry.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedInquiry) {
+      fError(res, "Inquiry not found", 404);
+      return;
+    }
+
+    fMsg(res, updatedInquiry, 200);
+  } catch (error) {
+    fError(res, "Error updating inquiry status", 500);
   }
 };
 
