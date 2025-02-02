@@ -87,30 +87,36 @@
 
 /* Status Badge */
 .status-badge {
-    padding: 0.3rem 0.8rem;
+    padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 500;
+    text-transform: capitalize;
 }
 
-.status-new {
-    background: rgba(52, 152, 219, 0.1);
-    color: #3498db;
+.status-badge.pending {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
 }
 
-.status-in-progress {
-    background: rgba(241, 196, 15, 0.1);
-    color: #f1c40f;
+.status-badge.new {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
 }
 
-.status-followed-up {
-    background: rgba(46, 204, 113, 0.1);
-    color: #2ecc71;
+.status-badge.in-progress {
+    background-color: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
 }
 
-.status-closed {
-    background: rgba(149, 165, 166, 0.1);
-    color: #95a5a6;
+.status-badge.followed-up {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+}
+
+.status-badge.closed {
+    background-color: rgba(158, 158, 158, 0.1);
+    color: #9e9e9e;
 }
 
 /* Action Buttons */
@@ -257,13 +263,16 @@
     .export-btn {
         flex: 1;
     }
+
+    .inquiries-table th:nth-child(3),
+    .inquiries-table td:nth-child(3) {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
-    .inquiries-table th:nth-child(3),
-    .inquiries-table td:nth-child(3),
-    .inquiries-table th:nth-child(4),
-    .inquiries-table td:nth-child(4) {
+    .inquiries-table th:nth-child(5),
+    .inquiries-table td:nth-child(5) {
         display: none;
     }
 
@@ -273,12 +282,110 @@
 }
 
 @media (max-width: 480px) {
-    .inquiries-table th:nth-child(5),
-    .inquiries-table td:nth-child(5) {
-        display: none;
+    .inquiry-name, .company-info {
+        gap: 0.2rem;
     }
 
-    .filter-group {
-        flex-direction: column;
+    .inquiries-table td {
+        padding: 0.8rem;
     }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}
+
+/* Add these styles if not already present */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-buttons button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-btn i {
+    color: #2196f3;
+}
+
+.edit-btn i {
+    color: #4caf50;
+}
+
+.action-buttons button:hover {
+    transform: translateY(-2px);
+}
+
+.error-message {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Update/Add these styles */
+.inquiries-table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.inquiry-name, .company-info, .date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.inquiry-name .name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.inquiry-name .email {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.company-info .company {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.company-info .country {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.phone {
+    color: var(--text-primary);
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.date-info .date {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.date-info .time {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
 } 

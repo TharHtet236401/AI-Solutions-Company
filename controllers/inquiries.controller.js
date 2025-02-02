@@ -10,6 +10,19 @@ export const getInquiries = async (req, res) => {
   }
 };
 
+export const getInquiry = async (req, res) => {
+  try {
+    const inquiry = await Inquiry.findById(req.params.id);
+    if (!inquiry) {
+      fError(res, "Inquiry not found", 404);
+      return;
+    }
+    fMsg(res, "Inquiry fetched successfully", inquiry, 200);
+  } catch (error) {
+    fError(res, "Error fetching inquiry", 500);
+  }
+};
+
 export const createInquiry = async (req, res) => {
   try {
     const {
