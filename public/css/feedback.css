@@ -1,0 +1,446 @@
+/* Feedback Page Styles */
+
+.feedback-page {
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Hero Section */
+.feedback-hero {
+    background: linear-gradient(135deg, #10375B, #1a4b76);
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.feedback-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/images/grid-pattern.png');
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.feedback-hero .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 60px; /* Account for fixed navbar if present */
+}
+
+.feedback-hero h1 {
+    color: #fff;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.feedback-hero p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+/* Hero Stats */
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(52, 152, 219, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    color: #3498db;
+    font-size: 1.5rem;
+}
+
+.stat-info {
+    text-align: left;
+}
+
+.stat-number {
+    display: block;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Case Studies Section */
+.case-studies-section {
+    padding: 6rem 2rem;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.case-studies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.case-study-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.case-study-card:hover {
+    transform: translateY(-10px);
+}
+
+.case-study-image {
+    position: relative;
+    height: 200px;
+}
+
+.case-study-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.industry-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.industry-badge.healthcare {
+    background: #e74c3c;
+}
+
+.industry-badge.finance {
+    background: #2ecc71;
+}
+
+.case-study-content {
+    padding: 2rem;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.metric {
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3498db;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.testimonials-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.testimonial-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.client-details h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.client-details p {
+    margin: 0.3rem 0 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.testimonial-text {
+    color: #34495e;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.testimonial-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3498db;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.3rem;
+}
+
+/* Success Metrics Section */
+.metrics-section {
+    padding: 6rem 2rem;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-10px);
+}
+
+.metric-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.metric-icon i {
+    font-size: 2rem;
+    color: #3498db;
+}
+
+.metric-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.metric-card .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+}
+
+/* CTA Section */
+.solutions-cta {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #10375B, #1a4b76);
+    text-align: center;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.cta-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.solutions-cta h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.solutions-cta p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.cta-primary,
+.cta-secondary {
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cta-primary {
+    background: #3498db;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.cta-secondary {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.cta-primary:hover,
+.cta-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .testimonial-text {
+        font-size: 0.95rem;
+    }
+
+    .testimonials-section,
+    .case-studies-section,
+    .metrics-section,
+    .solutions-cta {
+        padding: 4rem 1rem;
+    }
+} 

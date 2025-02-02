@@ -9,122 +9,197 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/feedback.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="feedback-page">
     <%- include('partials/nav-bar') %>
 
-    <section class="page-section">
-        <h1 class="section-title">Customer Success Stories</h1>
-        <p class="section-subtitle">See what our clients say about their AI transformation journey</p>
-
-        <!-- Overall Rating Section -->
-        <div class="overall-rating">
-            <div class="rating-number">4.9</div>
-            <div class="rating-stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <p>Based on 200+ verified reviews</p>
-        </div>
-
-        <!-- Featured Case Studies -->
-        <div class="case-studies">
-            <h2>Featured Case Studies</h2>
-            <div class="case-studies-grid">
-                <div class="case-study-card">
-                    <div class="case-study-image">
-                        <img src="/images/case-study-1.jpg" alt="Healthcare AI Implementation">
-                    </div>
-                    <div class="case-study-content">
-                        <h3>MediCare Solutions</h3>
-                        <p class="industry-tag">Healthcare</p>
-                        <p>50% reduction in diagnostic time through AI-powered image analysis</p>
-                        <a href="#" class="read-more">Read Full Case Study <i class="fas fa-arrow-right"></i></a>
+    <!-- Hero Section -->
+    <section class="feedback-hero fade-in-section">
+        <div class="hero-content">
+            <h1>Client Success Stories</h1>
+            <p>Discover how AI-Solutions is transforming businesses across industries</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number">4.9</span>
+                        <span class="stat-label">Average Rating</span>
                     </div>
                 </div>
-
-                <div class="case-study-card">
-                    <div class="case-study-image">
-                        <img src="/images/case-study-2.jpg" alt="Finance AI Implementation">
-                    </div>
-                    <div class="case-study-content">
-                        <h3>Global Banking Corp</h3>
-                        <p class="industry-tag">Finance</p>
-                        <p>90% accuracy in fraud detection with our AI system</p>
-                        <a href="#" class="read-more">Read Full Case Study <i class="fas fa-arrow-right"></i></a>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Happy Clients</span>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Client Testimonials -->
-        <div class="testimonials">
-            <h2>What Our Clients Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"AI Solutions transformed our business operations. Their AI implementation helped us reduce costs by 30% while improving accuracy."</p>
-                    <div class="testimonial-author">
-                        <img src="/images/client-1.jpg" alt="Client">
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>CTO, TechCorp Inc.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"The team's expertise in AI and machine learning is exceptional. They delivered beyond our expectations."</p>
-                    <div class="testimonial-author">
-                        <img src="/images/client-2.jpg" alt="Client">
-                        <div class="author-info">
-                            <h4>Michael Chen</h4>
-                            <p>CEO, Innovation Labs</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <p class="testimonial-text">"Outstanding support and implementation. Our productivity increased significantly after deploying their AI solutions."</p>
-                    <div class="testimonial-author">
-                        <img src="/images/client-3.jpg" alt="Client">
-                        <div class="author-info">
-                            <h4>Emily Rodriguez</h4>
-                            <p>Operations Director, LogiTech</p>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Success Rate</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Featured Case Studies -->
+    <section class="case-studies-section fade-in-section">
+        <div class="section-header">
+            <h2>Featured Success Stories</h2>
+            <p>Real results from real clients</p>
+        </div>
+        <div class="case-studies-grid">
+            <div class="case-study-card">
+                <div class="case-study-image">
+                    <img src="/images/case-study-1.jpg" alt="Healthcare AI Implementation">
+                    <div class="industry-badge healthcare">Healthcare</div>
+                </div>
+                <div class="case-study-content">
+                    <h3>MediCare Solutions</h3>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <span class="metric-value">50%</span>
+                            <span class="metric-label">Faster Diagnosis</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">30%</span>
+                            <span class="metric-label">Cost Reduction</span>
+                        </div>
+                    </div>
+                    <p>Revolutionizing patient care through AI-powered image analysis and diagnostic assistance.</p>
+                    <a href="#" class="read-more">View Full Case Study <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="case-study-card">
+                <div class="case-study-image">
+                    <img src="/images/case-study-2.jpg" alt="Finance AI Implementation">
+                    <div class="industry-badge finance">Finance</div>
+                </div>
+                <div class="case-study-content">
+                    <h3>Global Banking Corp</h3>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <span class="metric-value">90%</span>
+                            <span class="metric-label">Fraud Detection</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">45%</span>
+                            <span class="metric-label">Processing Time</span>
+                        </div>
+                    </div>
+                    <p>Implementing cutting-edge AI for enhanced security and automated transaction processing.</p>
+                    <a href="#" class="read-more">View Full Case Study <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Testimonials -->
+    <section class="testimonials-section fade-in-section">
+        <div class="section-header">
+            <h2>What Our Clients Say</h2>
+            <p>Trusted by industry leaders worldwide</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="/images/client-1.jpg" alt="TechCorp">
+                    <div class="client-details">
+                        <h4>Sarah Johnson</h4>
+                        <p>CTO, TechCorp Inc.</p>
+                    </div>
+                </div>
+                <p class="testimonial-text">
+                    "AI Solutions transformed our business operations. Their AI implementation helped us reduce costs by 30% while improving accuracy."
+                </p>
+                <div class="testimonial-metric">
+                    <span class="metric-value">30%</span>
+                    <span class="metric-label">Cost Reduction</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="/images/client-2.jpg" alt="NHS">
+                    <div class="client-details">
+                        <h4>Dr. James Wilson</h4>
+                        <p>Medical Director, NHS North East</p>
+                    </div>
+                </div>
+                <p class="testimonial-text">
+                    "The AI-powered diagnostic system has revolutionized our patient care workflow. We've seen a 50% reduction in diagnostic time."
+                </p>
+                <div class="testimonial-metric">
+                    <span class="metric-value">50%</span>
+                    <span class="metric-label">Faster Diagnosis</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="/images/client-3.jpg" alt="Nissan">
+                    <div class="client-details">
+                        <h4>Robert Chen</h4>
+                        <p>Operations Manager, Nissan Manufacturing</p>
+                    </div>
+                </div>
+                <p class="testimonial-text">
+                    "The predictive maintenance system has been a game-changer. Downtime has been reduced by 35%, and we're catching potential issues early."
+                </p>
+                <div class="testimonial-metric">
+                    <span class="metric-value">35%</span>
+                    <span class="metric-label">Reduced Downtime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Metrics -->
+    <section class="metrics-section fade-in-section">
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                <h3>Time Saved</h3>
+                <div class="metric-value">60%</div>
+                <p>Average reduction in processing time</p>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Efficiency Gained</h3>
+                <div class="metric-value">45%</div>
+                <p>Improvement in operational efficiency</p>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-coins"></i></div>
+                <h3>Cost Reduced</h3>
+                <div class="metric-value">35%</div>
+                <p>Average cost savings achieved</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="solutions-cta fade-in-section">
+        <div class="cta-wrapper">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Let's discuss how our AI solutions can help your business grow</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="cta-primary">Schedule Demo</a>
+                <a href="/contact" class="cta-secondary">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
     <%- include('partials/footer') %>
     
-    <!-- Add script reference -->
     <script src="/js/nav.js"></script>
+    <script src="/js/scroll-animations.js"></script>
+    <script src="/js/testimonial-slider.js"></script>
+    <script src="/js/testimonials.js"></script>
 </body>
 </html> 
