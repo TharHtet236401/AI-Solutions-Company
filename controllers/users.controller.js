@@ -40,7 +40,7 @@ export const loginUser = async (req, res) => {
         if (!isMatch) return fError(res, "Invalid password", 401);
         generateTokenAndSetCookie(res, user._id);
         console.log(req.cookies.jwt);
-        fMsg(res, "User logged in successfully", {user});
+        fMsg(res, "User logged in successfully", {user,token:req.cookies.jwt});
     } catch (error) {
         console.log(error);
         fError(res, "Error logging in user", 500);

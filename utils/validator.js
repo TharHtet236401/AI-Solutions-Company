@@ -1,16 +1,11 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import {fError} from "./libby.js";
-import Auth from "../models/auth.model.js";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import Joi from 'joi';
+import User from "../models/users.model.js";
+
 
 dotenv.config();
 
-// Remove these lines if you don't need them
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
 
 //validate the body with schema
 export const validateBody = (schema) => {
@@ -28,28 +23,21 @@ export const validateBody = (schema) => {
 export const validateToken = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
-    if (!token) {
-      return res.redirect('/auth/views/login');
-    }
-
+    console.log("it reached here");
+    console.log("token",token);
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await Auth.findById(decoded.id).select("-password");
-
-      if (!user) {
-        return res.redirect('/auth/views/login');
-      }
+      const user = await User.findById(decoded.id).select("-password");
 
       req.user = user;
-      // console.log(req.user);
       next();
     } catch (jwtError) {
-      // This catch block will handle invalid tokens
-      return res.redirect('/auth/views/login');
+      console.log(jwtError);
+      fError(res, "Invalid token", 401);
     }
   } catch (error) {
     console.error('Error in validateToken:', error);
-    res.status(500).json({ message: "Internal Server Error" });
+    fError(res, "Internal Server Error", 500);
   }
 }
 
