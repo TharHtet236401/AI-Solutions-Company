@@ -96,3 +96,27 @@ export const updateInquiryStatus = async (req, res) => {
   }
 };
 
+export const replyToInquiry = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { subject, content } = req.body;
+        
+        const inquiry = await Inquiry.findById(id);
+        if (!inquiry) {
+            return fError(res, "Inquiry not found", 404);
+        }
+        
+        // Here you would implement your email sending logic
+        // using nodemailer or your preferred email service
+        
+        // Update inquiry status
+        inquiry.status = 'followed-up';
+        await inquiry.save();
+        
+        fMsg(res, "Email sent successfully");
+    } catch (error) {
+        console.error('Error sending email:', error);
+        fError(res, "Error sending email", 500);
+    }
+};
+

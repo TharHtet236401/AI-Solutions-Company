@@ -84,11 +84,13 @@ function showInquiryModal(inquiry) {
     
     modal.innerHTML = `
         <div class="modal-content inquiry-detail">
-            <div class="modal-header">
-                <h2>Inquiry Details</h2>
-                <button class="close-btn" onclick="closeInquiryModal(this)">
-                    <i class="fas fa-times"></i>
-                </button>
+            <div class="header-container">
+                <div class="modal-header">
+                    <h2>Inquiry Details</h2>
+                    <button class="close-btn" onclick="closeInquiryModal(this)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
             <div class="inquiry-content">
                 <div class="inquiry-section">
@@ -146,6 +148,37 @@ function showInquiryModal(inquiry) {
                         <div class="info-item">
                             <label>Submission Date</label>
                             <span>${formatDate(inquiry.createdAt)} at ${formatTime(inquiry.createdAt)}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="inquiry-section">
+                    <h3><i class="fas fa-reply"></i>Reply to Inquiry</h3>
+                    <div class="email-composer">
+                        <div class="email-header">
+                            <div class="email-field">
+                                <label>To:</label>
+                                <span>${inquiry.email}</span>
+                            </div>
+                            <div class="email-field">
+                                <label>Subject:</label>
+                                <input type="text" id="emailSubject" 
+                                    value="Re: Inquiry from ${inquiry.companyName}" 
+                                    class="email-subject-input">
+                            </div>
+                        </div>
+                        <div class="email-body">
+                            <textarea id="emailBody" 
+                                placeholder="Type your response here..."
+                                class="email-content"></textarea>
+                        </div>
+                        <div class="email-actions">
+                            <button class="template-btn" onclick="loadEmailTemplate()">
+                                <i class="fas fa-file-alt"></i> Load Template
+                            </button>
+                            <button class="send-btn" onclick="sendEmail('${inquiry._id}')">
+                                <i class="fas fa-paper-plane"></i> Send Reply
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -231,4 +264,68 @@ function formatTime(dateString) {
         hour: '2-digit',
         minute: '2-digit'
     });
+}
+
+// Add these new functions for email handling
+async function sendEmail(inquiryId) {
+    const subject = document.getElementById('emailSubject').value;
+    const content = document.getElementById('emailBody').value;
+    
+    if (!content.trim()) {
+        showError('Please enter an email message');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/inquiries/${inquiryId}/reply`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                subject,
+                content
+            })
+        });
+        
+        const data = await response.json();
+        if (data.con) {
+            showSuccess('Email sent successfully');
+            // Update the inquiry status to 'followed-up'
+            await updateInquiryStatus(inquiryId, 'followed-up');
+        } else {
+            showError(data.msg || 'Failed to send email');
+        }
+    } catch (error) {
+        console.error('Error sending email:', error);
+        showError('Error sending email');
+    }
+}
+
+function loadEmailTemplate() {
+    const templates = {
+        default: `Dear [Name],
+
+Thank you for your inquiry about our services. We appreciate your interest in [Company Name].
+
+We will review your requirements and get back to you with a detailed response shortly.
+
+Best regards,
+[Your Name]
+AI Solutions Team`
+    };
+    
+    const emailBody = document.getElementById('emailBody');
+    emailBody.value = templates.default;
+}
+
+function showSuccess(message) {
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-message';
+    successDiv.textContent = message;
+    
+    const container = document.querySelector('.dashboard-content');
+    container.insertBefore(successDiv, container.firstChild);
+    
+    setTimeout(() => successDiv.remove(), 3000);
 } 
