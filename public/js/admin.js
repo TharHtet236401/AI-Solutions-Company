@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: document.getElementById('password').value
             };
 
-            const response = await fetch('/api/admin/login', {
+            const response = await fetch('/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,26 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const data = await response.json();
 
-            if (response.ok) {
-                // Show success message before redirect
-                const successDiv = document.createElement('div');
-                successDiv.className = 'error-message success';
-                successDiv.style.backgroundColor = 'var(--success-color)';
-                successDiv.textContent = 'Login successful! Redirecting...';
-                
-                const existingMessage = document.querySelector('.error-message');
-                if (existingMessage) {
-                    existingMessage.remove();
+            if (data.con) {
+                // Login successful
+                // Store token if needed
+                if (data.token) {
+                    localStorage.setItem('adminToken', data.token);
                 }
-                
-                adminLoginForm.insertBefore(successDiv, adminLoginForm.firstChild);
-
-                // Redirect after a short delay
-                setTimeout(() => {
-                    window.location.href = '/admin/dashboard';
-                }, 1000);
+                // Redirect to dashboard
+                window.location.href = '/admin/dashboard';
             } else {
-                showError(data.message || 'Login failed. Please try again.');
+                // Show error message
+                showError(data.msg || 'Login failed. Please try again.');
             }
         } catch (error) {
             console.error('Login error:', error);
