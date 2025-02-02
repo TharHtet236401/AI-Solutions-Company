@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Login successful
                 // Store token if needed
                 if (data.token) {
+                    console.log("token",data.token);
                     localStorage.setItem('adminToken', data.token);
                 }
                 // Redirect to dashboard
