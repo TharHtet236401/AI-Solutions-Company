@@ -9,18 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="contact-page">
     <%- include('partials/nav-bar') %>
 
-    <section class="page-section">
-        <h1 class="section-title">Contact Us</h1>
-        <p class="section-subtitle">Get in touch with our AI experts</p>
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <h1>Get in Touch</h1>
+        <p>Let's discuss how our AI solutions can transform your business</p>
+    </section>
 
+    <!-- Main Contact Section -->
+    <section class="contact-section">
         <div class="contact-container">
             <!-- Company Info -->
-            <div class="company-info">
+            <div class="contact-info">
                 <div class="info-card">
                     <i class="fas fa-map-marker-alt"></i>
                     <h3>Visit Us</h3>
@@ -49,23 +54,27 @@
                 <form class="contact-form" action="/submit-contact" method="POST">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required 
+                                placeholder="Enter your full name">
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" required 
+                                placeholder="your.email@example.com">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
+                            <input type="tel" id="phone" name="phone" required 
+                                placeholder="+44 (0) XXX XXX XXXX">
                         </div>
                         <div class="form-group">
                             <label for="company">Company Name *</label>
-                            <input type="text" id="company" name="company" required>
+                            <input type="text" id="company" name="company" required 
+                                placeholder="Your company name">
                         </div>
                     </div>
 
@@ -73,43 +82,69 @@
                         <div class="form-group">
                             <label for="country">Country *</label>
                             <select id="country" name="country" required>
-                                <option value="">Select Country</option>
-                                <option value="US">United States</option>
+                                <option value="">Select your country</option>
                                 <option value="UK">United Kingdom</option>
+                                <option value="US">United States</option>
                                 <option value="CA">Canada</option>
                                 <option value="AU">Australia</option>
                                 <option value="DE">Germany</option>
                                 <option value="FR">France</option>
+                                <option value="ES">Spain</option>
+                                <option value="IT">Italy</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="SE">Sweden</option>
+                                <option value="NO">Norway</option>
+                                <option value="DK">Denmark</option>
+                                <option value="FI">Finland</option>
                                 <option value="JP">Japan</option>
-                                <!-- Add more countries as needed -->
+                                <option value="CN">China</option>
+                                <option value="IN">India</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="jobTitle">Job Title *</label>
-                            <input type="text" id="jobTitle" name="jobTitle" required>
+                            <input type="text" id="jobTitle" name="jobTitle" required 
+                                placeholder="Your job title">
                         </div>
                     </div>
 
-                    <div class="form-group full-width">
-                        <label for="details">Project Details *</label>
-                        <textarea id="details" name="details" rows="5" required 
-                            placeholder="Please describe your project or requirements..."></textarea>
+                    <div class="form-row">
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="jobDetails">Job Details *</label>
+                            <textarea id="jobDetails" name="jobDetails" required rows="6"
+                                placeholder="Please provide detailed information about your requirements, project scope, and any specific challenges you'd like us to address..."></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-group full-width">
-                        <button type="submit" class="submit-btn">
-                            Send Message
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
+                    <div class="form-row">
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button type="submit" class="submit-btn">
+                                Submit Request
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2290.1876988720247!2d-1.3834870839615461!3d54.90613798033459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e64ee31f123a5%3A0x3e6f2744d4a6c5f0!2sSunderland%20Software%20Centre!5e0!3m2!1sen!2suk!4v1624901562875!5m2!1sen!2suk" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
     <%- include('partials/footer') %>
     
-    <!-- Add script reference -->
     <script src="/js/nav.js"></script>
 </body>
 </html>
