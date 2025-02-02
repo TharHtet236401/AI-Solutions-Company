@@ -124,4 +124,17 @@ router.get("/admin/inquiry/:id", async (req, res) => {
     }
 });
 
+// Add this new route for Reports
+router.get("/admin/reports", async (req, res) => {
+    try {
+        res.render("admin/reports", { 
+            title: "Analytics & Reports - AI Solutions",
+            activeTab: 'reports'
+        });
+    } catch (error) {
+        console.error("Error rendering reports page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router; 

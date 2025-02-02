@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/admin-reports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <%- include('./partials/sidebar') %>
+        
+        <main class="main-content">
+            <%- include('./partials/header') %>
+            
+            <div class="dashboard-content">
+                <div class="reports-header">
+                    <div class="title-section">
+                        <h1>Analytics & Reports</h1>
+                        <p>Comprehensive overview of inquiries and performance metrics</p>
+                    </div>
+                    <div class="report-actions">
+                        <div class="date-range-picker">
+                            <input type="date" id="startDate">
+                            <span>to</span>
+                            <input type="date" id="endDate">
+                        </div>
+                        <button class="generate-btn" onclick="generateReport()">
+                            <i class="fas fa-sync-alt"></i> Generate Report
+                        </button>
+                        <button class="export-btn" onclick="exportReport()">
+                            <i class="fas fa-download"></i> Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card total-inquiries">
+                        <div class="metric-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="metric-info">
+                            <h3>Total Inquiries</h3>
+                            <p class="metric-number">2,547</p>
+                            <span class="metric-trend positive">
+                                <i class="fas fa-arrow-up"></i> 12.5%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="metric-card response-rate">
+                        <div class="metric-icon">
+                            <i class="fas fa-reply"></i>
+                        </div>
+                        <div class="metric-info">
+                            <h3>Response Rate</h3>
+                            <p class="metric-number">94.8%</p>
+                            <span class="metric-trend positive">
+                                <i class="fas fa-arrow-up"></i> 3.2%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="metric-card avg-response-time">
+                        <div class="metric-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-info">
+                            <h3>Avg. Response Time</h3>
+                            <p class="metric-number">2.4h</p>
+                            <span class="metric-trend negative">
+                                <i class="fas fa-arrow-down"></i> 0.5h
+                            </span>
+                        </div>
+                    </div>
+                    <div class="metric-card conversion-rate">
+                        <div class="metric-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="metric-info">
+                            <h3>Conversion Rate</h3>
+                            <p class="metric-number">28.6%</p>
+                            <span class="metric-trend positive">
+                                <i class="fas fa-arrow-up"></i> 5.3%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Inquiries Overview</h3>
+                            <div class="chart-actions">
+                                <button class="chart-btn active">Weekly</button>
+                                <button class="chart-btn">Monthly</button>
+                                <button class="chart-btn">Yearly</button>
+                            </div>
+                        </div>
+                        <canvas id="inquiriesChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Top Countries</h3>
+                            <select class="chart-select">
+                                <option value="inquiries">By Inquiries</option>
+                                <option value="conversion">By Conversion</option>
+                            </select>
+                        </div>
+                        <canvas id="countriesChart"></canvas>
+                    </div>
+                </div> -->
+
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3>Industry Distribution</h3>
+                            <canvas id="industryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3>Status Overview</h3>
+                            <div class="status-stats">
+                                <div class="status-item">
+                                    <span class="status-dot new"></span>
+                                    <span class="status-label">New</span>
+                                    <span class="status-value">245</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-dot in-progress"></span>
+                                    <span class="status-label">In Progress</span>
+                                    <span class="status-value">182</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-dot followed-up"></span>
+                                    <span class="status-label">Followed Up</span>
+                                    <span class="status-value">156</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-dot closed"></span>
+                                    <span class="status-label">Closed</span>
+                                    <span class="status-value">89</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/admin-dashboard.js"></script>
+    <script src="/js/admin-reports.js"></script>
+</body>
+</html> 
