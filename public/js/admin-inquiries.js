@@ -16,6 +16,40 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 function renderInquiries(inquiries) {
+    if (window.innerWidth <= 768) {
+        renderMobileCards(inquiries);
+    } else {
+        renderTable(inquiries);
+    }
+}
+
+function renderMobileCards(inquiries) {
+    const container = document.querySelector('.inquiries-table-container');
+    const mobileView = document.createElement('div');
+    mobileView.className = 'mobile-inquiries';
+    
+    mobileView.innerHTML = inquiries.map(inquiry => `
+        <div class="inquiry-card" onclick="viewInquiry('${inquiry._id}')">
+            <div class="inquiry-card-header">
+                <span class="inquiry-card-name">${inquiry.name}</span>
+                <span class="status-badge ${inquiry.status.toLowerCase()}">
+                    ${inquiry.status}
+                </span>
+            </div>
+            <div class="inquiry-card-company">
+                ${inquiry.companyName} • ${inquiry.country}
+            </div>
+            <div class="inquiry-card-date">
+                ${formatDate(inquiry.createdAt)}
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = '';
+    container.appendChild(mobileView);
+}
+
+function renderTable(inquiries) {
     const tableBody = document.querySelector('.inquiries-table tbody');
     if (!tableBody) return;
 
@@ -328,4 +362,30 @@ function showSuccess(message) {
     container.insertBefore(successDiv, container.firstChild);
     
     setTimeout(() => successDiv.remove(), 3000);
+}
+
+// Add window resize handler
+window.addEventListener('resize', () => {
+    const inquiriesData = document.querySelector('.mobile-inquiries, .inquiries-table tbody');
+    if (inquiriesData) {
+        // Re-fetch and render inquiries
+        fetchAndRenderInquiries();
+    }
+});
+
+// Add this function to fetch and render inquiries
+async function fetchAndRenderInquiries() {
+    try {
+        const response = await fetch('/api/inquiries');
+        const data = await response.json();
+        
+        if (data.con) {
+            renderInquiries(data.result);
+        } else {
+            showError('Failed to load inquiries');
+        }
+    } catch (error) {
+        console.error('Error fetching inquiries:', error);
+        showError('Error loading inquiries');
+    }
 } 

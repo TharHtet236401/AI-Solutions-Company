@@ -279,6 +279,62 @@
     .filter-select {
         flex: 1;
     }
+
+    .inquiries-table-container {
+        background: none;
+        box-shadow: none;
+    }
+
+    .inquiries-table {
+        display: none; /* Hide the table on mobile */
+    }
+
+    /* Mobile Card Layout */
+    .mobile-inquiries {
+        display: block;
+    }
+
+    .inquiry-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .inquiry-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .inquiry-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.8rem;
+    }
+
+    .inquiry-card-name {
+        font-weight: 500;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+    }
+
+    .inquiry-card-status {
+        margin-left: auto;
+    }
+
+    .inquiry-card-company {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .inquiry-card-date {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+    }
 }
 
 @media (max-width: 480px) {
