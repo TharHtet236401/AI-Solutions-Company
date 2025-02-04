@@ -363,8 +363,8 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
+/* Change mobile styles breakpoint from 768px to 1600px */
+@media (max-width: 1600px) {
     .menu-toggle {
         display: block;
     }
@@ -398,37 +398,27 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .actions-grid {
-        grid-template-columns: 1fr;
-    }
-
     .sidebar-header {
-        flex-wrap: wrap; /* Allow wrapping on mobile if needed */
+        flex-wrap: wrap;
         justify-content: center;
         text-align: center;
         padding: 1rem;
     }
 
     .sidebar-header h2 {
-        width: 100%; /* Full width on mobile */
+        width: 100%;
         text-align: center;
     }
 }
 
-/* Ensure content doesn't get too wide on large screens */
-@media (min-width: 1400px) {
+/* Update max-width media query */
+@media (min-width: 1601px) {
     .main-content {
         max-width: calc(100% - 250px);
     }
 }
 
-/* Handle very small screens */
-@media (max-width: 375px) {
-    .sidebar {
-        width: 85%;
-    }
-}
-
+/* Keep other responsive breakpoints for smaller screens */
 @media (max-width: 480px) {
     .stats-grid {
         grid-template-columns: 1fr;
@@ -448,5 +438,11 @@ body {
 
     .admin-profile .admin-name {
         display: none;
+    }
+}
+
+@media (max-width: 375px) {
+    .sidebar {
+        width: 85%;
     }
 } 
