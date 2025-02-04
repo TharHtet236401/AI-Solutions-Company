@@ -137,6 +137,37 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.inquiries-table th:nth-child(1),
+.inquiries-table td:nth-child(1) {
+    width: 25%; /* Contact Info column */
+}
+
+.inquiries-table th:nth-child(2),
+.inquiries-table td:nth-child(2) {
+    width: 25%; /* Company & Country column */
+}
+
+.inquiries-table th:nth-child(3),
+.inquiries-table td:nth-child(3) {
+    width: 15%; /* Phone column */
+}
+
+.inquiries-table th:nth-child(4),
+.inquiries-table td:nth-child(4) {
+    width: 15%; /* Status column */
+    min-width: 140px; /* Ensure minimum width for status badges */
+}
+
+.inquiries-table th:nth-child(5),
+.inquiries-table td:nth-child(5) {
+    width: 12%; /* Date column */
+}
+
+.inquiries-table th:nth-child(6),
+.inquiries-table td:nth-child(6) {
+    width: 8%; /* Actions column */
+}
+
 .inquiries-table th {
     background: #f8f9fa;
     font-weight: 500;
@@ -150,10 +181,13 @@
 /* Status Badge */
 .status-badge {
     padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
     font-weight: 500;
-    text-transform: capitalize;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .status-badge.pending {
