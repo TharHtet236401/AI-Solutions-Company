@@ -1,30 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Sidebar toggle functionality
-    const sidebarToggle = document.getElementById('sidebarToggle');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const adminContainer = document.querySelector('.admin-container');
     const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
+    
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    adminContainer.appendChild(overlay);
 
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('full-width');
-        });
+    // Toggle sidebar
+    function toggleSidebar() {
+        adminContainer.classList.toggle('sidebar-open');
+        document.body.style.overflow = adminContainer.classList.contains('sidebar-open') ? 'hidden' : '';
     }
 
-    // Close sidebar when clicking outside on mobile
+    // Event listeners
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar();
+    });
+
+    overlay.addEventListener('click', () => {
+        toggleSidebar();
+    });
+
+    // Close sidebar when clicking outside
     document.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
-            if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                sidebar.classList.remove('active');
-            }
+        if (adminContainer.classList.contains('sidebar-open') &&
+            !sidebar.contains(e.target) &&
+            !menuToggle.contains(e.target)) {
+            toggleSidebar();
         }
     });
 
-    // Handle window resize
+    // Close sidebar when screen is resized to desktop size
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('full-width');
+        if (window.innerWidth > 768 && adminContainer.classList.contains('sidebar-open')) {
+            toggleSidebar();
         }
+    });
+
+    // Prevent clicks inside sidebar from closing it
+    sidebar.addEventListener('click', (e) => {
+        e.stopPropagation();
     });
 }); 
