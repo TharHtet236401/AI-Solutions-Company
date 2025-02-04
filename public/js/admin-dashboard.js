@@ -62,12 +62,12 @@ async function loadOverviewData() {
             document.getElementById('monthInquiries').textContent = stats.countThisMonthInquiries;
             document.getElementById('pendingInquiries').textContent = stats.countPendingInquiries;
 
-            // Update status distribution
+            // Update status counts
             if (stats.statusDistribution) {
                 stats.statusDistribution.forEach(status => {
-                    const countElement = document.getElementById(`${status._id}Count`);
+                    const countElement = document.getElementById(`${status._id}-count`);
                     if (countElement) {
-                        countElement.textContent = status.count;
+                        countElement.textContent = status.count || 0;
                     }
                 });
             }
