@@ -151,6 +151,19 @@ router.get("/admin/profile", checkAuth, async (req, res) => {
     }
 });
 
+// Add this new route for Admin Settings
+router.get("/admin/settings", checkAuth, async (req, res) => {
+    try {
+        res.render("admin/settings", { 
+            title: "Admin Settings - AI Solutions",
+            activeTab: 'settings'
+        });
+    } catch (error) {
+        console.error("Error rendering settings page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 router.get("/admin/logout", (req, res) => {
     res.clearCookie('jwt');
     res.redirect('/admin/login');

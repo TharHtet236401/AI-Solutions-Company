@@ -55,33 +55,27 @@ async function loadUserProfile() {
     }
 }
 
-function toggleEdit(section) {
-    const form = document.getElementById(`${section}Form`);
-    const inputs = form.querySelectorAll('input, select');
+function toggleEdit(formId) {
+    const form = document.getElementById(`${formId}Form`);
+    const inputs = form.querySelectorAll('input:not([type="file"])');
     const actions = form.querySelector('.form-actions');
-    const avatarUpload = document.querySelector('.avatar-upload');
-
-    inputs.forEach(input => input.disabled = false);
-    actions.style.display = 'flex';
-
-    if (section === 'profile') {
-        avatarUpload.style.display = 'block';
-    }
+    
+    inputs.forEach(input => {
+        input.disabled = !input.disabled;
+    });
+    
+    actions.style.display = actions.style.display === 'none' ? 'flex' : 'none';
 }
 
-function cancelEdit(section) {
-    const form = document.getElementById(`${section}Form`);
-    const inputs = form.querySelectorAll('input, select');
+function cancelEdit(formId) {
+    const form = document.getElementById(`${formId}Form`);
+    const inputs = form.querySelectorAll('input:not([type="file"])');
     const actions = form.querySelector('.form-actions');
-    const avatarUpload = document.querySelector('.avatar-upload');
-
+    
     inputs.forEach(input => {
         input.disabled = true;
-        input.value = input.defaultValue; // Reset to original value
+        input.value = input.defaultValue;
     });
+    
     actions.style.display = 'none';
-
-    if (section === 'profile') {
-        avatarUpload.style.display = 'none';
-    }
 } 

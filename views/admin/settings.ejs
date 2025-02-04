@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/admin-settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <%- include('./partials/sidebar') %>
+        
+        <main class="main-content">
+            <%- include('./partials/header') %>
+            
+            <div class="dashboard-content">
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>Settings</h1>
+                    </div>
+
+                    <div class="settings-grid">
+                        <!-- General Settings -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-cog"></i> General Settings</h2>
+                            </div>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Site Name</label>
+                                    <input type="text" value="AI Solutions Admin" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Time Zone</label>
+                                    <select>
+                                        <option>UTC+00:00</option>
+                                        <option>UTC+01:00</option>
+                                        <option>UTC+02:00</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date Format</label>
+                                    <select>
+                                        <option>DD/MM/YYYY</option>
+                                        <option>MM/DD/YYYY</option>
+                                        <option>YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="save-btn">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-bell"></i> Notification Settings</h2>
+                            </div>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label class="toggle-label">
+                                        Email Notifications
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="toggle-label">
+                                        New Inquiry Alerts
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="toggle-label">
+                                        Status Update Notifications
+                                        <div class="toggle-switch">
+                                            <input type="checkbox">
+                                            <span class="toggle-slider"></span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <button type="submit" class="save-btn">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <!-- Email Settings -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-envelope"></i> Email Settings</h2>
+                            </div>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>SMTP Host</label>
+                                    <input type="text" placeholder="smtp.example.com" />
+                                </div>
+                                <div class="form-group">
+                                    <label>SMTP Port</label>
+                                    <input type="number" placeholder="587" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email From</label>
+                                    <input type="email" placeholder="noreply@example.com" />
+                                </div>
+                                <button type="submit" class="save-btn">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <!-- Backup Settings -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-database"></i> Backup Settings</h2>
+                            </div>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label class="toggle-label">
+                                        Auto Backup
+                                        <div class="toggle-switch">
+                                            <input type="checkbox">
+                                            <span class="toggle-slider"></span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Backup Frequency</label>
+                                    <select>
+                                        <option>Daily</option>
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Retention Period (days)</label>
+                                    <input type="number" value="30" />
+                                </div>
+                                <button type="submit" class="save-btn">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/js/admin-dashboard.js"></script>
+    <script src="/js/admin-header.js"></script>
+</body>
+</html> 

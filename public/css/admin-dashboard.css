@@ -871,4 +871,15 @@ tbody tr:hover {
 
 .right-column > div:last-child {
     margin-bottom: 0;
+}
+
+/* Add these styles for the nav-menu and spacer */
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 80px); /* Subtract header height */
+}
+
+.nav-spacer {
+    flex: 1;
 } 
