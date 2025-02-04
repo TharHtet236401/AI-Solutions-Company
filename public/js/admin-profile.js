@@ -20,8 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handlers
     const forms = {
         profile: document.getElementById('profileForm'),
-        security: document.getElementById('securityForm'),
-        preferences: document.getElementById('preferencesForm')
+        security: document.getElementById('securityForm')
     };
 
     Object.entries(forms).forEach(([formName, form]) => {
