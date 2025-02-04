@@ -1,14 +1,14 @@
 let currentPage = 1;
 const limit = 20;
 let totalPages = 1;
-let currentSort = '-createdAt'; // Default sort order
-let currentStatus = ''; // Add this line
+let currentSort = '-createdAt';
+let currentStatus = '';
+let currentCountry = '';
+let countrySort = '';
 
 document.addEventListener('DOMContentLoaded', async function() {
-    // Fetch inquiries with pagination when the page loads
     await fetchAndRenderInquiries();
     
-    // Add event listeners for pagination buttons
     document.getElementById('prevPage').addEventListener('click', async () => {
         if (currentPage > 1) {
             currentPage--;
@@ -23,17 +23,28 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 
-    // Add event listener for sort order changes
     document.getElementById('sortOrder').addEventListener('change', async (e) => {
         currentSort = e.target.value;
-        currentPage = 1; // Reset to first page when sorting changes
+        currentPage = 1;
         await fetchAndRenderInquiries();
     });
 
-    // Add event listener for status filter changes
     document.getElementById('statusFilter').addEventListener('change', async (e) => {
         currentStatus = e.target.value;
-        currentPage = 1; // Reset to first page when filter changes
+        currentPage = 1;
+        await fetchAndRenderInquiries();
+    });
+
+    document.getElementById('countryFilter').addEventListener('change', async (e) => {
+        const value = e.target.value;
+        if (value === 'asc' || value === 'desc') {
+            countrySort = value;
+            currentCountry = '';
+        } else {
+            currentCountry = value;
+            countrySort = '';
+        }
+        currentPage = 1;
         await fetchAndRenderInquiries();
     });
 });
@@ -42,9 +53,16 @@ async function fetchAndRenderInquiries() {
     try {
         let url = `/api/inquiries?page=${currentPage}&limit=${limit}&sort=${currentSort}`;
         
-        // Add status filter to URL if selected
         if (currentStatus) {
             url += `&status=${currentStatus}`;
+        }
+
+        if (currentCountry) {
+            url += `&country=${currentCountry}`;
+        }
+        
+        if (countrySort) {
+            url += `&countrySort=${countrySort}`;
         }
 
         const response = await fetch(url);
@@ -53,9 +71,12 @@ async function fetchAndRenderInquiries() {
         if (data.con && data.result && Array.isArray(data.result.inquiries)) {
             totalPages = data.result.totalPages;
             renderInquiries(data.result.inquiries);
+            
             updatePagination();
             updatePageInfo(data.result.total);
             updateStatusCounts(data.result.statusCounts);
+            
+            updateCountryFilter(data.result.countries);
         } else {
             showError('Failed to load inquiries: Invalid data format');
             console.error('Invalid data format:', data);
@@ -71,14 +92,11 @@ function updatePagination() {
     const prevBtn = document.getElementById('prevPage');
     const nextBtn = document.getElementById('nextPage');
     
-    // Update disabled state of prev/next buttons
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
     
-    // Generate page numbers
     let paginationHTML = '';
     
-    // Always show first page
     paginationHTML += `<button class="page-number ${currentPage === 1 ? 'active' : ''}" 
         onclick="goToPage(1)">1</button>`;
     
@@ -87,7 +105,6 @@ function updatePagination() {
             paginationHTML += '<span class="ellipsis">...</span>';
         }
         
-        // Show pages around current page
         for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
             paginationHTML += `<button class="page-number ${currentPage === i ? 'active' : ''}" 
                 onclick="goToPage(${i})">${i}</button>`;
@@ -97,7 +114,6 @@ function updatePagination() {
             paginationHTML += '<span class="ellipsis">...</span>';
         }
         
-        // Always show last page
         if (totalPages > 1) {
             paginationHTML += `<button class="page-number ${currentPage === totalPages ? 'active' : ''}" 
                 onclick="goToPage(${totalPages})">${totalPages}</button>`;
@@ -108,7 +124,6 @@ function updatePagination() {
 }
 
 function updatePageInfo(total) {
-    // Remove any existing page-info elements
     const existingPageInfo = document.querySelector('.page-info');
     if (existingPageInfo) {
         existingPageInfo.remove();
@@ -131,7 +146,6 @@ async function goToPage(page) {
 }
 
 function renderInquiries(inquiries) {
-    // Clear existing content first
     if (window.innerWidth <= 768) {
         const container = document.querySelector('.inquiries-table-container');
         container.innerHTML = '';
@@ -197,7 +211,9 @@ function renderTable(inquiries) {
             <td>
                 <div class="company-info">
                     <span class="company">${inquiry.companyName || 'N/A'}</span>
-                    <span class="country">${inquiry.country || 'N/A'}</span>
+                    <span class="country" data-country="${inquiry.country || ''}">
+                        ${inquiry.country || 'N/A'}
+                    </span>
                 </div>
             </td>
             <td>
@@ -389,7 +405,6 @@ async function updateStatus() {
 
         const data = await response.json();
         if (data.con) {
-            // Refresh the inquiries list
             location.reload();
         } else {
             showError('Failed to update status');
@@ -403,7 +418,6 @@ async function updateStatus() {
 }
 
 function showError(message) {
-    // Create and show error message to user
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.textContent = message;
@@ -411,11 +425,9 @@ function showError(message) {
     const container = document.querySelector('.dashboard-content');
     container.insertBefore(errorDiv, container.firstChild);
     
-    // Remove after 3 seconds
     setTimeout(() => errorDiv.remove(), 3000);
 }
 
-// Add these helper functions for date formatting
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -433,7 +445,6 @@ function formatTime(dateString) {
     });
 }
 
-// Add these new functions for email handling
 async function sendEmail(inquiryId) {
     const subject = document.getElementById('emailSubject').value;
     const content = document.getElementById('emailBody').value;
@@ -458,7 +469,6 @@ async function sendEmail(inquiryId) {
         const data = await response.json();
         if (data.con) {
             showSuccess('Email sent successfully');
-            // Update the inquiry status to 'followed-up'
             await updateInquiryStatus(inquiryId, 'followed-up');
         } else {
             showError(data.msg || 'Failed to send email');
@@ -497,16 +507,13 @@ function showSuccess(message) {
     setTimeout(() => successDiv.remove(), 3000);
 }
 
-// Add window resize handler
 window.addEventListener('resize', () => {
     const inquiriesData = document.querySelector('.mobile-inquiries, .inquiries-table tbody');
     if (inquiriesData) {
-        // Re-fetch and render inquiries
         fetchAndRenderInquiries();
     }
 });
 
-// Add this new function to update status counts
 function updateStatusCounts(statusCounts) {
     const statusFilter = document.getElementById('statusFilter');
     Array.from(statusFilter.options).forEach(option => {
@@ -516,4 +523,27 @@ function updateStatusCounts(statusCounts) {
             option.textContent = `${status.charAt(0).toUpperCase() + status.slice(1)} (${count})`;
         }
     });
+}
+
+function updateCountryFilter(countries = []) {
+    const countryFilter = document.getElementById('countryFilter');
+    const currentValue = countryFilter.value;
+    
+    const defaultOptions = Array.from(countryFilter.options).slice(0, 3);
+    countryFilter.innerHTML = '';
+    
+    defaultOptions.forEach(option => countryFilter.appendChild(option));
+    
+    if (Array.isArray(countries)) {
+        countries.sort().forEach(country => {
+            if (country) {
+                const option = new Option(country, country);
+                countryFilter.appendChild(option);
+            }
+        });
+    }
+    
+    if (currentValue) {
+        countryFilter.value = currentValue;
+    }
 } 

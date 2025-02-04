@@ -20,20 +20,28 @@ export const getInquiries = async (req, res) => {
     if(req.query.status && req.query.status !== 'all') {
       query.status = req.query.status;
     }
+    if(req.query.country) {
+      query.country = req.query.country;
+    }
 
-    // Create sort object
+    // Handle country sorting
+    if(req.query.countrySort) {
+      sort = req.query.countrySort === 'asc' ? 'country' : '-country';
+    }
+
     const sortObj = {};
     const sortField = sort.startsWith('-') ? sort.substring(1) : sort;
     const sortDirection = sort.startsWith('-') ? -1 : 1;
     sortObj[sortField] = sortDirection;
 
-    // Get paginated inquiries
     const inquiries = await Inquiry.find(query)
       .sort(sortObj)
       .skip((page - 1) * limit)
       .limit(limit);
 
-    // Get total count for current query
+    // Get all unique countries for the filter
+    const countries = await Inquiry.distinct('country');
+
     const total = await Inquiry.countDocuments(query);
     const totalPages = Math.ceil(total / limit);
 
@@ -63,7 +71,8 @@ export const getInquiries = async (req, res) => {
       inquiries,
       totalPages,
       total,
-      statusCounts: counts
+      statusCounts: counts,
+      countries
     }, 200);
 
   } catch (error) {
