@@ -2,12 +2,24 @@ import Inquiry from "../models/inquiries.model.js";
 import { fMsg, fError } from "../utils/libby.js";
 
 export const getInquiries = async (req, res) => {
-  try {
-    const inquiries = await Inquiry.find();
-    fMsg(res, "Inquiries fetched successfully", inquiries, 200);
+  try { 
+    let limit = 10;
+    let page = 1;
+    if(req.query.page){
+      page = parseInt(req.query.page);
+    }
+    if(req.query.limit){
+      limit = parseInt(req.query.limit);
+    }
+    const inquiries = await Inquiry.find().skip((page - 1) * limit).limit(limit);
+    const total = await Inquiry.countDocuments();
+    const totalPages = Math.ceil(total / limit);
+    fMsg(res, "Inquiries fetched successfully", {inquiries, totalPages, total}, 200);
+
   } catch (error) {
     fError(res, "Error fetching inquiries", 500);
   }
+
 };
 
 export const getInquiry = async (req, res) => {

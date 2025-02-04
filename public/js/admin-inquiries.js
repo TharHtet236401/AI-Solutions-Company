@@ -1,29 +1,130 @@
+let currentPage = 1;
+const limit = 20;
+let totalPages = 1;
+
 document.addEventListener('DOMContentLoaded', async function() {
-    // Fetch inquiries when the page loads
+    // Fetch inquiries with pagination when the page loads
+    await fetchAndRenderInquiries();
+    
+    // Add event listeners for pagination buttons
+    document.getElementById('prevPage').addEventListener('click', async () => {
+        if (currentPage > 1) {
+            currentPage--;
+            await fetchAndRenderInquiries();
+        }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', async () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            await fetchAndRenderInquiries();
+        }
+    });
+});
+
+async function fetchAndRenderInquiries() {
     try {
-        const response = await fetch('/api/inquiries');
+        const response = await fetch(`/api/inquiries?page=${currentPage}&limit=${limit}`);
         const data = await response.json();
         
-        if (data.con) {
-            renderInquiries(data.result);
+        if (data.con && data.result && Array.isArray(data.result.inquiries)) {
+            totalPages = data.result.totalPages;
+            renderInquiries(data.result.inquiries);
+            updatePagination();
+            updatePageInfo(data.result.total);
         } else {
-            showError('Failed to load inquiries');
+            showError('Failed to load inquiries: Invalid data format');
+            console.error('Invalid data format:', data);
         }
     } catch (error) {
         console.error('Error fetching inquiries:', error);
         showError('Error loading inquiries');
     }
-});
+}
+
+function updatePagination() {
+    const pageNumbers = document.getElementById('pageNumbers');
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    
+    // Update disabled state of prev/next buttons
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    // Generate page numbers
+    let paginationHTML = '';
+    
+    // Always show first page
+    paginationHTML += `<button class="page-number ${currentPage === 1 ? 'active' : ''}" 
+        onclick="goToPage(1)">1</button>`;
+    
+    if (totalPages > 1) {
+        if (currentPage > 3) {
+            paginationHTML += '<span class="ellipsis">...</span>';
+        }
+        
+        // Show pages around current page
+        for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+            paginationHTML += `<button class="page-number ${currentPage === i ? 'active' : ''}" 
+                onclick="goToPage(${i})">${i}</button>`;
+        }
+        
+        if (currentPage < totalPages - 2) {
+            paginationHTML += '<span class="ellipsis">...</span>';
+        }
+        
+        // Always show last page
+        if (totalPages > 1) {
+            paginationHTML += `<button class="page-number ${currentPage === totalPages ? 'active' : ''}" 
+                onclick="goToPage(${totalPages})">${totalPages}</button>`;
+        }
+    }
+    
+    pageNumbers.innerHTML = paginationHTML;
+}
+
+function updatePageInfo(total) {
+    // Remove any existing page-info elements
+    const existingPageInfo = document.querySelector('.page-info');
+    if (existingPageInfo) {
+        existingPageInfo.remove();
+    }
+
+    const start = (currentPage - 1) * limit + 1;
+    const end = Math.min(currentPage * limit, total);
+    
+    const pageInfo = document.createElement('div');
+    pageInfo.className = 'page-info';
+    pageInfo.innerHTML = `Showing ${start}-${end} of ${total} inquiries`;
+    
+    const paginationDiv = document.querySelector('.pagination');
+    paginationDiv.insertAdjacentElement('beforebegin', pageInfo);
+}
+
+async function goToPage(page) {
+    currentPage = page;
+    await fetchAndRenderInquiries();
+}
 
 function renderInquiries(inquiries) {
+    // Clear existing content first
     if (window.innerWidth <= 768) {
+        const container = document.querySelector('.inquiries-table-container');
+        container.innerHTML = '';
         renderMobileCards(inquiries);
     } else {
+        const tableBody = document.querySelector('.inquiries-table tbody');
+        tableBody.innerHTML = '';
         renderTable(inquiries);
     }
 }
 
 function renderMobileCards(inquiries) {
+    if (!Array.isArray(inquiries)) {
+        console.error('Invalid inquiries data:', inquiries);
+        return;
+    }
+
     const container = document.querySelector('.inquiries-table-container');
     const mobileView = document.createElement('div');
     mobileView.className = 'mobile-inquiries';
@@ -31,13 +132,13 @@ function renderMobileCards(inquiries) {
     mobileView.innerHTML = inquiries.map(inquiry => `
         <div class="inquiry-card" onclick="viewInquiry('${inquiry._id}')">
             <div class="inquiry-card-header">
-                <span class="inquiry-card-name">${inquiry.name}</span>
-                <span class="status-badge ${inquiry.status.toLowerCase()}">
-                    ${inquiry.status}
+                <span class="inquiry-card-name">${inquiry.name || 'N/A'}</span>
+                <span class="status-badge ${(inquiry.status || 'pending').toLowerCase()}">
+                    ${inquiry.status || 'Pending'}
                 </span>
             </div>
             <div class="inquiry-card-company">
-                ${inquiry.companyName} • ${inquiry.country}
+                ${inquiry.companyName || 'N/A'} • ${inquiry.country || 'N/A'}
             </div>
             <div class="inquiry-card-date">
                 ${formatDate(inquiry.createdAt)}
@@ -50,29 +151,37 @@ function renderMobileCards(inquiries) {
 }
 
 function renderTable(inquiries) {
+    if (!Array.isArray(inquiries)) {
+        console.error('Invalid inquiries data:', inquiries);
+        return;
+    }
+
     const tableBody = document.querySelector('.inquiries-table tbody');
-    if (!tableBody) return;
+    if (!tableBody) {
+        console.error('Table body element not found');
+        return;
+    }
 
     tableBody.innerHTML = inquiries.map(inquiry => `
         <tr>
             <td>
                 <div class="inquiry-name">
-                    <span class="name">${inquiry.name}</span>
-                    <span class="email">${inquiry.email}</span>
+                    <span class="name">${inquiry.name || 'N/A'}</span>
+                    <span class="email">${inquiry.email || 'N/A'}</span>
                 </div>
             </td>
             <td>
                 <div class="company-info">
-                    <span class="company">${inquiry.companyName}</span>
-                    <span class="country">${inquiry.country}</span>
+                    <span class="company">${inquiry.companyName || 'N/A'}</span>
+                    <span class="country">${inquiry.country || 'N/A'}</span>
                 </div>
             </td>
             <td>
-                <span class="phone">${inquiry.phoneNumber}</span>
+                <span class="phone">${inquiry.phoneNumber || 'N/A'}</span>
             </td>
             <td>
-                <span class="status-badge ${inquiry.status.toLowerCase()}">
-                    ${inquiry.status}
+                <span class="status-badge ${(inquiry.status || 'pending').toLowerCase()}">
+                    ${inquiry.status || 'Pending'}
                 </span>
             </td>
             <td>
@@ -371,21 +480,4 @@ window.addEventListener('resize', () => {
         // Re-fetch and render inquiries
         fetchAndRenderInquiries();
     }
-});
-
-// Add this function to fetch and render inquiries
-async function fetchAndRenderInquiries() {
-    try {
-        const response = await fetch('/api/inquiries');
-        const data = await response.json();
-        
-        if (data.con) {
-            renderInquiries(data.result);
-        } else {
-            showError('Failed to load inquiries');
-        }
-    } catch (error) {
-        console.error('Error fetching inquiries:', error);
-        showError('Error loading inquiries');
-    }
-} 
+}); 
