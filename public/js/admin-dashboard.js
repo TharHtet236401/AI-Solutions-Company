@@ -113,7 +113,6 @@ async function loadOverviewData() {
                             <div class="job-title">${inquiry.jobTitle}</div>
                         </div>
                     </td>
-                    <td data-label="Country">${inquiry.country}</td>
                     <td data-label="Status">
                         <span class="status-badge ${inquiry.status}">${inquiry.status}</span>
                     </td>
