@@ -8,7 +8,6 @@
     </div>
     <nav class="sidebar-nav">
         <a href="/admin/dashboard" class="nav-item <%= activeTab === 'overview' ? 'active' : '' %>">
-
             <i class="fas fa-home"></i>
             <span>Overview</span>
         </a>
@@ -23,6 +22,10 @@
         <a href="/admin/settings" class="nav-item <%= activeTab === 'settings' ? 'active' : '' %>">
             <i class="fas fa-cog"></i>
             <span>Settings</span>
+        </a>
+        <a href="/admin/profile" class="nav-item <%= activeTab === 'profile' ? 'active' : '' %>">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
         </a>
     </nav>
     <div class="sidebar-footer">

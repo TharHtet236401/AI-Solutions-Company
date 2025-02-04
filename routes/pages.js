@@ -138,6 +138,19 @@ router.get("/admin/reports", checkAuth, async (req, res) => {
     }
 });
 
+// Add this new route for Admin Profile
+router.get("/admin/profile", checkAuth, async (req, res) => {
+    try {
+        res.render("admin/profile", { 
+            title: "Admin Profile - AI Solutions",
+            activeTab: 'profile'
+        });
+    } catch (error) {
+        console.error("Error rendering profile page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 router.get("/admin/logout", (req, res) => {
     res.clearCookie('jwt');
     res.redirect('/admin/login');
