@@ -6,9 +6,13 @@ import mongoose from 'mongoose'
 const generateFakeInquiries = async (count = 50) => {
     try {
         // Generate a random date between 2022-2024
-        const startDate = new Date('2022-01-01T00:00:00.000Z');
-        const endDate = new Date('2024-12-31T23:59:59.999Z');
+        const startDate = new Date('2025-02-01T00:00:00.000Z');
+        const endDate = new Date('2025-02-31T23:59:59.999Z');
         
+
+
+
+
         const inquiries = [];
         for (let i = 0; i < count; i++) {
             const inquiry = {
@@ -20,10 +24,11 @@ const generateFakeInquiries = async (count = 50) => {
                 jobTitle: faker.person.jobTitle(),
                 jobDetails: faker.lorem.paragraph(),
                 createdAt: faker.date.between({ from: startDate, to: endDate }),
-                status: 'closed',
+                status: faker.helpers.arrayElement(["pending", "in-progress", "follow-up", "closed"]),
             };
             inquiries.push(inquiry);
         }
+
         return inquiries;
     } catch (error) {
         console.error('Error generating fake inquiries:', error);
