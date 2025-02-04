@@ -1,5 +1,7 @@
 import Inquiry from "../models/inquiries.model.js";
 import { fMsg, fError } from "../utils/libby.js";
+import excel from 'exceljs';
+import { Parser } from 'json2csv';
 
 export const getInquiries = async (req, res) => {
   try { 
@@ -217,6 +219,144 @@ export const replyToInquiry = async (req, res) => {
     } catch (error) {
         console.error('Error sending email:', error);
         fError(res, "Error sending email", 500);
+    }
+};
+
+export const exportInquiries = async (req, res) => {
+    try {
+        const { format } = req.query;
+        if (!format) {
+            return fError(res, "Format is required", 400);
+        }
+
+        // Use the same query builder as getInquiries
+        let query = {};
+        let sort = '-createdAt';
+        
+        if(req.query.status && req.query.status !== 'all') {
+            query.status = req.query.status;
+        }
+        if(req.query.country) {
+            query.country = req.query.country;
+        }
+
+        // Handle date filtering
+        if(req.query.dateFilter) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            switch(req.query.dateFilter) {
+                case 'today':
+                    query.createdAt = {
+                        $gte: today,
+                        $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+                    };
+                    break;
+                case 'week':
+                    const weekStart = new Date(today);
+                    weekStart.setDate(today.getDate() - today.getDay());
+                    query.createdAt = {
+                        $gte: weekStart,
+                        $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+                    };
+                    break;
+                case 'month':
+                    const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+                    query.createdAt = {
+                        $gte: monthStart,
+                        $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+                    };
+                    break;
+            }
+        }
+
+        // Handle country sorting
+        if(req.query.countrySort) {
+            sort = req.query.countrySort === 'asc' ? 'country' : '-country';
+        }
+
+        // Handle regular sorting
+        if(req.query.sort) {
+            sort = req.query.sort;
+        }
+
+        const sortObj = {};
+        const sortField = sort.startsWith('-') ? sort.substring(1) : sort;
+        const sortDirection = sort.startsWith('-') ? -1 : 1;
+        sortObj[sortField] = sortDirection;
+
+        // Get filtered and sorted inquiries (without pagination)
+        const inquiries = await Inquiry.find(query).sort(sortObj);
+        
+        if (!inquiries || inquiries.length === 0) {
+            return fError(res, "No data to export", 404);
+        }
+
+        const fields = [
+            'name',
+            'email',
+            'phoneNumber',
+            'companyName',
+            'country',
+            'jobTitle',
+            'jobDetails',
+            'status',
+            'createdAt'
+        ];
+
+        if (format === 'csv') {
+            try {
+                const json2csvParser = new Parser({ fields });
+                const csv = json2csvParser.parse(inquiries);
+                
+                res.setHeader('Content-Type', 'text/csv');
+                res.setHeader('Content-Disposition', 'attachment; filename=inquiries-export.csv');
+                return res.status(200).send(csv);
+            } catch (csvError) {
+                console.error('CSV generation error:', csvError);
+                return fError(res, "Error generating CSV", 500);
+            }
+        } 
+        else if (format === 'excel') {
+            try {
+                const workbook = new excel.Workbook();
+                const worksheet = workbook.addWorksheet('Inquiries');
+                
+                // Add headers
+                worksheet.addRow(fields.map(field => 
+                    field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')
+                ));
+                
+                // Add data
+                inquiries.forEach(inquiry => {
+                    worksheet.addRow(fields.map(field => {
+                        if (field === 'createdAt') {
+                            return new Date(inquiry[field]).toLocaleString();
+                        }
+                        return inquiry[field];
+                    }));
+                });
+                
+                // Style the header row
+                worksheet.getRow(1).font = { bold: true };
+                worksheet.columns.forEach(column => {
+                    column.width = 20;
+                });
+                
+                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                res.setHeader('Content-Disposition', 'attachment; filename=inquiries-export.xlsx');
+                
+                return workbook.xlsx.write(res);
+            } catch (excelError) {
+                console.error('Excel generation error:', excelError);
+                return fError(res, "Error generating Excel file", 500);
+            }
+        }
+        
+        return fError(res, "Invalid export format", 400);
+    } catch (error) {
+        console.error('Export error:', error);
+        return fError(res, "Error exporting inquiries", 500);
     }
 };
 

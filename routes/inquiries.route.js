@@ -5,11 +5,13 @@ import {
   createInquiry,
   deleteInquiry,
   updateInquiryStatus,
+  exportInquiries,
 } from "../controllers/inquiries.controller.js";
 
 const router = express.Router();
 
 router.get("/", getInquiries);
+router.get("/export", exportInquiries);
 router.get("/:id", getInquiry);
 router.post("/", createInquiry);
 router.delete("/:id", deleteInquiry);

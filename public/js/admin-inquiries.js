@@ -580,4 +580,67 @@ async function resetFilters() {
     setTimeout(() => {
         refreshBtn.classList.remove('spinning');
     }, 500);
+}
+
+async function exportData(format) {
+    try {
+        // Show loading state
+        const exportBtn = document.querySelector(`.export-btn[onclick="exportData('${format}')"]`);
+        const originalText = exportBtn.innerHTML;
+        exportBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Exporting...`;
+        
+        // Get current filters for the export
+        let url = `/api/inquiries/export?format=${format.toLowerCase()}`;
+        
+        if (currentStatus) {
+            url += `&status=${currentStatus}`;
+        }
+        if (currentCountry) {
+            url += `&country=${currentCountry}`;
+        }
+        if (currentDateFilter) {
+            url += `&dateFilter=${currentDateFilter}`;
+        }
+
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('Export failed');
+        }
+
+        // Get the filename from the response headers
+        const contentDisposition = response.headers.get('Content-Disposition');
+        const filename = contentDisposition
+            ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+            : `inquiries-export.${format.toLowerCase()}`;
+
+        // Convert response to blob
+        const blob = await response.blob();
+        
+        // Create download link
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = filename;
+        
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Cleanup
+        window.URL.revokeObjectURL(downloadUrl);
+        
+        // Reset button state
+        exportBtn.innerHTML = originalText;
+        
+        showSuccess(`Export to ${format.toUpperCase()} completed`);
+    } catch (error) {
+        console.error('Export error:', error);
+        showError(`Failed to export ${format.toUpperCase()}`);
+        
+        // Reset button state
+        const exportBtn = document.querySelector(`.export-btn[onclick="exportData('${format}')"]`);
+        exportBtn.innerHTML = originalText;
+    }
 } 
