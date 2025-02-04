@@ -5,21 +5,45 @@ export const getInquiries = async (req, res) => {
   try { 
     let limit = 10;
     let page = 1;
-    if(req.query.page){
+    let sort = '-createdAt';
+    let query = {};
+    
+    if(req.query.page) {
       page = parseInt(req.query.page);
     }
-    if(req.query.limit){
+    if(req.query.limit) {
       limit = parseInt(req.query.limit);
     }
-    const inquiries = await Inquiry.find().skip((page - 1) * limit).limit(limit);
-    const total = await Inquiry.countDocuments();
+    if(req.query.sort) {
+      sort = req.query.sort;
+    }
+    if(req.query.status && req.query.status !== 'all') {
+      query.status = req.query.status;
+    }
+
+    // Create sort object
+    const sortObj = {};
+    const sortField = sort.startsWith('-') ? sort.substring(1) : sort;
+    const sortDirection = sort.startsWith('-') ? -1 : 1;
+    sortObj[sortField] = sortDirection;
+
+    const inquiries = await Inquiry.find(query)
+      .sort(sortObj)
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    const total = await Inquiry.countDocuments(query);
     const totalPages = Math.ceil(total / limit);
-    fMsg(res, "Inquiries fetched successfully", {inquiries, totalPages, total}, 200);
+
+    fMsg(res, "Inquiries fetched successfully", {
+      inquiries,
+      totalPages,
+      total
+    }, 200);
 
   } catch (error) {
     fError(res, "Error fetching inquiries", 500);
   }
-
 };
 
 export const getInquiry = async (req, res) => {

@@ -1,6 +1,8 @@
 let currentPage = 1;
 const limit = 20;
 let totalPages = 1;
+let currentSort = '-createdAt'; // Default sort order
+let currentStatus = ''; // Add this line
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Fetch inquiries with pagination when the page loads
@@ -20,11 +22,32 @@ document.addEventListener('DOMContentLoaded', async function() {
             await fetchAndRenderInquiries();
         }
     });
+
+    // Add event listener for sort order changes
+    document.getElementById('sortOrder').addEventListener('change', async (e) => {
+        currentSort = e.target.value;
+        currentPage = 1; // Reset to first page when sorting changes
+        await fetchAndRenderInquiries();
+    });
+
+    // Add event listener for status filter changes
+    document.getElementById('statusFilter').addEventListener('change', async (e) => {
+        currentStatus = e.target.value;
+        currentPage = 1; // Reset to first page when filter changes
+        await fetchAndRenderInquiries();
+    });
 });
 
 async function fetchAndRenderInquiries() {
     try {
-        const response = await fetch(`/api/inquiries?page=${currentPage}&limit=${limit}`);
+        let url = `/api/inquiries?page=${currentPage}&limit=${limit}&sort=${currentSort}`;
+        
+        // Add status filter to URL if selected
+        if (currentStatus) {
+            url += `&status=${currentStatus}`;
+        }
+
+        const response = await fetch(url);
         const data = await response.json();
         
         if (data.con && data.result && Array.isArray(data.result.inquiries)) {
@@ -32,6 +55,7 @@ async function fetchAndRenderInquiries() {
             renderInquiries(data.result.inquiries);
             updatePagination();
             updatePageInfo(data.result.total);
+            updateStatusCounts(data.result.inquiries);
         } else {
             showError('Failed to load inquiries: Invalid data format');
             console.error('Invalid data format:', data);
@@ -480,4 +504,30 @@ window.addEventListener('resize', () => {
         // Re-fetch and render inquiries
         fetchAndRenderInquiries();
     }
-}); 
+});
+
+// Add this new function to update status counts
+function updateStatusCounts(inquiries) {
+    const statusCounts = {
+        'pending': 0,
+        'in-progress': 0,
+        'follow-up': 0,
+        'closed': 0
+    };
+
+    // Count inquiries by status
+    inquiries.forEach(inquiry => {
+        if (statusCounts.hasOwnProperty(inquiry.status)) {
+            statusCounts[inquiry.status]++;
+        }
+    });
+
+    // Update the status filter options with counts
+    const statusFilter = document.getElementById('statusFilter');
+    Array.from(statusFilter.options).forEach(option => {
+        const status = option.value;
+        if (status && statusCounts.hasOwnProperty(status)) {
+            option.textContent = `${status.charAt(0).toUpperCase() + status.slice(1)} (${statusCounts[status]})`;
+        }
+    });
+} 

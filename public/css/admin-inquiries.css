@@ -19,17 +19,38 @@
 
 .filter-group {
     display: flex;
-    gap: 1rem;
+    gap: 10px;
+    align-items: center;
     flex-wrap: wrap;
 }
 
 .filter-select {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: white;
-    color: var(--text-primary);
-    min-width: 150px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    min-width: 120px;
+    cursor: pointer;
+}
+
+.filter-select:hover {
+    border-color: #bbb;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.filter-select option {
+    padding: 8px;
+}
+
+.filter-select option:not(:first-child) {
+    display: flex;
+    justify-content: space-between;
 }
 
 .action-group {
@@ -105,8 +126,8 @@
 }
 
 .status-badge.in-progress {
-    background-color: rgba(156, 39, 176, 0.1);
-    color: #9c27b0;
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
 }
 
 .status-badge.followed-up {
@@ -276,8 +297,13 @@
         display: none;
     }
 
+    .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
     .filter-select {
-        flex: 1;
+        width: 100%;
     }
 
     .inquiries-table-container {
