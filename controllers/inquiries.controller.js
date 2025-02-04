@@ -419,6 +419,9 @@ export const overviewData = async (req, res) => {
     // Add weekly trend
     const weeklyTrend = await getWeeklyTrend();
 
+    const statusDistribution = await Inquiry.aggregate([
+      { $group: { _id: "$status", count: { $sum: 1 } } }
+    ]);
     fMsg(res, "Overview data fetched successfully", {
       countTodayInquiries,
       countThisWeekInquiries,
@@ -427,8 +430,10 @@ export const overviewData = async (req, res) => {
       last10Inquiries,
       statusCounts,
       topCountries,
-      weeklyTrend
+      weeklyTrend,
+      statusDistribution
     }, 200);
+
 
   } catch (error) {
     fError(res, "Error fetching overview data", 500);

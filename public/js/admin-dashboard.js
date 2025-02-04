@@ -62,6 +62,16 @@ async function loadOverviewData() {
             document.getElementById('monthInquiries').textContent = stats.countThisMonthInquiries;
             document.getElementById('pendingInquiries').textContent = stats.countPendingInquiries;
 
+            // Update status distribution
+            if (stats.statusDistribution) {
+                stats.statusDistribution.forEach(status => {
+                    const countElement = document.getElementById(`${status._id}Count`);
+                    if (countElement) {
+                        countElement.textContent = status.count;
+                    }
+                });
+            }
+
             // Update recent inquiries table
             const tableBody = document.getElementById('recentInquiriesList');
             tableBody.innerHTML = ''; // Clear existing content
@@ -88,6 +98,17 @@ async function loadOverviewData() {
                 `;
                 tableBody.appendChild(row);
             });
+
+            // Update top countries
+            const topCountriesList = document.getElementById('topCountries');
+            if (topCountriesList && stats.topCountries) {
+                topCountriesList.innerHTML = stats.topCountries.map(country => `
+                    <div class="country-item">
+                        <span>${country._id}</span>
+                        <span>${country.count}</span>
+                    </div>
+                `).join('');
+            }
 
             // Add chart data
             const ctx = document.getElementById('inquiriesChart').getContext('2d');
