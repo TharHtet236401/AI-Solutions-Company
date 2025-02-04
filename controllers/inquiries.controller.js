@@ -27,18 +27,43 @@ export const getInquiries = async (req, res) => {
     const sortDirection = sort.startsWith('-') ? -1 : 1;
     sortObj[sortField] = sortDirection;
 
+    // Get paginated inquiries
     const inquiries = await Inquiry.find(query)
       .sort(sortObj)
       .skip((page - 1) * limit)
       .limit(limit);
 
+    // Get total count for current query
     const total = await Inquiry.countDocuments(query);
     const totalPages = Math.ceil(total / limit);
+
+    // Get counts for all statuses
+    const statusCounts = await Inquiry.aggregate([
+      {
+        $group: {
+          _id: '$status',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Convert to object format
+    const counts = {
+      pending: 0,
+      'in-progress': 0,
+      'follow-up': 0,
+      closed: 0
+    };
+    
+    statusCounts.forEach(({ _id, count }) => {
+      if (_id) counts[_id] = count;
+    });
 
     fMsg(res, "Inquiries fetched successfully", {
       inquiries,
       totalPages,
-      total
+      total,
+      statusCounts: counts
     }, 200);
 
   } catch (error) {

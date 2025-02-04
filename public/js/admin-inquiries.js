@@ -55,7 +55,7 @@ async function fetchAndRenderInquiries() {
             renderInquiries(data.result.inquiries);
             updatePagination();
             updatePageInfo(data.result.total);
-            updateStatusCounts(data.result.inquiries);
+            updateStatusCounts(data.result.statusCounts);
         } else {
             showError('Failed to load inquiries: Invalid data format');
             console.error('Invalid data format:', data);
@@ -507,27 +507,13 @@ window.addEventListener('resize', () => {
 });
 
 // Add this new function to update status counts
-function updateStatusCounts(inquiries) {
-    const statusCounts = {
-        'pending': 0,
-        'in-progress': 0,
-        'follow-up': 0,
-        'closed': 0
-    };
-
-    // Count inquiries by status
-    inquiries.forEach(inquiry => {
-        if (statusCounts.hasOwnProperty(inquiry.status)) {
-            statusCounts[inquiry.status]++;
-        }
-    });
-
-    // Update the status filter options with counts
+function updateStatusCounts(statusCounts) {
     const statusFilter = document.getElementById('statusFilter');
     Array.from(statusFilter.options).forEach(option => {
         const status = option.value;
         if (status && statusCounts.hasOwnProperty(status)) {
-            option.textContent = `${status.charAt(0).toUpperCase() + status.slice(1)} (${statusCounts[status]})`;
+            const count = statusCounts[status] || 0;
+            option.textContent = `${status.charAt(0).toUpperCase() + status.slice(1)} (${count})`;
         }
     });
 } 
