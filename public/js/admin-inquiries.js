@@ -6,6 +6,7 @@ let currentStatus = '';
 let currentCountry = '';
 let countrySort = '';
 let currentDateFilter = '';
+let currentSearch = '';
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchAndRenderInquiries();
@@ -54,6 +55,19 @@ document.addEventListener('DOMContentLoaded', async function() {
         currentPage = 1;
         await fetchAndRenderInquiries();
     });
+
+    // Add search input event listener with debounce
+    const searchInput = document.getElementById('searchInput');
+    let debounceTimer;
+    
+    searchInput.addEventListener('input', async (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+            currentSearch = e.target.value;
+            currentPage = 1; // Reset to first page when searching
+            await fetchAndRenderInquiries();
+        }, 300); // 300ms debounce delay
+    });
 });
 
 async function fetchAndRenderInquiries() {
@@ -63,17 +77,17 @@ async function fetchAndRenderInquiries() {
         if (currentStatus) {
             url += `&status=${currentStatus}`;
         }
-
         if (currentCountry) {
             url += `&country=${currentCountry}`;
         }
-        
         if (countrySort) {
             url += `&countrySort=${countrySort}`;
         }
-
         if (currentDateFilter) {
             url += `&dateFilter=${currentDateFilter}`;
+        }
+        if (currentSearch) {
+            url += `&search=${encodeURIComponent(currentSearch)}`;
         }
 
         const response = await fetch(url);
@@ -567,6 +581,7 @@ async function resetFilters() {
     document.getElementById('sortOrder').value = '-createdAt';
     document.getElementById('statusFilter').value = '';
     document.getElementById('countryFilter').value = '';
+    document.getElementById('searchInput').value = '';
 
     currentPage = 1;
     currentSort = '-createdAt';
@@ -574,6 +589,7 @@ async function resetFilters() {
     currentCountry = '';
     countrySort = '';
     currentDateFilter = '';
+    currentSearch = '';
 
     await fetchAndRenderInquiries();
 

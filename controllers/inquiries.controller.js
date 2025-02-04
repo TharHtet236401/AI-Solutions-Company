@@ -10,6 +10,20 @@ export const getInquiries = async (req, res) => {
     let sort = '-createdAt';
     let query = {};
     
+    // Add search functionality
+    if(req.query.search) {
+      const searchRegex = new RegExp(req.query.search, 'i');
+      query.$or = [
+        { name: searchRegex },
+        { email: searchRegex },
+        { companyName: searchRegex },
+        { country: searchRegex },
+        { jobTitle: searchRegex },
+        { jobDetails: searchRegex },
+        { phoneNumber: searchRegex }
+      ];
+    }
+
     if(req.query.page) {
       page = parseInt(req.query.page);
     }
