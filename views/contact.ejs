@@ -51,7 +51,7 @@
 
             <!-- Contact Form -->
             <div class="contact-form-container">
-                <form class="contact-form" action="/submit-contact" method="POST">
+                <form class="contact-form" id="contactForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Name *</label>
@@ -118,7 +118,7 @@
 
                     <div class="form-row">
                         <div class="form-group" style="grid-column: 1 / -1;">
-                            <button type="submit" class="submit-btn">
+                            <button type="submit" class="submit-btn" id="submitBtn">
                                 Submit Request
                                 <i class="fas fa-paper-plane"></i>
                             </button>
@@ -146,5 +146,6 @@
     <%- include('partials/footer') %>
     
     <script src="/js/nav.js"></script>
+    <script src="/js/contact.js"></script>
 </body>
 </html>
