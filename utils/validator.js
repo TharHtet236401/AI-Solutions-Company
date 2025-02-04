@@ -23,8 +23,6 @@ export const validateBody = (schema) => {
 export const validateToken = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
-    console.log("it reached here");
-    console.log("token",token);
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decoded.id).select("-password");
