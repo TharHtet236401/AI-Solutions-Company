@@ -19,9 +19,8 @@
 
 .filter-group {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .filter-select {
@@ -32,25 +31,33 @@
     font-size: 14px;
     min-width: 120px;
     cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 32px;
+    transition: all 0.2s ease;
 }
 
 .filter-select:hover {
-    border-color: #bbb;
+    border-color: var(--accent-color);
 }
 
 .filter-select:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
 }
 
 .filter-select option {
-    padding: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
 }
 
-.filter-select option:not(:first-child) {
-    display: flex;
-    justify-content: space-between;
+.filter-select option:checked {
+    background: var(--accent-color);
+    color: white;
 }
 
 .action-group {
@@ -815,4 +822,45 @@
 
 .inquiries-table th[data-sort]:hover .sort-arrow {
     color: var(--accent-color);
+}
+
+.refresh-btn {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background-color: #f5f5f5;
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.refresh-btn i {
+    font-size: 14px;
+}
+
+.refresh-btn.spinning i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Make dropdowns more visually appealing */
+.filter-select:active {
+    transform: scale(0.98);
 } 

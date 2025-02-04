@@ -24,6 +24,36 @@ export const getInquiries = async (req, res) => {
       query.country = req.query.country;
     }
 
+    // Handle date filtering
+    if(req.query.dateFilter) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      switch(req.query.dateFilter) {
+        case 'today':
+          query.createdAt = {
+            $gte: today,
+            $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          };
+          break;
+        case 'week':
+          const weekStart = new Date(today);
+          weekStart.setDate(today.getDate() - today.getDay());
+          query.createdAt = {
+            $gte: weekStart,
+            $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          };
+          break;
+        case 'month':
+          const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+          query.createdAt = {
+            $gte: monthStart,
+            $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          };
+          break;
+      }
+    }
+
     // Handle country sorting
     if(req.query.countrySort) {
       sort = req.query.countrySort === 'asc' ? 'country' : '-country';

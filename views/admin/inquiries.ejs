@@ -26,11 +26,9 @@
                                 <option value="week">This Week</option>
                                 <option value="month">This Month</option>
                             </select>
-                            <select id="countryFilter" class="filter-select">
-                                <option value="">All Countries</option>
-                                <option value="asc">Sort A-Z</option>
-                                <option value="desc">Sort Z-A</option>
-                                <!-- Populated by JavaScript -->
+                            <select id="sortOrder" class="filter-select">
+                                <option value="-createdAt">Latest First</option>
+                                <option value="createdAt">Oldest First</option>
                             </select>
                             <select id="statusFilter" class="filter-select">
                                 <option value="">All Status</option>
@@ -39,10 +37,15 @@
                                 <option value="follow-up">Follow Up</option>
                                 <option value="closed">Closed</option>
                             </select>
-                            <select id="sortOrder" class="filter-select">
-                                <option value="-createdAt">Latest First</option>
-                                <option value="createdAt">Oldest First</option>
+                            <select id="countryFilter" class="filter-select">
+                                <option value="">All Countries</option>
+                                <option value="asc">Sort A-Z</option>
+                                <option value="desc">Sort Z-A</option>
+                                <!-- Populated by JavaScript -->
                             </select>
+                            <button class="refresh-btn" onclick="resetFilters()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
                         </div>
                         <div class="action-group">
                             <button class="export-btn" onclick="exportData('csv')">

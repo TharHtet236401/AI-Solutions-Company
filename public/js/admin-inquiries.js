@@ -5,6 +5,7 @@ let currentSort = '-createdAt';
 let currentStatus = '';
 let currentCountry = '';
 let countrySort = '';
+let currentDateFilter = '';
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchAndRenderInquiries();
@@ -47,6 +48,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         currentPage = 1;
         await fetchAndRenderInquiries();
     });
+
+    document.getElementById('dateFilter').addEventListener('change', async (e) => {
+        currentDateFilter = e.target.value;
+        currentPage = 1;
+        await fetchAndRenderInquiries();
+    });
 });
 
 async function fetchAndRenderInquiries() {
@@ -63,6 +70,10 @@ async function fetchAndRenderInquiries() {
         
         if (countrySort) {
             url += `&countrySort=${countrySort}`;
+        }
+
+        if (currentDateFilter) {
+            url += `&dateFilter=${currentDateFilter}`;
         }
 
         const response = await fetch(url);
@@ -546,4 +557,27 @@ function updateCountryFilter(countries = []) {
     if (currentValue) {
         countryFilter.value = currentValue;
     }
+}
+
+async function resetFilters() {
+    const refreshBtn = document.querySelector('.refresh-btn');
+    refreshBtn.classList.add('spinning');
+
+    document.getElementById('dateFilter').value = '';
+    document.getElementById('sortOrder').value = '-createdAt';
+    document.getElementById('statusFilter').value = '';
+    document.getElementById('countryFilter').value = '';
+
+    currentPage = 1;
+    currentSort = '-createdAt';
+    currentStatus = '';
+    currentCountry = '';
+    countrySort = '';
+    currentDateFilter = '';
+
+    await fetchAndRenderInquiries();
+
+    setTimeout(() => {
+        refreshBtn.classList.remove('spinning');
+    }, 500);
 } 
