@@ -404,20 +404,64 @@ export const overviewData = async (req, res) => {
 
     const last10Inquiries = await Inquiry.find().sort({ createdAt: -1 }).limit(10);
 
-    
+    // Add status distribution
+    const statusCounts = await Inquiry.aggregate([
+      { $group: { _id: "$status", count: { $sum: 1 } } }
+    ]);
+
+    // Add geographical distribution
+    const topCountries = await Inquiry.aggregate([
+      { $group: { _id: "$country", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 }
+    ]);
+
+    // Add weekly trend
+    const weeklyTrend = await getWeeklyTrend();
 
     fMsg(res, "Overview data fetched successfully", {
       countTodayInquiries,
       countThisWeekInquiries,
       countThisMonthInquiries,
       countPendingInquiries,
-      last10Inquiries
-
-
+      last10Inquiries,
+      statusCounts,
+      topCountries,
+      weeklyTrend
     }, 200);
 
   } catch (error) {
     fError(res, "Error fetching overview data", 500);
   }
 };
+
+async function getWeeklyTrend() {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = new Date();
+  const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  return await Inquiry.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: lastWeek, $lte: today }
+      }
+    },
+    {
+      $group: {
+        _id: { $dayOfWeek: "$createdAt" },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        day: "$_id",
+        count: 1
+      }
+    },
+    {
+      $sort: { day: 1 }
+    }
+  ]);
+}
 

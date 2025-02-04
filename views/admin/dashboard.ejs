@@ -77,6 +77,57 @@
                             </table>
                         </div>
                     </div>
+                    
+                    <div class="right-column">
+                        <div class="status-distribution card">
+                            <div class="card-header">
+                                <h2>Status Distribution</h2>
+                            </div>
+                            <div class="status-stats">
+                                <div class="status-item">
+                                    <span class="status-badge pending">Pending</span>
+                                    <span class="status-count" id="pendingCount">0</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-badge in-progress">In Progress</span>
+                                    <span class="status-count" id="inProgressCount">0</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-badge followed-up">Followed Up</span>
+                                    <span class="status-count" id="followedUpCount">0</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-badge closed">Closed</span>
+                                    <span class="status-count" id="closedCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="geo-distribution card">
+                            <div class="card-header">
+                                <h2>Top Countries</h2>
+                            </div>
+                            <div class="country-list" id="topCountries">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="performance-metrics card">
+                            <div class="card-header">
+                                <h2>Response Metrics</h2>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="metric-item">
+                                    <h4>Average Response Time</h4>
+                                    <div class="metric-value" id="avgResponseTime">--</div>
+                                </div>
+                                <div class="metric-item">
+                                    <h4>Resolution Rate</h4>
+                                    <div class="metric-value" id="resolutionRate">--</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

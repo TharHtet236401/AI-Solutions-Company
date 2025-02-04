@@ -88,6 +88,21 @@ async function loadOverviewData() {
                 `;
                 tableBody.appendChild(row);
             });
+
+            // Add chart data
+            const ctx = document.getElementById('inquiriesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Inquiries This Week',
+                        data: stats.weeklyTrend,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                }
+            });
         }
     } catch (error) {
         console.error('Error loading overview data:', error);
