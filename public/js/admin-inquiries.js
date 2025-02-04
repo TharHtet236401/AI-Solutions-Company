@@ -195,13 +195,13 @@ function renderMobileCards(inquiries) {
     mobileView.innerHTML = inquiries.map(inquiry => `
         <div class="inquiry-card" onclick="viewInquiry('${inquiry._id}')">
             <div class="inquiry-card-header">
-                <span class="inquiry-card-name">${inquiry.name || 'N/A'}</span>
+                <span class="inquiry-card-name">${highlightMatch(inquiry.name, currentSearch)}</span>
                 <span class="status-badge ${(inquiry.status || 'pending').toLowerCase()}">
-                    ${inquiry.status || 'Pending'}
+                    ${highlightMatch(inquiry.status, currentSearch)}
                 </span>
             </div>
             <div class="inquiry-card-company">
-                ${inquiry.companyName || 'N/A'} • ${inquiry.country || 'N/A'}
+                ${highlightMatch(inquiry.companyName, currentSearch)} • ${highlightMatch(inquiry.country, currentSearch)}
             </div>
             <div class="inquiry-card-date">
                 ${formatDate(inquiry.createdAt)}
@@ -229,24 +229,24 @@ function renderTable(inquiries) {
         <tr>
             <td>
                 <div class="inquiry-name">
-                    <span class="name">${inquiry.name || 'N/A'}</span>
-                    <span class="email">${inquiry.email || 'N/A'}</span>
+                    <span class="name">${highlightMatch(inquiry.name, currentSearch)}</span>
+                    <span class="email">${highlightMatch(inquiry.email, currentSearch)}</span>
                 </div>
             </td>
             <td>
                 <div class="company-info">
-                    <span class="company">${inquiry.companyName || 'N/A'}</span>
+                    <span class="company">${highlightMatch(inquiry.companyName, currentSearch)}</span>
                     <span class="country" data-country="${inquiry.country || ''}">
-                        ${inquiry.country || 'N/A'}
+                        ${highlightMatch(inquiry.country, currentSearch)}
                     </span>
                 </div>
             </td>
             <td>
-                <span class="phone">${inquiry.phoneNumber || 'N/A'}</span>
+                <span class="phone">${highlightMatch(inquiry.phoneNumber, currentSearch)}</span>
             </td>
             <td>
                 <span class="status-badge ${(inquiry.status || 'pending').toLowerCase()}">
-                    ${inquiry.status || 'Pending'}
+                    ${highlightMatch(inquiry.status, currentSearch)}
                 </span>
             </td>
             <td>
@@ -306,15 +306,15 @@ function showInquiryModal(inquiry) {
                     <div class="info-grid">
                         <div class="info-item">
                             <label>Full Name</label>
-                            <span>${inquiry.name}</span>
+                            <span>${highlightMatch(inquiry.name, currentSearch) || inquiry.name}</span>
                         </div>
                         <div class="info-item">
                             <label>Email Address</label>
-                            <span>${inquiry.email}</span>
+                            <span>${highlightMatch(inquiry.email, currentSearch) || inquiry.email}</span>
                         </div>
                         <div class="info-item">
                             <label>Phone Number</label>
-                            <span>${inquiry.phoneNumber}</span>
+                            <span>${highlightMatch(inquiry.phoneNumber, currentSearch) || inquiry.phoneNumber}</span>
                         </div>
                     </div>
                 </div>
@@ -324,15 +324,15 @@ function showInquiryModal(inquiry) {
                     <div class="info-grid">
                         <div class="info-item">
                             <label>Company Name</label>
-                            <span>${inquiry.companyName}</span>
+                            <span>${highlightMatch(inquiry.companyName, currentSearch) || inquiry.companyName}</span>
                         </div>
                         <div class="info-item">
                             <label>Location</label>
-                            <span>${inquiry.country}</span>
+                            <span>${highlightMatch(inquiry.country, currentSearch) || inquiry.country}</span>
                         </div>
                         <div class="info-item">
                             <label>Position</label>
-                            <span>${inquiry.jobTitle}</span>
+                            <span>${highlightMatch(inquiry.jobTitle, currentSearch) || inquiry.jobTitle}</span>
                         </div>
                     </div>
                 </div>
@@ -340,7 +340,7 @@ function showInquiryModal(inquiry) {
                 <div class="inquiry-section">
                     <h3><i class="fas fa-briefcase"></i>Job Details</h3>
                     <div class="job-details">
-                        <p>${inquiry.jobDetails}</p>
+                        <p>${highlightMatch(inquiry.jobDetails, currentSearch) || inquiry.jobDetails}</p>
                     </div>
                 </div>
                 
@@ -349,13 +349,13 @@ function showInquiryModal(inquiry) {
                     <div class="info-grid">
                         <div class="info-item">
                             <label>Current Status</label>
-                            <span class="status-badge ${inquiry.status.toLowerCase()}">
-                                ${inquiry.status}
+                            <span class="status-badge ${highlightMatch(inquiry.status, currentSearch) || inquiry.status.toLowerCase()}">
+                                ${highlightMatch(inquiry.status, currentSearch) || inquiry.status}
                             </span>
                         </div>
                         <div class="info-item">
                             <label>Submission Date</label>
-                            <span>${formatDate(inquiry.createdAt)} at ${formatTime(inquiry.createdAt)}</span>
+                            <span>${highlightMatch(formatDate(inquiry.createdAt), currentSearch) || formatDate(inquiry.createdAt)} at ${highlightMatch(formatTime(inquiry.createdAt), currentSearch) || formatTime(inquiry.createdAt)}</span>
                         </div>
                     </div>
                 </div>
@@ -366,19 +366,19 @@ function showInquiryModal(inquiry) {
                         <div class="email-header">
                             <div class="email-field">
                                 <label>To:</label>
-                                <span>${inquiry.email}</span>
+                                <span>${highlightMatch(inquiry.email, currentSearch) || inquiry.email}</span>
                             </div>
                             <div class="email-field">
                                 <label>Subject:</label>
                                 <input type="text" id="emailSubject" 
-                                    value="Re: Inquiry from ${inquiry.companyName}" 
+                                    value="Re: Inquiry from ${highlightMatch(inquiry.companyName, currentSearch) || inquiry.companyName}" 
                                     class="email-subject-input">
                             </div>
                         </div>
                         <div class="email-body">
                             <textarea id="emailBody" 
                                 placeholder="Type your response here..."
-                                class="email-content"></textarea>
+                                class="email-content">${highlightMatch(inquiry.jobDetails, currentSearch) || inquiry.jobDetails}</textarea>
                         </div>
                         <div class="email-actions">
                             <button class="template-btn" onclick="loadEmailTemplate()">
@@ -659,4 +659,10 @@ async function exportData(format) {
         const exportBtn = document.querySelector(`.export-btn[onclick="exportData('${format}')"]`);
         exportBtn.innerHTML = originalText;
     }
+}
+
+function highlightMatch(text, searchTerm) {
+    if (!searchTerm || !text) return text;
+    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.toString().replace(regex, '<mark class="highlight">$1</mark>');
 } 

@@ -925,4 +925,24 @@
     .search-input-wrapper {
         margin-bottom: 0;
     }
+}
+
+.highlight {
+    background-color: rgba(255, 213, 79, 0.4);
+    padding: 2px 0;
+    border-radius: 2px;
+    font-weight: 500;
+}
+
+/* Make highlight work inside status badges */
+.status-badge .highlight {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: inherit;
+}
+
+/* Ensure highlight doesn't break layout */
+.highlight {
+    display: inline;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 } 
