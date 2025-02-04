@@ -191,25 +191,31 @@ export const deleteInquiry = async (req, res) => {
 };
 
 export const updateInquiryStatus = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
 
-    const updatedInquiry = await Inquiry.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
+        // Validate status value
+        const validStatuses = ["pending", "in-progress", "follow-up", "closed"];
+        if (!validStatuses.includes(status)) {
+            return fError(res, "Invalid status value", 400);
+        }
 
-    if (!updatedInquiry) {
-      fError(res, "Inquiry not found", 404);
-      return;
+        const updatedInquiry = await Inquiry.findByIdAndUpdate(
+            id,
+            { status },
+            { new: true }
+        );
+
+        if (!updatedInquiry) {
+            return fError(res, "Inquiry not found", 404);
+        }
+
+        fMsg(res, "Status updated successfully", updatedInquiry, 200);
+    } catch (error) {
+        console.error('Error updating status:', error);
+        fError(res, "Error updating inquiry status", 500);
     }
-
-    fMsg(res, updatedInquiry, 200);
-  } catch (error) {
-    fError(res, "Error updating inquiry status", 500);
-  }
 };
 
 export const replyToInquiry = async (req, res) => {

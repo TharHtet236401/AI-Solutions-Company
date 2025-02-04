@@ -406,6 +406,16 @@ function closeInquiryModal(button) {
 function openStatusModal(id) {
     const modal = document.getElementById('statusModal');
     modal.dataset.inquiryId = id;
+    
+    // Update status options to match backend valid values
+    const statusSelect = document.getElementById('statusUpdate');
+    statusSelect.innerHTML = `
+        <option value="pending">Pending</option>
+        <option value="in-progress">In Progress</option>
+        <option value="follow-up">Follow Up</option>
+        <option value="closed">Closed</option>
+    `;
+    
     modal.style.display = 'flex';
 }
 
@@ -420,7 +430,7 @@ async function updateStatus() {
     const newStatus = document.getElementById('statusUpdate').value;
 
     try {
-        const response = await fetch(`/api/inquiries/${inquiryId}/status`, {
+        const response = await fetch(`/api/inquiries/status/${inquiryId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -429,10 +439,12 @@ async function updateStatus() {
         });
 
         const data = await response.json();
+        
         if (data.con) {
-            location.reload();
+            showSuccess('Status updated successfully');
+            await fetchAndRenderInquiries(); // Refresh the table
         } else {
-            showError('Failed to update status');
+            showError(data.msg || 'Failed to update status');
         }
     } catch (error) {
         console.error('Error updating status:', error);
