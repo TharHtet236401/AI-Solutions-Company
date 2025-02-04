@@ -422,6 +422,19 @@ export const overviewData = async (req, res) => {
     const statusDistribution = await Inquiry.aggregate([
       { $group: { _id: "$status", count: { $sum: 1 } } }
     ]);
+
+    // Add year distribution
+    const yearDistribution = await Inquiry.aggregate([
+      {
+        $group: {
+          _id: { $year: "$createdAt" },
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: -1 } }, // Sort by year descending
+      { $limit: 5 } // Get last 5 years
+    ]);
+
     fMsg(res, "Overview data fetched successfully", {
       countTodayInquiries,
       countThisWeekInquiries,
@@ -431,7 +444,8 @@ export const overviewData = async (req, res) => {
       statusCounts,
       topCountries,
       weeklyTrend,
-      statusDistribution
+      statusDistribution,
+      yearDistribution
     }, 200);
 
 

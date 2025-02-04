@@ -72,6 +72,28 @@ async function loadOverviewData() {
                 });
             }
 
+            // Update year distribution
+            const yearStats = document.getElementById('yearStats');
+            if (yearStats && stats.yearDistribution) {
+                yearStats.innerHTML = stats.yearDistribution.map(year => `
+                    <div class="year-item">
+                        <span class="year-label">${year._id}</span>
+                        <span class="year-count">${year.count}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Update top countries
+            const topCountriesList = document.getElementById('topCountries');
+            if (topCountriesList && stats.topCountries) {
+                topCountriesList.innerHTML = stats.topCountries.map(country => `
+                    <div class="country-item">
+                        <span>${country._id}</span>
+                        <span class="country-count">${country.count}</span>
+                    </div>
+                `).join('');
+            }
+
             // Update recent inquiries table
             const tableBody = document.getElementById('recentInquiriesList');
             tableBody.innerHTML = ''; // Clear existing content
@@ -98,17 +120,6 @@ async function loadOverviewData() {
                 `;
                 tableBody.appendChild(row);
             });
-
-            // Update top countries
-            const topCountriesList = document.getElementById('topCountries');
-            if (topCountriesList && stats.topCountries) {
-                topCountriesList.innerHTML = stats.topCountries.map(country => `
-                    <div class="country-item">
-                        <span>${country._id}</span>
-                        <span>${country.count}</span>
-                    </div>
-                `).join('');
-            }
 
             // Add chart data
             const ctx = document.getElementById('inquiriesChart').getContext('2d');
