@@ -114,7 +114,9 @@ async function loadOverviewData() {
                         </div>
                     </td>
                     <td data-label="Status">
-                        <span class="status-badge ${inquiry.status}">${inquiry.status}</span>
+                        <span class="status-badge ${(inquiry.status || 'pending').toLowerCase().replace('_', '-').replace(' ', '-')}">
+                            ${inquiry.status || 'pending'}
+                        </span>
                     </td>
                 `;
                 tableBody.appendChild(row);
