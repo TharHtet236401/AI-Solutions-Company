@@ -101,20 +101,20 @@ async function loadOverviewData() {
             stats.last10Inquiries.forEach(inquiry => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>
+                    <td data-label="Contact Info">
                         <div class="inquiry-contact">
                             <div class="contact-name">${inquiry.name}</div>
                             <div class="contact-email">${inquiry.email}</div>
                         </div>
                     </td>
-                    <td>
+                    <td data-label="Company & Job">
                         <div class="company-info">
                             <div>${inquiry.companyName}</div>
                             <div class="job-title">${inquiry.jobTitle}</div>
                         </div>
                     </td>
-                    <td>${inquiry.country}</td>
-                    <td>
+                    <td data-label="Country">${inquiry.country}</td>
+                    <td data-label="Status">
                         <span class="status-badge ${inquiry.status}">${inquiry.status}</span>
                     </td>
                 `;
