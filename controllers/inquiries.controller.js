@@ -374,3 +374,50 @@ export const exportInquiries = async (req, res) => {
     }
 };
 
+export const overviewData = async (req, res) => {
+  try {
+    const todayInquiries = await Inquiry.find({
+      createdAt: {
+        $gte: new Date(new Date().setHours(0, 0, 0, 0)),
+        $lt: new Date(new Date().setHours(23, 59, 59, 999))
+      }
+    });
+    const countTodayInquiries = todayInquiries.length;
+    
+    const thisWeekInquiries = await Inquiry.find({
+      createdAt: {
+        $gte: new Date(new Date().setDate(new Date().getDate() - new Date().getDay())),
+        $lt: new Date(new Date().setDate(new Date().getDate() - new Date().getDay() + 7))
+      }
+    });
+    const countThisWeekInquiries = thisWeekInquiries.length;
+    const thisMonthInquiries = await Inquiry.find({
+      createdAt: {
+        $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        $lt: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
+      }
+    });
+    const countThisMonthInquiries = thisMonthInquiries.length;  
+    const pendingInquiries = await Inquiry.find({ status: 'pending' });
+    const countPendingInquiries = pendingInquiries.length;
+    
+
+    const last10Inquiries = await Inquiry.find().sort({ createdAt: -1 }).limit(10);
+
+    
+
+    fMsg(res, "Overview data fetched successfully", {
+      countTodayInquiries,
+      countThisWeekInquiries,
+      countThisMonthInquiries,
+      countPendingInquiries,
+      last10Inquiries
+
+
+    }, 200);
+
+  } catch (error) {
+    fError(res, "Error fetching overview data", 500);
+  }
+};
+
