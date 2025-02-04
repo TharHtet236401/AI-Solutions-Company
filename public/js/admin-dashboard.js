@@ -44,4 +44,52 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebar.addEventListener('click', (e) => {
         e.stopPropagation();
     });
-}); 
+
+    loadOverviewData();
+});
+
+async function loadOverviewData() {
+    try {
+        const response = await fetch('/api/inquiries/overview');
+        const data = await response.json();
+        
+        if (data.con) {
+            const stats = data.result;
+            
+            // Update statistics
+            document.getElementById('todayInquiries').textContent = stats.countTodayInquiries;
+            document.getElementById('weekInquiries').textContent = stats.countThisWeekInquiries;
+            document.getElementById('monthInquiries').textContent = stats.countThisMonthInquiries;
+            document.getElementById('pendingInquiries').textContent = stats.countPendingInquiries;
+
+            // Update recent inquiries table
+            const tableBody = document.getElementById('recentInquiriesList');
+            tableBody.innerHTML = ''; // Clear existing content
+
+            stats.last10Inquiries.forEach(inquiry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="inquiry-contact">
+                            <div class="contact-name">${inquiry.name}</div>
+                            <div class="contact-email">${inquiry.email}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="company-info">
+                            <div>${inquiry.companyName}</div>
+                            <div class="job-title">${inquiry.jobTitle}</div>
+                        </div>
+                    </td>
+                    <td>${inquiry.country}</td>
+                    <td>
+                        <span class="status-badge ${inquiry.status}">${inquiry.status}</span>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    } catch (error) {
+        console.error('Error loading overview data:', error);
+    }
+} 

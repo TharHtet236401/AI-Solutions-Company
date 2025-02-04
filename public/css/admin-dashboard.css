@@ -297,32 +297,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Quick Actions */
-.actions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.action-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem;
-    background: var(--background-color);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-}
-
-.action-btn:hover {
-    background: var(--accent-color);
-    color: white;
-}
-
 /* Add or update these styles */
 .export-btn {
     display: flex;
@@ -474,5 +448,128 @@ body {
 @media (max-width: 375px) {
     .sidebar {
         width: 85%;
+    }
+}
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #f8f9fa;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+td {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+/* Contact Info and Company Info Styles */
+.inquiry-contact, .company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.contact-email {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.job-title {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Status Badge Styles */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.in-progress {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.followed-up {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.closed {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* Action Button Styles */
+.action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.action-btn i {
+    font-size: 0.9rem;
+}
+
+/* Hover effect on table rows */
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        margin: 0 -1rem;
+        border-radius: 0;
+    }
+
+    th, td {
+        padding: 0.75rem;
     }
 } 

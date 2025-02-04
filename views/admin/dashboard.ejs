@@ -18,11 +18,11 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon">
-                            <i class="fas fa-envelope"></i>
+                            <i class="fas fa-calendar-day"></i>
                         </div>
                         <div class="stat-info">
                             <h3>Today's Inquiries</h3>
-                            <p class="stat-number" id="todayInquiries">0</p>
+                            <div class="stat-number" id="todayInquiries">0</div>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="stat-info">
                             <h3>This Week</h3>
-                            <p class="stat-number" id="weekInquiries">0</p>
+                            <div class="stat-number" id="weekInquiries">0</div>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="stat-info">
                             <h3>This Month</h3>
-                            <p class="stat-number" id="monthInquiries">0</p>
+                            <div class="stat-number" id="monthInquiries">0</div>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="stat-info">
                             <h3>Pending</h3>
-                            <p class="stat-number" id="pendingInquiries">0</p>
+                            <div class="stat-number" id="pendingInquiries">0</div>
                         </div>
                     </div>
                 </div>
@@ -61,43 +61,20 @@
                             <a href="/admin/inquiries" class="view-all">View All</a>
                         </div>
                         <div class="table-responsive">
-                            <table id="recentInquiriesTable">
+
+                            <table>
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Company</th>
-                                        <th>Job Title</th>
+                                        <th>Contact Info</th>
+                                        <th>Company & Job</th>
                                         <th>Country</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="recentInquiriesList">
-                                    <!-- Populated by JavaScript -->
+                                    <!-- Will be populated by JavaScript -->
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-
-                    <div class="quick-actions card">
-                        <h2>Quick Actions</h2>
-                        <div class="actions-grid">
-                            <button class="action-btn" onclick="exportData('csv')">
-                                <i class="fas fa-file-csv"></i>
-                                Export CSV
-                            </button>
-                            <button class="action-btn" onclick="exportData('excel')">
-                                <i class="fas fa-file-excel"></i>
-                                Export Excel
-                            </button>
-                            <button class="action-btn" onclick="window.location.href='/admin/inquiries'">
-                                <i class="fas fa-search"></i>
-                                Search Inquiries
-                            </button>
-                            <button class="action-btn" onclick="generateReport()">
-                                <i class="fas fa-chart-bar"></i>
-                                Generate Report
-                            </button>
                         </div>
                     </div>
                 </div>
