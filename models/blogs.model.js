@@ -8,31 +8,32 @@ const blogSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        required: true,
-    },
-    photo: {
-        type: String,
-        required: true,
-    },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
+        required: true
     },
     category: {
         type: String,
         required: true,
-        enum: ["AI Trends", "Machine Learning", "AI Solutions", "Data Analytics", "Security"]
+        enum: ['AI', 'Technology', 'Innovation', 'Security']
+    },
+    photo: {
+        type: String,
+        default: '/images/blog-placeholder.jpg'
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     },
     updatedAt: {
         type: Date,
         default: Date.now
     }
-})
+});
 
 const Blog = mongoose.model("Blog", blogSchema);
+
 export default Blog;  

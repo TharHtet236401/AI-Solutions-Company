@@ -64,7 +64,7 @@ function renderBlogs(blogs) {
     blogsGrid.innerHTML = blogs.map(blog => `
         <div class="blog-card">
             <div class="blog-image">
-                <img src="${blog.image || '/images/placeholder.jpg'}" alt="${blog.title}">
+                <img src="${blog.photo || '/images/placeholder.jpg'}" alt="${blog.title}">
             </div>
             <div class="blog-content">
                 <span class="blog-category">${blog.category}</span>
@@ -101,7 +101,28 @@ function closeBlogModal() {
 
 async function handleBlogSubmit(event) {
     event.preventDefault();
-    // Handle blog submission
+    const form = document.getElementById('blogForm');
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch('/api/blogs', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        if (data.con) {
+            closeBlogModal();
+            await fetchAndRenderBlogs();
+            // Show success message
+            showSuccess('Blog created successfully');
+        } else {
+            showError(data.msg || 'Failed to create blog');
+        }
+    } catch (error) {
+        console.error('Error creating blog:', error);
+        showError('Error creating blog');
+    }
 }
 
 function formatDate(dateString) {
@@ -128,6 +149,71 @@ function showError(message) {
     // Implement error message display
 }
 
+function showSuccess(message) {
+    // Implement success message display
+    console.log('Success:', message);
+}
+
 function updatePagination() {
-    // Implement pagination update
+    const paginationContainer = document.querySelector('.pagination');
+    if (!paginationContainer || totalPages <= 1) return;
+
+    let paginationHTML = '';
+
+    // Previous button
+    paginationHTML += `
+        <button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                onclick="changePage(${currentPage - 1})" 
+                ${currentPage === 1 ? 'disabled' : ''}>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    `;
+
+    // Page numbers
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, currentPage + 2);
+
+    if (startPage > 1) {
+        paginationHTML += `
+            <button class="pagination-number" onclick="changePage(1)">1</button>
+            ${startPage > 2 ? '<span class="pagination-ellipsis">...</span>' : ''}
+        `;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHTML += `
+            <button class="pagination-number ${i === currentPage ? 'active' : ''}" 
+                    onclick="changePage(${i})">
+                ${i}
+            </button>
+        `;
+    }
+
+    if (endPage < totalPages) {
+        paginationHTML += `
+            ${endPage < totalPages - 1 ? '<span class="pagination-ellipsis">...</span>' : ''}
+            <button class="pagination-number" onclick="changePage(${totalPages})">
+                ${totalPages}
+            </button>
+        `;
+    }
+
+    // Next button
+    paginationHTML += `
+        <button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                onclick="changePage(${currentPage + 1})"
+                ${currentPage === totalPages ? 'disabled' : ''}>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    `;
+
+    paginationContainer.innerHTML = paginationHTML;
+}
+
+// Add this function to handle page changes
+async function changePage(page) {
+    if (page < 1 || page > totalPages || page === currentPage) return;
+    currentPage = page;
+    await fetchAndRenderBlogs();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 } 
