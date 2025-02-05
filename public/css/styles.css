@@ -2253,8 +2253,7 @@ img {
 .fade-in-section {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    will-change: opacity, transform;
+    animation: slideUp 0.8s ease-in-out forwards;
 }
 
 .fade-in-section.is-visible {
@@ -3750,5 +3749,74 @@ img {
     .achievement-badges,
     .industry-features {
         display: none;
+    }
+}
+
+/* Page Transitions */
+.page-transition {
+    animation: fadeIn 0.6s ease-in-out;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Page specific transitions */
+.blog-page,
+.gallery-page,
+.contact-page {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+/* Content transitions */
+.blog-section,
+.gallery-section,
+.contact-section,
+.solutions-content,
+.industries-content {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s ease-in-out forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero section transitions */
+.blog-hero,
+.gallery-hero,
+.contact-hero,
+.solutions-hero,
+.industries-hero {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.6s ease-in-out forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
