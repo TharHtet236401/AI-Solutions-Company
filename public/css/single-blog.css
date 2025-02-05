@@ -23,7 +23,7 @@
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 2rem;
     text-align: left;
@@ -92,7 +92,7 @@
 
 .content-wrapper {
     background: #fff;
-    padding: 2rem;
+    padding: 3rem;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-bottom: 4rem;
@@ -108,7 +108,9 @@
     white-space: pre-line;
     letter-spacing: 0.2px;
     text-align: left;
-    padding: 0 1rem;
+    padding: 0;
+    max-width: 900px;
+    margin: 0 auto 3rem;
 }
 
 .blog-footer {
@@ -199,14 +201,19 @@
         margin-bottom: 2rem;
     }
 
+    .container {
+        padding: 0 1rem;
+    }
+
     .content-wrapper {
-        padding: 1.5rem;
+        padding: 2rem 1.5rem;
     }
 
     .blog-text {
         font-size: 1rem;
         line-height: 1.7;
         padding: 0;
+        max-width: 100%;
     }
 
     .blog-footer {
