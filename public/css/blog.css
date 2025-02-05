@@ -105,6 +105,7 @@
 }
 
 .featured-blog .blog-meta {
+    justify-content: space-between;
     margin-bottom: 1.2rem;
     font-size: 0.95rem;
 }
@@ -156,10 +157,16 @@
 .blog-meta {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
     margin-bottom: 0.75rem;
     font-size: 0.85rem;
     color: #6c7a89;
+}
+
+.blog-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .blog-category {
@@ -168,6 +175,9 @@
     background: rgba(52, 152, 219, 0.1);
     padding: 0.2rem 0.8rem;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .blog-title {
@@ -290,6 +300,15 @@ span.page-link:hover {
 
     .featured-blog .blog-title {
         font-size: 1.75rem;
+    }
+
+    .blog-meta {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .blog-category {
+        margin-left: auto;
     }
 }
 
