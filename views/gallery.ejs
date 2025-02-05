@@ -9,43 +9,75 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <%- include('partials/nav-bar') %>
 
-    <section class="page-section fade-in-section">
-        <h1 class="section-title">Gallery</h1>
-        <p class="section-subtitle">Explore our AI solutions in action and company events</p>
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero fade-in-section">
+        <h1>Our Gallery</h1>
+        <p>Explore our journey through AI innovation and excellence</p>
+    </section>
 
+    <section class="gallery-content">
         <!-- Gallery Filter -->
-        <div class="gallery-filter">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="product">Product Demos</button>
-            <button class="filter-btn" data-filter="event">Events</button>
-            <button class="filter-btn" data-filter="team">Team</button>
+        <div class="gallery-filter fade-in-section">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-border-all"></i>
+                All
+            </button>
+            <button class="filter-btn" data-filter="product">
+                <i class="fas fa-microchip"></i>
+                Product Demos
+            </button>
+            <button class="filter-btn" data-filter="event">
+                <i class="fas fa-calendar-alt"></i>
+                Events
+            </button>
+            <button class="filter-btn" data-filter="team">
+                <i class="fas fa-users"></i>
+                Team
+            </button>
         </div>
 
         <!-- Gallery Grid -->
-        <div class="gallery-grid">
+        <div class="gallery-grid fade-in-section">
+            <!-- Product Demo Items -->
             <div class="gallery-item product">
                 <img src="/images/gallery/ai-demo-1.jpg" alt="AI Demo">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
+                        <span class="gallery-category">
+                            <i class="fas fa-microchip"></i>
+                            Product Demo
+                        </span>
                         <h3>AI Image Recognition Demo</h3>
-                        <p>Live demonstration of our image recognition system</p>
-                        <span class="gallery-category">Product Demo</span>
+                        <p>Live demonstration of our advanced image recognition system in action</p>
+                        <button class="view-details">
+                            <i class="fas fa-expand"></i>
+                            View Details
+                        </button>
                     </div>
                 </div>
             </div>
 
+            <!-- Event Items -->
             <div class="gallery-item event">
                 <img src="/images/gallery/conference-1.jpg" alt="AI Conference">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
+                        <span class="gallery-category">
+                            <i class="fas fa-calendar-alt"></i>
+                            Event
+                        </span>
                         <h3>AI Tech Summit 2024</h3>
-                        <p>Our team presenting latest AI innovations</p>
-                        <span class="gallery-category">Event</span>
+                        <p>Our team presenting the latest innovations in AI technology</p>
+                        <button class="view-details">
+                            <i class="fas fa-expand"></i>
+                            View Details
+                        </button>
                     </div>
                 </div>
             </div>
@@ -96,40 +128,17 @@
         </div>
 
         <!-- Load More Button -->
-        <div class="load-more">
-            <button class="load-more-btn">Load More <i class="fas fa-sync"></i></button>
+        <div class="load-more fade-in-section">
+            <button class="load-more-btn">
+                <i class="fas fa-spinner"></i>
+                Load More
+            </button>
         </div>
     </section>
 
     <%- include('partials/footer') %>
     
-    <!-- Add script reference before the gallery filter script -->
     <script src="/js/nav.js"></script>
-    <script>
-        // Simple gallery filter functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const galleryItems = document.querySelectorAll('.gallery-item');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    btn.classList.add('active');
-
-                    const filterValue = btn.getAttribute('data-filter');
-
-                    galleryItems.forEach(item => {
-                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        });
-    </script>
+    <script src="/js/gallery.js"></script>
 </body>
 </html> 
