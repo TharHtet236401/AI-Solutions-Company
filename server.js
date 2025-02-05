@@ -5,6 +5,7 @@ import pageRoutes from './routes/pages.js';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import { connectMongo } from './config/connectMongo.js';
+import { mkdirSync } from 'fs';
 dotenv.config();
 const app = express();
 
@@ -23,6 +24,9 @@ app.set("views", path.join(__dirname, "views"));
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Ensure upload directory exists
+mkdirSync('public/uploads/blogs', { recursive: true });
 
 // Use page routes
 app.use('/', pageRoutes);

@@ -80,19 +80,21 @@ export const getBlog = async (req, res) => {
 // Create new blog
 export const createBlog = async (req, res) => {
     try {
-        const { title, content, photo, category, status } = req.body;
+        const { title, content, category, status } = req.body;
         
-        // if (!title || !content || !photo || !category) {
-        //     return fError(res, "All fields are required", 400);
-        // }
+        if (!req.file) {
+            return fError(res, "Blog photo is required", 400);
+        }
 
+        const photo = `/uploads/blogs/${req.file.filename}`;
+        
         const blog = new Blog({
             title,
             content,
             photo,
             category,
             status: status || 'draft',
-            author: req.user._id // Assuming you have user info in request after authentication
+            author: req.user._id
         });
 
         await blog.save();
@@ -107,7 +109,15 @@ export const createBlog = async (req, res) => {
 export const updateBlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const updateData = { ...req.body, updatedAt: Date.now() };
+        const updateData = { 
+            ...req.body, 
+            updatedAt: Date.now() 
+        };
+
+        // If a new photo was uploaded, update the photo path
+        if (req.file) {
+            updateData.photo = `/uploads/blogs/${req.file.filename}`;
+        }
 
         const blog = await Blog.findById(id);
         if (!blog) {
