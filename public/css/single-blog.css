@@ -1,0 +1,228 @@
+.single-blog {
+    background: #fff;
+}
+
+.blog-header {
+    background: linear-gradient(135deg, #10375B, #1a4b76), url('/images/pattern-bg.png');
+    background-blend-mode: overlay;
+    color: #fff;
+    padding: 6rem 0 3rem;
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.blog-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    opacity: 0.8;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: left;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.blog-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+}
+
+.blog-category {
+    background: rgba(52, 152, 219, 0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-meta i {
+    color: #3498db;
+    margin-right: 0.3rem;
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+    text-align: left;
+}
+
+.blog-featured-image {
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    margin: -6rem auto 3rem;
+    max-width: 1000px;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.blog-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-wrapper {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 4rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.blog-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #2c3e50;
+    margin-bottom: 3rem;
+    white-space: pre-line;
+    letter-spacing: 0.2px;
+    text-align: left;
+    padding: 0 1rem;
+}
+
+.blog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+}
+
+.share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.share-buttons span {
+    color: #6c7a89;
+    font-size: 0.9rem;
+}
+
+.share-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.share-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.share-button.facebook {
+    background: #1877f2;
+}
+
+.share-button.twitter {
+    background: #1da1f2;
+}
+
+.share-button.linkedin {
+    background: #0077b5;
+}
+
+.back-to-blogs {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #10375B;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.back-to-blogs:hover {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.15);
+    transform: translateX(-5px);
+}
+
+.blog-date {
+    color: #fff;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .blog-header {
+        padding: 4rem 0 2rem;
+    }
+
+    .blog-title {
+        font-size: 2rem;
+    }
+
+    .blog-featured-image {
+        height: 250px;
+        margin-top: -3rem;
+        margin-bottom: 2rem;
+    }
+
+    .content-wrapper {
+        padding: 1.5rem;
+    }
+
+    .blog-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding: 0;
+    }
+
+    .blog-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .share-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .back-to-blogs {
+        width: 100%;
+        justify-content: center;
+        padding-top: 1.5rem;
+        text-align: center;
+    }
+} 

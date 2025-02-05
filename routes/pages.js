@@ -196,4 +196,21 @@ router.get("/admin/logout", (req, res) => {
     res.redirect('/admin/login');
 });
 
+// Add this route
+router.get("/blog/:id", async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id).populate('author', 'name');
+        if (!blog) {
+            return res.status(404).render('404', { title: 'Blog Not Found' });
+        }
+        res.render("single-blog", { 
+            title: blog.title,
+            blog
+        });
+    } catch (error) {
+        console.error("Error rendering single blog page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router; 
