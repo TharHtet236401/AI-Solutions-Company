@@ -103,11 +103,16 @@
 
 .gallery-item {
     position: relative;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     aspect-ratio: 16/9;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(52, 152, 219, 0.25);
 }
 
 .gallery-item img {
@@ -115,31 +120,43 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
-/* Update overlay and info styles for center positioning */
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay styling with gradient */
 .gallery-overlay {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.7);  /* Solid dark overlay */
+    background: linear-gradient(
+        135deg,
+        rgba(16, 55, 91, 0.95),
+        rgba(52, 152, 219, 0.85)
+    );
     color: white;
     opacity: 0;
-    transition: all 0.3s ease;
-    display: flex;           /* Enable flexbox */
-    align-items: center;     /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
 }
 
 .gallery-info {
     text-align: center;
-    padding: 1.5rem;
+    padding: 2rem;
     transform: translateY(20px);
-    transition: transform 0.3s ease;
+    transition: all 0.4s ease;
     max-width: 90%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -151,17 +168,33 @@
 }
 
 .gallery-info h3 {
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    margin: 0 0 0.8rem 0;
     font-weight: 600;
     color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.gallery-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: #3498db;
+    background: linear-gradient(to right, transparent, #fff, transparent);
 }
 
 .gallery-info p {
     font-size: 0.95rem;
     margin: 0;
-    opacity: 0.9;
-    line-height: 1.4;
+    opacity: 0.95;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .view-details {
