@@ -4,11 +4,14 @@ import path from "path";
 // Configure multer for file upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/blogs'); // Make sure this directory exists
+        const uploadDir = file.fieldname === 'image' 
+            ? 'public/uploads/gallery'
+            : 'public/uploads/blogs';
+        cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'blog-' + uniqueSuffix + path.extname(file.originalname));
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
     }
 });
 

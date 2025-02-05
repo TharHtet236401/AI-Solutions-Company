@@ -12,8 +12,11 @@ export const fMsg = (res, msg, result = {}, statusCode = 200) => {
     return res.status(statusCode).json({ con: true, msg, result });
 };
 
-export const fError = (res, msg, statusCode = 500) => {
-    return res.status(statusCode).json({ con: false, msg});
+export const fError = (res, msg = "Error", statusCode = 500) => {
+    return res.status(statusCode).json({
+        con: false,
+        msg,
+    });
 };
 
 //you can encode the password
