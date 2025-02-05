@@ -24,7 +24,12 @@
     margin-bottom: 1rem;
     font-weight: 700;
     letter-spacing: -0.5px;
+    background: linear-gradient(to right, #fff, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }
+
 
 .blog-hero p {
     color: rgba(255, 255, 255, 0.9);

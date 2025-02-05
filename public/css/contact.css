@@ -30,6 +30,9 @@
     font-size: 3rem;
     margin-bottom: 1.5rem;
     position: relative;
+    background: linear-gradient(to right, #fff, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .contact-hero p {
