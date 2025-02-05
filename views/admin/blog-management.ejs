@@ -23,21 +23,35 @@
                     </button>
                 </div>
 
-                <div class="blog-filters">
-                    <div class="search-input-wrapper">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" id="searchInput" class="search-input" placeholder="Search blogs...">
+                <div class="filter-actions">
+                    <div class="filter-group">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInput" class="search-input" placeholder="Search blogs...">
+                        </div>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option value="AI">AI</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Innovation">Innovation</option>
+                            <option value="Security">Security</option>
+                        </select>
+                        <select id="sortOrder" class="filter-select">
+                            <option value="-createdAt">Latest First</option>
+                            <option value="createdAt">Oldest First</option>
+                        </select>
+                        <button class="refresh-btn" onclick="resetFilters()">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
                     </div>
-                    <select id="categoryFilter" class="filter-select">
-                        <option value="">All Categories</option>
-                        <option value="AI">AI</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Innovation">Innovation</option>
-                    </select>
-                    <select id="sortOrder" class="filter-select">
-                        <option value="-createdAt">Latest First</option>
-                        <option value="createdAt">Oldest First</option>
-                    </select>
+                    <div class="action-group">
+                        <button class="export-btn" onclick="exportData('csv')">
+                            <i class="fas fa-file-csv"></i> CSV
+                        </button>
+                        <button class="export-btn" onclick="exportData('excel')">
+                            <i class="fas fa-file-excel"></i> Excel
+                        </button>
+                    </div>
                 </div>
 
                 <div class="blogs-grid" id="blogsGrid">
