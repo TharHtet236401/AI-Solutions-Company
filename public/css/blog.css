@@ -26,14 +26,14 @@
 /* Featured Blog */
 .featured-blog {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     gap: 2rem;
     margin-bottom: 3rem;
     background: #fff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    min-height: 400px;
+    min-height: 500px;
 }
 
 .featured-image {
@@ -54,7 +54,8 @@
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    overflow-y: auto;
+    max-height: 500px;
 }
 
 .featured-tag {
@@ -62,6 +63,37 @@
     font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 1rem;
+}
+
+.featured-blog .blog-excerpt {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #4a5568;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: justify;
+}
+
+.featured-blog .blog-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    color: #2c3e50;
+}
+
+.featured-blog .blog-meta {
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+}
+
+.featured-blog .read-more {
+    font-size: 1rem;
+    display: inline-block;
+    margin-top: 0;
+    padding-top: 0.5rem;
 }
 
 /* Blog Grid */
@@ -191,11 +223,10 @@ span.page-link:hover {
 @media (max-width: 768px) {
     .featured-blog {
         grid-template-columns: 1fr;
-        min-height: auto;
     }
     
     .featured-image {
-        height: 300px;
+        height: 350px;
         position: static;
     }
     
@@ -204,7 +235,7 @@ span.page-link:hover {
     }
 
     .featured-content {
-        padding: 2rem;
+        padding: 1.5rem;
     }
     
     .blog-grid {
@@ -212,4 +243,27 @@ span.page-link:hover {
         max-width: 500px;
         margin: 0 auto;
     }
+
+    .featured-blog .blog-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* Custom scrollbar for featured content */
+.featured-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.featured-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.featured-content::-webkit-scrollbar-thumb {
+    background: #3498db;
+    border-radius: 3px;
+}
+
+.featured-content::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;
 } 

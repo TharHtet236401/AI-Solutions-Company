@@ -41,7 +41,7 @@
                 </div>
                 <h2 class="blog-title"><%= featuredBlog ? featuredBlog.title : 'No Featured Blog' %></h2>
                 <p class="blog-excerpt">
-                    <%= featuredBlog ? featuredBlog.content.substring(0, 200) + '...' : '' %>
+                    <%= featuredBlog ? featuredBlog.content.substring(0, 1000) + '...' : '' %>
                 </p>
                 <% if (featuredBlog) { %>
                     <a href="/blog/<%= featuredBlog._id %>" class="read-more">
@@ -71,7 +71,7 @@
                                 </span>
                             </div>
                             <h3 class="blog-title"><%= blog.title %></h3>
-                            <p class="blog-excerpt"><%= blog.content.substring(0, 150) %>...</p>
+                            <p class="blog-excerpt"><%= blog.content.substring(0, 120) %>...</p>
                             <a href="/blog/<%= blog._id %>" class="read-more">
                                 Continue Reading <i class="fas fa-arrow-right"></i>
                             </a>
