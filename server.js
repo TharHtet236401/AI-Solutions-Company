@@ -16,6 +16,7 @@ const __dirname = path.dirname(__filename);
 
 import usersRoutes from './routes/users.route.js';
 import inquiriesRoutes from './routes/inquiries.route.js';
+import blogsRoutes from './routes/blogs.route.js';
 // Set EJS as the template engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', pageRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/inquiries', inquiriesRoutes);
+app.use('/api/blogs', blogsRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
