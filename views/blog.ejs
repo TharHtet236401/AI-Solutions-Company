@@ -9,117 +9,116 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/blog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="blog-page">
     <%- include('partials/nav-bar') %>
 
-    <section class="page-section">
-        <div class="fade-in-section">
-            <h1 class="section-title">AI Solutions Blog</h1>
-            <p class="section-subtitle">Insights, trends, and innovations in artificial intelligence</p>
-        </div>
+    <section class="blog-hero">
+        <h1>AI Solutions Blog</h1>
+        <p>Insights, trends, and innovations in artificial intelligence</p>
+    </section>
 
-        <!-- Featured Article -->
-        <div class="fade-in-section">
-            <div class="featured-article">
-                <div class="featured-image">
-                    <img src="/images/blog/ai-future.jpg" alt="The Future of AI">
-                    <span class="featured-tag">Featured</span>
+    <section class="blog-section">
+        <!-- Featured Blog -->
+        <div class="featured-blog">
+            <div class="featured-image">
+                <img src="<%= featuredBlog ? featuredBlog.photo : '/images/blog/default.jpg' %>" 
+                     alt="<%= featuredBlog ? featuredBlog.title : 'Featured Blog' %>">
+                <span class="featured-tag">Featured</span>
+            </div>
+            <div class="blog-content">
+                <div class="blog-meta">
+                    <span class="blog-date">
+                        <i class="far fa-calendar"></i>
+                        <%= featuredBlog ? new Date(featuredBlog.createdAt).toLocaleDateString() : '' %>
+                    </span>
+                    <span class="blog-category">
+                        <i class="fas fa-tag"></i>
+                        <%= featuredBlog ? featuredBlog.category : '' %>
+                    </span>
                 </div>
-                <div class="featured-content">
-                    <div class="article-meta">
-                        <span class="article-date"><i class="far fa-calendar"></i> March 15, 2024</span>
-                        <span class="article-category"><i class="fas fa-tag"></i> AI Trends</span>
-                    </div>
-                    <h2>The Future of AI: Transforming Industries in 2024 and Beyond</h2>
-                    <p>Explore how artificial intelligence is reshaping various sectors and what to expect in the coming years...</p>
-                    <a href="#" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
-                </div>
+                <h2 class="blog-title"><%= featuredBlog ? featuredBlog.title : 'No Featured Blog' %></h2>
+                <p class="blog-excerpt">
+                    <%= featuredBlog ? featuredBlog.content.substring(0, 200) + '...' : '' %>
+                </p>
+                <% if (featuredBlog) { %>
+                    <a href="/blog/<%= featuredBlog._id %>" class="read-more">
+                        Read Article <i class="fas fa-arrow-right"></i>
+                    </a>
+                <% } %>
             </div>
         </div>
 
         <!-- Blog Grid -->
-        <div class="fade-in-section">
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="/images/blog/machine-learning.jpg" alt="Machine Learning">
-                    </div>
-                    <div class="blog-content">
-                        <div class="article-meta">
-                            <span class="article-date"><i class="far fa-calendar"></i> March 10, 2024</span>
-                            <span class="article-category"><i class="fas fa-tag"></i> Machine Learning</span>
+        <div class="blog-grid">
+            <% if (blogs && blogs.length > 0) { %>
+                <% blogs.forEach(blog => { %>
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="<%= blog.photo %>" alt="<%= blog.title %>">
                         </div>
-                        <h3>Understanding Deep Learning: A Comprehensive Guide</h3>
-                        <p>Dive deep into the fundamentals of deep learning and its practical applications in modern businesses...</p>
-                        <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="/images/blog/chatbots.jpg" alt="AI Chatbots">
-                    </div>
-                    <div class="blog-content">
-                        <div class="article-meta">
-                            <span class="article-date"><i class="far fa-calendar"></i> March 8, 2024</span>
-                            <span class="article-category"><i class="fas fa-tag"></i> AI Solutions</span>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-date">
+                                    <i class="far fa-calendar"></i>
+                                    <%= new Date(blog.createdAt).toLocaleDateString() %>
+                                </span>
+                                <span class="blog-category">
+                                    <i class="fas fa-tag"></i>
+                                    <%= blog.category %>
+                                </span>
+                            </div>
+                            <h3 class="blog-title"><%= blog.title %></h3>
+                            <p class="blog-excerpt"><%= blog.content.substring(0, 150) %>...</p>
+                            <a href="/blog/<%= blog._id %>" class="read-more">
+                                Continue Reading <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
-                        <h3>How AI Chatbots Are Revolutionizing Customer Service</h3>
-                        <p>Discover how AI-powered chatbots are transforming customer service and improving user experience...</p>
-                        <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="/images/blog/data-analytics.jpg" alt="Data Analytics">
-                    </div>
-                    <div class="blog-content">
-                        <div class="article-meta">
-                            <span class="article-date"><i class="far fa-calendar"></i> March 5, 2024</span>
-                            <span class="article-category"><i class="fas fa-tag"></i> Data Analytics</span>
-                        </div>
-                        <h3>Predictive Analytics: The Key to Business Intelligence</h3>
-                        <p>Learn how predictive analytics is helping businesses make better decisions and forecast future trends...</p>
-                        <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="/images/blog/ai-security.jpg" alt="AI Security">
-                    </div>
-                    <div class="blog-content">
-                        <div class="article-meta">
-                            <span class="article-date"><i class="far fa-calendar"></i> March 1, 2024</span>
-                            <span class="article-category"><i class="fas fa-tag"></i> Security</span>
-                        </div>
-                        <h3>AI in Cybersecurity: Protecting Digital Assets</h3>
-                        <p>Explore how artificial intelligence is strengthening cybersecurity measures and preventing threats...</p>
-                        <a href="#" class="read-more">Continue Reading <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                <% }) %>
+            <% } else { %>
+                <div class="no-blogs-message">
+                    <h3>No blogs available at the moment.</h3>
+                    <p>Check back soon for new content!</p>
+                </div>
+            <% } %>
         </div>
 
         <!-- Pagination -->
-        <div class="fade-in-section">
+        <% if (totalPages > 1) { %>
             <div class="pagination">
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">3</a>
-                <span class="page-dots">...</span>
-                <a href="#" class="page-link">10</a>
-                <a href="#" class="page-link next">Next <i class="fas fa-chevron-right"></i></a>
+                <% if (currentPage > 1) { %>
+                    <a href="?page=<%= currentPage - 1 %>" class="page-link">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </a>
+                <% } %>
+
+                <% for(let i = 1; i <= totalPages; i++) { %>
+                    <% if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) { %>
+                        <a href="?page=<%= i %>" 
+                           class="page-link <%= i === currentPage ? 'active' : '' %>"
+                           <%= i === currentPage ? 'aria-current="page"' : '' %>>
+                            <%= i %>
+                        </a>
+                    <% } else if (i === currentPage - 3 || i === currentPage + 3) { %>
+                        <span class="page-link">...</span>
+                    <% } %>
+                <% } %>
+
+                <% if (currentPage < totalPages) { %>
+                    <a href="?page=<%= currentPage + 1 %>" class="page-link">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </a>
+                <% } %>
             </div>
-        </div>
+        <% } %>
     </section>
 
     <%- include('partials/footer') %>
     
-    <!-- Add script reference -->
     <script src="/js/nav.js"></script>
+    <script src="/js/blog.js"></script>
 </body>
 </html> 

@@ -1,5 +1,6 @@
 import express from 'express';
 import { checkAuth } from '../middleware/authMiddleware.js';
+import Blog from '../models/blogs.model.js';
 const router = express.Router();
 
 // Routes with error handling
@@ -41,7 +42,33 @@ router.get("/feedback", async (req, res) => {
 
 router.get("/blog", async (req, res) => {
     try {
-        res.render("blog", { title: "Blog - AI Solutions" });
+        const page = parseInt(req.query.page) || 1;
+        const limit = 6; // Number of blogs per page
+
+        // Get total count for pagination
+        const total = await Blog.countDocuments();
+        const totalPages = Math.ceil(total / limit);
+
+        // Fetch blogs with pagination
+        const blogs = await Blog.find()
+            .populate('author', 'name')
+            .sort('-createdAt')
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        // Get featured blog
+        const featuredBlog = await Blog.findOne()
+            .populate('author', 'name')
+            .sort('-createdAt');
+
+        res.render("blog", {
+            title: "Blog - AI Solutions",
+            blogs,
+            featuredBlog,
+            currentPage: page,
+            totalPages,
+            total
+        });
     } catch (error) {
         console.error("Error rendering blog page:", error);
         res.status(500).send("Internal Server Error");

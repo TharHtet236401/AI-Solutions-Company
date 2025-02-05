@@ -24,11 +24,6 @@ const blogSchema = new mongoose.Schema({
         required: true,
         enum: ["AI Trends", "Machine Learning", "AI Solutions", "Data Analytics", "Security"]
     },
-    status: {
-        type: String,
-        enum: ["draft", "published"],
-        default: "draft"
-    },
     createdAt: {
         type: Date,
         default: Date.now,

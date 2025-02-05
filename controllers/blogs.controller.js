@@ -80,7 +80,7 @@ export const getBlog = async (req, res) => {
 // Create new blog
 export const createBlog = async (req, res) => {
     try {
-        const { title, content, category, status } = req.body;
+        const { title, content, category } = req.body;
         
         if (!req.file) {
             return fError(res, "Blog photo is required", 400);
@@ -93,9 +93,9 @@ export const createBlog = async (req, res) => {
             content,
             photo,
             category,
-            status: status || 'draft',
             author: req.user._id
         });
+
 
         await blog.save();
         fMsg(res, "Blog created successfully", blog, 201);
