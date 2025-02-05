@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function loadFilteredGallery(category = 'all', page = 1, append = false) {
         try {
+            // Show loading state
+            loadMoreBtn.classList.add('loading');
+            
             const response = await fetch(`/api/gallery?page=${page}&limit=4&category=${category}`);
             const data = await response.json();
             
@@ -36,9 +39,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Show/hide load more button based on whether there are more items
                 loadMoreBtn.style.display = data.result.hasMore ? 'block' : 'none';
+            } else {
+                // No items found
+                const galleryGrid = document.querySelector('.gallery-grid');
+                if (!append) {
+                    galleryGrid.innerHTML = '<div class="no-items">No images found in this category</div>';
+                }
+                loadMoreBtn.style.display = 'none';
             }
         } catch (error) {
             console.error('Error loading gallery:', error);
+        } finally {
+            // Remove loading state
+            loadMoreBtn.classList.remove('loading');
         }
     }
 

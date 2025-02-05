@@ -6,12 +6,19 @@ export const getGallery = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 4;
     const skip = (page - 1) * limit;
+    const category = req.query.category;
 
-    // Get total count for pagination
-    const total = await Gallery.countDocuments();
+    // Build query based on category
+    let query = {};
+    if (category && category !== 'all') {
+      query.category = category;
+    }
+
+    // Get total count for pagination with category filter
+    const total = await Gallery.countDocuments(query);
     
-    // Get paginated items
-    const gallery = await Gallery.find()
+    // Get paginated items with category filter
+    const gallery = await Gallery.find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
@@ -20,9 +27,11 @@ export const getGallery = async (req, res) => {
       items: gallery,
       currentPage: page,
       totalPages: Math.ceil(total / limit),
-      hasMore: skip + gallery.length < total
+      hasMore: skip + gallery.length < total,
+      total
     });
   } catch (error) {
+    console.error("Error fetching gallery:", error);
     fError(res, error.message, 500);
   }
 };
