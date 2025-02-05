@@ -3,8 +3,25 @@ import { fMsg, fError } from "../utils/libby.js";
 
 export const getGallery = async (req, res) => {
   try {
-    const gallery = await Gallery.find();
-    fMsg(res, "Gallery fetched successfully", gallery);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 4;
+    const skip = (page - 1) * limit;
+
+    // Get total count for pagination
+    const total = await Gallery.countDocuments();
+    
+    // Get paginated items
+    const gallery = await Gallery.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    fMsg(res, "Gallery fetched successfully", {
+      items: gallery,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      hasMore: skip + gallery.length < total
+    });
   } catch (error) {
     fError(res, error.message, 500);
   }

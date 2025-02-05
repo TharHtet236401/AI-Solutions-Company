@@ -11,6 +11,40 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+    async function loadGalleryImages() {
+        try {
+            const response = await fetch('/api/gallery');
+            const data = await response.json();
+            
+            if (data.con && data.result.length > 0) {
+                const galleryGrid = document.querySelector('.gallery-grid');
+                galleryGrid.innerHTML = ''; // Clear existing content
+                
+                data.result.forEach(item => {
+                    const imageUrl = item.image || '/images/placeholder.jpg'; // Fallback image
+                    const html = `
+                        <div class="gallery-item">
+                            <img src="${imageUrl}" alt="${item.title}">
+                            <div class="gallery-overlay">
+                                <div class="gallery-info">
+                                    <h3>${item.title}</h3>
+                                    ${item.description ? `<p>${item.description}</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    galleryGrid.innerHTML += html;
+                });
+            }
+        } catch (error) {
+            console.error('Error loading gallery:', error);
+        }
+    }
+
+    // Load images when page loads
+    document.addEventListener('DOMContentLoaded', loadGalleryImages);
+    </script>
 </head>
 <body>
     <%- include('partials/nav-bar') %>
@@ -42,30 +76,16 @@
             </button>
         </div>
 
-        <!-- Gallery Grid -->
+        <!-- Gallery Grid - This will be populated by JavaScript -->
         <div class="gallery-grid fade-in-section">
-            <div class="gallery-item">
-                <img src="/images/gallery/ai-demo-1.jpg" alt="AI Demo">
-            </div>
-
-            <div class="gallery-item">
-                <img src="/images/gallery/conference-1.jpg" alt="AI Conference">
-            </div>
-
-            <div class="gallery-item">
-                <img src="/images/gallery/ai-demo-2.jpg" alt="Machine Learning Demo">
-            </div>
-
-            <div class="gallery-item">
-                <img src="/images/gallery/team-1.jpg" alt="Team Workshop">
-            </div>
+            <!-- Images will be loaded here -->
         </div>
 
         <!-- Load More Button -->
         <div class="load-more fade-in-section">
             <button class="load-more-btn">
                 <i class="fas fa-spinner"></i>
-                Load More
+                <span>Load More</span>
             </button>
         </div>
     </section>
