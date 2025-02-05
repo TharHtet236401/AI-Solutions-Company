@@ -213,4 +213,17 @@ router.get("/blog/:id", async (req, res) => {
     }
 });
 
+// Add this route for blog management
+router.get("/admin/blog-management", checkAuth, async (req, res) => {
+    try {
+        res.render("admin/blog-management", { 
+            title: "Blog Management - AI Solutions",
+            activeTab: 'blog-management'
+        });
+    } catch (error) {
+        console.error("Error rendering blog management page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router; 

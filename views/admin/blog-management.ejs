@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/admin-blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <%- include('./partials/sidebar') %>
+        
+        <main class="main-content">
+            <%- include('./partials/header') %>
+            
+            <div class="dashboard-content">
+                <div class="blog-header">
+                    <h1>Blog Management</h1>
+                    <button class="create-blog-btn" onclick="openCreateBlogModal()">
+                        <i class="fas fa-plus"></i> Create New Blog
+                    </button>
+                </div>
+
+                <div class="blog-filters">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search blogs...">
+                    </div>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="AI">AI</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Innovation">Innovation</option>
+                    </select>
+                    <select id="sortOrder" class="filter-select">
+                        <option value="-createdAt">Latest First</option>
+                        <option value="createdAt">Oldest First</option>
+                    </select>
+                </div>
+
+                <div class="blogs-grid" id="blogsGrid">
+                    <!-- Blogs will be populated here by JavaScript -->
+                </div>
+
+                <div class="pagination">
+                    <button class="pagination-btn" id="prevPage">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="page-numbers" id="pageNumbers">
+                        <!-- Page numbers will be populated by JavaScript -->
+                    </div>
+                    <button class="pagination-btn" id="nextPage">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create/Edit Blog Modal -->
+    <div class="modal" id="blogModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create New Blog</h2>
+                <button class="close-btn" onclick="closeBlogModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="blogForm" onsubmit="handleBlogSubmit(event)">
+                <div class="form-group">
+                    <label for="blogTitle">Title</label>
+                    <input type="text" id="blogTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="blogCategory">Category</label>
+                    <select id="blogCategory" name="category" required>
+                        <option value="AI">AI</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Innovation">Innovation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="blogContent">Content</label>
+                    <textarea id="blogContent" name="content" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="blogImage">Featured Image</label>
+                    <input type="file" id="blogImage" name="image" accept="image/*">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" onclick="closeBlogModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Blog</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/admin-dashboard.js"></script>
+    <script src="/js/admin-blog.js"></script>
+    <script src="/js/admin-header.js"></script>
+</body>
+</html> 
