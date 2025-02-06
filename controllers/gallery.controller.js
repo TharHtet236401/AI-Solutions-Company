@@ -4,7 +4,7 @@ import { fMsg, fError } from "../utils/libby.js";
 export const getGallery = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 4;
+    const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
     const category = req.query.category;
     const sort = req.query.sort || '-createdAt';
@@ -28,8 +28,8 @@ export const getGallery = async (req, res) => {
       items: gallery,
       currentPage: page,
       totalPages: Math.ceil(total / limit),
-      hasMore: skip + gallery.length < total,
-      total
+      total,
+      hasMore: page * limit < total
     });
   } catch (error) {
     console.error("Error fetching gallery:", error);

@@ -36,6 +36,7 @@ async function fetchAndRenderGallery() {
         if (data.con) {
             renderGallery(data.result.items);
             totalPages = data.result.totalPages;
+            currentPage = data.result.currentPage;
             updatePagination();
         }
     } catch (error) {
@@ -66,6 +67,13 @@ function renderGallery(items) {
             </div>
         </div>
     `).join('');
+}
+
+async function changePage(page) {
+    if (page < 1 || page > totalPages || page === currentPage) return;
+    currentPage = page;
+    await fetchAndRenderGallery();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function updatePagination() {
