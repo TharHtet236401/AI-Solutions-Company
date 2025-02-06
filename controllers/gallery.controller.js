@@ -7,6 +7,7 @@ export const getGallery = async (req, res) => {
     const limit = parseInt(req.query.limit) || 4;
     const skip = (page - 1) * limit;
     const category = req.query.category;
+    const sort = req.query.sort || '-createdAt';
 
     // Build query based on category
     let query = {};
@@ -17,9 +18,9 @@ export const getGallery = async (req, res) => {
     // Get total count for pagination with category filter
     const total = await Gallery.countDocuments(query);
     
-    // Get paginated items with category filter
+    // Get paginated items with category filter and sorting
     const gallery = await Gallery.find(query)
-      .sort({ createdAt: -1 })
+      .sort(sort)
       .skip(skip)
       .limit(limit);
 
