@@ -134,33 +134,54 @@ function updatePagination() {
 
 async function handleGallerySubmit(event) {
     event.preventDefault();
-    const form = document.getElementById('galleryForm');
+    
+    const form = event.target;
     const formData = new FormData(form);
-
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    
     try {
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        submitButton.disabled = true;
+
         const response = await fetch('/api/gallery', {
             method: 'POST',
             body: formData
         });
 
         const data = await response.json();
+
         if (data.con) {
+            showSuccess('Gallery item added successfully');
             closeGalleryModal();
             await fetchAndRenderGallery();
-            showSuccess('Image added successfully');
         } else {
-            showError(data.msg || 'Failed to add image');
+            showError(data.msg || 'Failed to add gallery item');
         }
     } catch (error) {
         console.error('Error:', error);
-        showError('Failed to add image');
+        showError('Failed to add gallery item');
+    } finally {
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
     }
 }
 
 function openCreateGalleryModal() {
     const modal = document.getElementById('galleryModal');
     const form = document.getElementById('galleryForm');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    // Reset form and set title
     form.reset();
+    modalTitle.textContent = 'Add New Image';
+    
+    // Show image preview placeholder
+    const previewContainer = document.getElementById('imagePreview');
+    if (previewContainer) {
+        previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
+    }
+    
     modal.style.display = 'block';
 }
 
@@ -191,13 +212,25 @@ async function deleteGalleryItem(id) {
 }
 
 function showSuccess(message) {
-    // Implement success message display
-    console.log('Success:', message);
+    const toast = document.createElement('div');
+    toast.className = 'toast success';
+    toast.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
 }
 
 function showError(message) {
-    // Implement error message display
-    console.error('Error:', message);
+    const toast = document.createElement('div');
+    toast.className = 'toast error';
+    toast.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
 }
 
 // Utility function for debouncing
@@ -211,4 +244,28 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-} 
+}
+
+// Add image preview functionality
+function setupImagePreview() {
+    const imageInput = document.getElementById('imageFile');
+    const previewContainer = document.getElementById('imagePreview');
+
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewContainer.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview" class="preview-image">
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Initialize image preview when document loads
+document.addEventListener('DOMContentLoaded', function() {
+    setupImagePreview();
+}); 

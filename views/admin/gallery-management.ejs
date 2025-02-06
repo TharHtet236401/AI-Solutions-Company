@@ -73,6 +73,7 @@
                 <div class="form-group">
                     <label for="imageCategory">Category</label>
                     <select id="imageCategory" name="category" required>
+                        <option value="">Select Category</option>
                         <option value="product">Products</option>
                         <option value="event">Events</option>
                         <option value="team">Team</option>
@@ -85,6 +86,9 @@
                 <div class="form-group">
                     <label for="imageFile">Image</label>
                     <input type="file" id="imageFile" name="image" accept="image/*" required>
+                    <div id="imagePreview">
+                        <div class="preview-placeholder">Image Preview</div>
+                    </div>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="cancel-btn" onclick="closeGalleryModal()">Cancel</button>

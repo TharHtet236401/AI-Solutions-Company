@@ -50,23 +50,28 @@ export const getGalleryById = async (req, res) => {
 
 export const createGallery = async (req, res) => {
   try {
-    console.log("Request body:", req.body);
-
-    console.log("Uploaded file:", req.file);
+    if (!req.file) {
+      return fError(res, "Image file is required", 400);
+    }
 
     const { title, category, description } = req.body;
+    
+    // Validate required fields
+    if (!title || !category) {
+      return fError(res, "Title and category are required", 400);
+    }
     
     // Create gallery item with file path
     const gallery = await Gallery.create({
       title,
       category,
       description,
-      image: req.file ? `/uploads/gallery/${req.file.filename}` : null
+      image: `/uploads/gallery/${req.file.filename}`
     });
     
-    fMsg(res, "Gallery created successfully", gallery);
+    fMsg(res, "Gallery item created successfully", gallery);
   } catch (error) {
-    console.error("Error creating gallery:", error);
+    console.error("Error creating gallery item:", error);
     fError(res, "Error creating gallery item", 500);
   }
 };

@@ -311,4 +311,159 @@
 .pagination-ellipsis {
     color: var(--text-secondary);
     padding: 0 8px;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.modal-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+    padding: 1rem 0;
+    margin: -2rem -2rem 1rem -2rem;
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+#imagePreview {
+    margin-top: 1rem;
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.preview-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+.toast.success {
+    background: var(--success-color);
+}
+
+.toast.error {
+    background: var(--danger-color);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.modal-actions {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 1rem 0;
+    margin: 1rem -2rem -2rem -2rem;
+    padding: 1rem 2rem 2rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
 } 
