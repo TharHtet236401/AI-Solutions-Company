@@ -213,4 +213,17 @@ router.get("/admin/blog-management", checkAuth, async (req, res) => {
     }
 });
 
+// Add this new route for gallery management
+router.get("/admin/gallery-management", checkAuth, async (req, res) => {
+    try {
+        res.render("admin/gallery-management", { 
+            title: "Gallery Management - AI Solutions",
+            activeTab: 'gallery-management'
+        });
+    } catch (error) {
+        console.error("Error rendering gallery management page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router; 
