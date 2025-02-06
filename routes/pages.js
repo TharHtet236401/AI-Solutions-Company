@@ -152,19 +152,6 @@ router.get("/admin/inquiry/:id", checkAuth, async (req, res) => {
     }
 });
 
-// Add this new route for Reports
-router.get("/admin/reports", checkAuth, async (req, res) => {
-    try {
-        res.render("admin/reports", { 
-            title: "Analytics & Reports - AI Solutions",
-            activeTab: 'reports'
-        });
-    } catch (error) {
-        console.error("Error rendering reports page:", error);
-        res.status(500).send("Internal Server Error");
-    }
-});
-
 // Add this new route for Admin Profile
 router.get("/admin/profile", checkAuth, async (req, res) => {
     try {
