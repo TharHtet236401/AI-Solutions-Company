@@ -1,0 +1,46 @@
+Base URL: http://localhost:3000/api
+
+# Authentication Routes
+POST    /users/login         - Login user
+POST    /users/logout        - Logout user
+
+# Blog Routes
+GET     /blogs              - Get all blogs
+GET     /blogs/:id          - Get single blog
+POST    /blogs              - Create new blog
+PUT     /blogs/:id          - Update blog
+DELETE  /blogs/:id          - Delete blog
+PATCH   /blogs/status/:id   - Update blog status
+
+# Gallery Routes
+GET     /gallery            - Get all gallery items
+GET     /gallery/:id        - Get single gallery item
+POST    /gallery            - Add new gallery item
+DELETE  /gallery/:id        - Delete gallery item
+
+# Inquiry Routes
+GET     /inquiries          - Get all inquiries
+GET     /inquiries/overview - Get dashboard statistics
+GET     /inquiries/export   - Export inquiries (CSV/Excel)
+GET     /inquiries/:id      - Get single inquiry
+POST    /inquiries          - Create new inquiry
+DELETE  /inquiries/:id      - Delete inquiry
+PATCH   /inquiries/status/:id - Update inquiry status
+
+# Page Routes (Frontend Views)
+GET     /                   - Home page
+GET     /solutions          - Solutions page
+GET     /industries         - Industries page
+GET     /feedback          - Feedback page
+GET     /blog              - Blog page
+GET     /gallery           - Gallery page
+GET     /contact           - Contact page
+
+# Admin Routes (Frontend Views)
+GET     /admin/dashboard           - Admin dashboard
+GET     /admin/inquiries          - Inquiries management
+GET     /admin/blog-management    - Blog management
+GET     /admin/gallery-management - Gallery management
+GET     /admin/profile           - Admin profile
+GET     /admin/settings          - Admin settings
+GET     /admin/logout            - Admin logout
