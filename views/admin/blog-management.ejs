@@ -84,8 +84,11 @@
                     <textarea id="blogContent" name="content" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="blogImage">Featured Image</label>
-                    <input type="file" id="blogImage" name="photo" accept="image/*">
+                    <label for="blogImage">Image</label>
+                    <input type="file" id="blogImage" name="photo" accept="image/*" required>
+                    <div id="imagePreview">
+                        <div class="preview-placeholder">Image Preview</div>
+                    </div>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="cancel-btn" onclick="closeBlogModal()">Cancel</button>

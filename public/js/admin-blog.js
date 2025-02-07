@@ -93,8 +93,19 @@ function renderBlogs(blogs) {
 // Add other necessary functions for blog management
 function openCreateBlogModal() {
     const modal = document.getElementById('blogModal');
-    document.getElementById('modalTitle').textContent = 'Create New Blog';
-    document.getElementById('blogForm').reset();
+    const form = document.getElementById('blogForm');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    // Reset form and set title
+    form.reset();
+    modalTitle.textContent = 'Create New Blog';
+    
+    // Reset image preview
+    const previewContainer = document.getElementById('imagePreview');
+    if (previewContainer) {
+        previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
+    }
+    
     modal.classList.add('active');
 }
 
@@ -289,4 +300,28 @@ async function editBlog(id) {
         console.error('Error:', error);
         window.showError('Failed to update blog post');
     }
-} 
+}
+
+// Add image preview functionality
+function setupImagePreview() {
+    const imageInput = document.getElementById('blogImage');
+    const previewContainer = document.getElementById('imagePreview');
+
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewContainer.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview" class="preview-image">
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Initialize image preview when document loads
+document.addEventListener('DOMContentLoaded', function() {
+    setupImagePreview();
+}); 
