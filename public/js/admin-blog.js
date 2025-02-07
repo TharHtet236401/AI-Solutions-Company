@@ -49,13 +49,17 @@ async function fetchAndRenderBlogs() {
         const data = await response.json();
         
         if (data.con) {
-            renderBlogs(data.result.blogs);
-            totalPages = data.result.totalPages;
+            const { items: blogs, currentPage: page, totalPages: pages } = data.result;
+            renderBlogs(blogs);
+            totalPages = pages;
+            currentPage = page;
             updatePagination();
+        } else {
+            window.showError(data.msg || 'Failed to load blogs');
         }
     } catch (error) {
         console.error('Error fetching blogs:', error);
-        showError('Failed to load blogs');
+        window.showError('Failed to load blogs');
     }
 }
 
@@ -101,27 +105,57 @@ function closeBlogModal() {
 
 async function handleBlogSubmit(event) {
     event.preventDefault();
-    const form = document.getElementById('blogForm');
+    
+    const form = event.target;
     const formData = new FormData(form);
-
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    
     try {
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        submitButton.disabled = true;
+
         const response = await fetch('/api/blogs', {
             method: 'POST',
             body: formData
         });
 
         const data = await response.json();
+
         if (data.con) {
+            window.showSuccess('Blog post created successfully');
             closeBlogModal();
             await fetchAndRenderBlogs();
-            // Show success message
-            showSuccess('Blog created successfully');
         } else {
-            showError(data.msg || 'Failed to create blog');
+            window.showError(data.msg || 'Failed to create blog post');
         }
     } catch (error) {
-        console.error('Error creating blog:', error);
-        showError('Error creating blog');
+        console.error('Error:', error);
+        window.showError('Failed to create blog post');
+    } finally {
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+    }
+}
+
+async function deleteBlog(id) {
+    if (confirm('Are you sure you want to delete this blog post?')) {
+        try {
+            const response = await fetch(`/api/blogs/${id}`, {
+                method: 'DELETE'
+            });
+
+            const data = await response.json();
+            if (data.con) {
+                await fetchAndRenderBlogs();
+                window.showSuccess('Blog post deleted successfully');
+            } else {
+                window.showError(data.msg || 'Failed to delete blog post');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            window.showError('Failed to delete blog post');
+        }
     }
 }
 
@@ -143,15 +177,6 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-}
-
-function showError(message) {
-    // Implement error message display
-}
-
-function showSuccess(message) {
-    // Implement success message display
-    console.log('Success:', message);
 }
 
 function updatePagination() {
@@ -240,4 +265,28 @@ async function resetFilters() {
     setTimeout(() => {
         refreshBtn.classList.remove('spinning');
     }, 500);
+}
+
+async function editBlog(id) {
+    try {
+        const response = await fetch(`/api/blogs/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        if (data.con) {
+            window.showSuccess('Blog post updated successfully');
+            closeBlogModal();
+            await fetchAndRenderBlogs();
+        } else {
+            window.showError(data.msg || 'Failed to update blog post');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        window.showError('Failed to update blog post');
+    }
 } 

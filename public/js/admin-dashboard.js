@@ -140,4 +140,51 @@ async function loadOverviewData() {
     } catch (error) {
         console.error('Error loading overview data:', error);
     }
+}
+
+// Add these utility functions to admin-dashboard.js so they can be used across all admin pages
+
+function showToast(message, type = 'success') {
+    // Remove existing toasts with the same message
+    const existingToasts = document.querySelectorAll('.toast');
+    existingToasts.forEach(toast => {
+        if (toast.querySelector('.message').textContent === message) {
+            toast.remove();
+        }
+    });
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span class="message">${message}</span>
+        <span class="close-toast">
+            <i class="fas fa-times"></i>
+        </span>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Add click handler to close button
+    const closeBtn = toast.querySelector('.close-toast');
+    closeBtn.addEventListener('click', () => {
+        toast.style.animation = 'slideOut 0.3s ease-out forwards';
+        setTimeout(() => toast.remove(), 300);
+    });
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (document.body.contains(toast)) {
+            toast.style.animation = 'slideOut 0.3s ease-out forwards';
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, 5000);
+}
+
+function showSuccess(message) {
+    showToast(message, 'success');
+}
+
+function showError(message) {
+    showToast(message, 'error');
 } 

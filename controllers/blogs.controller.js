@@ -5,9 +5,9 @@ import { fMsg, fError } from "../utils/libby.js";
 export const getBlogs = async (req, res) => {
     try {
         let query = {};
-        let limit = 10;
-        let page = 1;
-        let sort = '-createdAt';
+        let limit = parseInt(req.query.limit) || 8;
+        let page = parseInt(req.query.page) || 1;
+        let sort = req.query.sort || '-createdAt';
 
         // Add search functionality
         if (req.query.search) {
@@ -29,29 +29,17 @@ export const getBlogs = async (req, res) => {
             query.category = req.query.category;
         }
 
-        if (req.query.page) {
-            page = parseInt(req.query.page);
-        }
-        if (req.query.limit) {
-            limit = parseInt(req.query.limit);
-        }
-        if (req.query.sort) {
-            sort = req.query.sort;
-        }
-
+        const total = await Blog.countDocuments(query);
         const blogs = await Blog.find(query)
-            .populate('author', 'name email')
+            .populate('author', 'username')
             .sort(sort)
             .skip((page - 1) * limit)
             .limit(limit);
 
-        const total = await Blog.countDocuments(query);
-        const totalPages = Math.ceil(total / limit);
-
         fMsg(res, "Blogs fetched successfully", {
-            blogs,
-            totalPages,
+            items: blogs,
             currentPage: page,
+            totalPages: Math.ceil(total / limit),
             total
         });
     } catch (error) {

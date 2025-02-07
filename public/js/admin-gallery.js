@@ -41,7 +41,7 @@ async function fetchAndRenderGallery() {
         }
     } catch (error) {
         console.error('Error fetching gallery:', error);
-        showError('Failed to load gallery');
+        window.showError('Failed to load gallery');
     }
 }
 
@@ -152,15 +152,15 @@ async function handleGallerySubmit(event) {
         const data = await response.json();
 
         if (data.con) {
-            showSuccess('Gallery item added successfully');
+            window.showSuccess('Gallery item added successfully');
             closeGalleryModal();
             await fetchAndRenderGallery();
         } else {
-            showError(data.msg || 'Failed to add gallery item');
+            window.showError(data.msg || 'Failed to add gallery item');
         }
     } catch (error) {
         console.error('Error:', error);
-        showError('Failed to add gallery item');
+        window.showError('Failed to add gallery item');
     } finally {
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
@@ -200,37 +200,15 @@ async function deleteGalleryItem(id) {
             const data = await response.json();
             if (data.con) {
                 await fetchAndRenderGallery();
-                showSuccess('Image deleted successfully');
+                window.showSuccess('Image deleted successfully');
             } else {
-                showError(data.msg || 'Failed to delete image');
+                window.showError(data.msg || 'Failed to delete image');
             }
         } catch (error) {
             console.error('Error:', error);
-            showError('Failed to delete image');
+            window.showError('Failed to delete image');
         }
     }
-}
-
-function showSuccess(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast success';
-    toast.innerHTML = `
-        <i class="fas fa-check-circle"></i>
-        <span>${message}</span>
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-function showError(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast error';
-    toast.innerHTML = `
-        <i class="fas fa-exclamation-circle"></i>
-        <span>${message}</span>
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
 }
 
 // Utility function for debouncing
