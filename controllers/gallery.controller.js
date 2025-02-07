@@ -66,7 +66,8 @@ export const createGallery = async (req, res) => {
       title,
       category,
       description,
-      image: `/uploads/gallery/${req.file.filename}`
+      image: `/uploads/gallery/${req.file.filename}`,
+      poster: req.user._id
     });
     
     fMsg(res, "Gallery item created successfully", gallery);

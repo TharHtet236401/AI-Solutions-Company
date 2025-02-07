@@ -13,7 +13,7 @@ const router = express.Router();
 
 // Public routes - no authentication required
 router.get("/", getGallery);
-router.post("/", upload.single('image'), createGallery);
+router.post("/", validateToken, upload.single('image'), createGallery);
 router.get("/:id", getGalleryById);
 
 

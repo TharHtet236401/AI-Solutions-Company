@@ -203,10 +203,10 @@ export const updateInquiryStatus = async (req, res) => {
 
         const updatedInquiry = await Inquiry.findByIdAndUpdate(
             id,
-            { status },
-            { new: true }
+            { status, statusResponsedBy: req.user._id },
+            { new: true },
+            
         );
-
         if (!updatedInquiry) {
             return fError(res, "Inquiry not found", 404);
         }

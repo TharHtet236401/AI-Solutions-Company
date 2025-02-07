@@ -8,6 +8,9 @@ import {
   exportInquiries,
   overviewData
 } from "../controllers/inquiries.controller.js";
+import { validateToken } from "../utils/validator.js";
+
+
 
 
 const router = express.Router();
@@ -18,7 +21,7 @@ router.get("/export", exportInquiries);
 router.get("/:id", getInquiry);
 router.post("/", createInquiry);
 router.delete("/:id", deleteInquiry);
-router.patch("/status/:id", updateInquiryStatus);
+router.patch("/status/:id", validateToken, updateInquiryStatus);
 
 
 
