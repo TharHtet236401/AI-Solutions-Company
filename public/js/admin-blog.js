@@ -4,6 +4,7 @@ let totalPages = 1;
 let currentSort = '-createdAt';
 let currentCategory = '';
 let currentSearch = '';
+let blogToDelete = null;
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchAndRenderBlogs();
@@ -155,26 +156,52 @@ async function handleBlogSubmit(event) {
     }
 }
 
-async function deleteBlog(id) {
-    if (confirm('Are you sure you want to delete this blog post?')) {
-        try {
-            const response = await fetch(`/api/blogs/${id}`, {
-                method: 'DELETE'
-            });
+function deleteBlog(id) {
+    blogToDelete = id;
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
 
-            const data = await response.json();
-            if (data.con) {
-                await fetchAndRenderBlogs();
-                window.showSuccess('Blog post deleted successfully');
-            } else {
-                window.showError(data.msg || 'Failed to delete blog post');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            window.showError('Failed to delete blog post');
+function closeDeleteModal() {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.classList.remove('active');
+    document.body.style.overflow = '';
+    blogToDelete = null;
+}
+
+async function confirmDelete() {
+    if (!blogToDelete) return;
+    
+    try {
+        const response = await fetch(`/api/blogs/${blogToDelete}`, {
+            method: 'DELETE'
+        });
+
+        const data = await response.json();
+        if (data.con) {
+            showSuccess('Blog post deleted successfully');
+            await fetchAndRenderBlogs();
+        } else {
+            showError(data.msg || 'Failed to delete blog post');
         }
+    } catch (error) {
+        console.error('Error:', error);
+        showError('Failed to delete blog post');
+    } finally {
+        closeDeleteModal();
     }
 }
+
+// Add event listener to close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    });
+});
 
 function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-US', {
