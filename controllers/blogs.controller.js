@@ -1,5 +1,22 @@
 import Blog from "../models/blogs.model.js";
 import { fMsg, fError } from "../utils/libby.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Helper function to delete file
+const deleteFile = (filePath) => {
+    // Remove the leading slash and convert to absolute path
+    const absolutePath = path.join(__dirname, '..', 'public', filePath);
+    if (fs.existsSync(absolutePath)) {
+        fs.unlink(absolutePath, (err) => {
+            if (err) console.error('Error deleting file:', err);
+        });
+    }
+};
 
 // Get all blogs with filtering and pagination
 export const getBlogs = async (req, res) => {
@@ -102,21 +119,27 @@ export const updateBlog = async (req, res) => {
             updatedAt: Date.now() 
         };
 
-        // If a new photo was uploaded, update the photo path
-        if (req.file) {
-            updateData.photo = `/uploads/blogs/${req.file.filename}`;
-        }
-
         const blog = await Blog.findById(id);
         if (!blog) {
             return fError(res, "Blog not found", 404);
         }
 
+        // If a new photo was uploaded
+        if (req.file) {
+            // Store the new photo path
+            updateData.photo = `/uploads/blogs/${req.file.filename}`;
+            
+            // Delete the old photo if it exists and isn't the default
+            if (blog.photo) {
+                deleteFile(blog.photo);
+            }
+        }
+        
         const updatedBlog = await Blog.findByIdAndUpdate(
             id,
             updateData,
             { new: true }
-        ).populate('author', 'name email');
+        ).populate('author', 'username');
 
         fMsg(res, "Blog updated successfully", updatedBlog);
     } catch (error) {
@@ -133,6 +156,11 @@ export const deleteBlog = async (req, res) => {
         const blog = await Blog.findById(id);
         if (!blog) {
             return fError(res, "Blog not found", 404);
+        }
+
+        // Delete the photo file if it exists and isn't the default
+        if (blog.photo && !blog.photo.includes('placeholder')) {
+            deleteFile(blog.photo);
         }
 
         await Blog.findByIdAndDelete(id);
