@@ -96,24 +96,18 @@ function openCreateBlogModal() {
     const form = document.getElementById('blogForm');
     const modalTitle = document.getElementById('modalTitle');
     
-    // Reset form and set title
     form.reset();
-    delete form.dataset.blogId;
     form.dataset.mode = 'create';
+    delete form.dataset.blogId;
     modalTitle.textContent = 'Create New Blog';
     
-    // Reset image preview
     const previewContainer = document.getElementById('imagePreview');
-    if (previewContainer) {
-        previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
-    }
+    previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
     
-    // Make image required for new blog
     document.getElementById('blogImage').setAttribute('required', 'required');
     
-    // Show modal
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeBlogModal() {
@@ -124,13 +118,8 @@ function closeBlogModal() {
     form.dataset.mode = 'create';
     delete form.dataset.blogId;
     
-    // Reset image preview
-    const previewContainer = document.getElementById('imagePreview');
-    previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
-    
-    // Hide modal
-    modal.style.display = 'none';
-    document.body.style.overflow = ''; // Restore scrolling
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 async function handleBlogSubmit(event) {
@@ -297,42 +286,32 @@ async function resetFilters() {
 
 async function editBlog(blogId) {
     try {
-        // Fetch blog details
         const response = await fetch(`/api/blogs/${blogId}`);
         const data = await response.json();
         
         if (data.con) {
             const blog = data.result;
-            
-            // Get modal elements
             const modal = document.getElementById('blogModal');
             const form = document.getElementById('blogForm');
             const modalTitle = document.getElementById('modalTitle');
             
-            // Set modal title
             modalTitle.textContent = 'Edit Blog';
-            
-            // Populate form fields
             form.elements['title'].value = blog.title;
             form.elements['category'].value = blog.category;
             form.elements['content'].value = blog.content;
             
-            // Show current image preview
             const previewContainer = document.getElementById('imagePreview');
             previewContainer.innerHTML = `
                 <img src="${blog.photo}" alt="Current image" class="preview-image">
                 <p class="preview-note">Upload new image to change</p>
             `;
             
-            // Set form data attribute for edit mode
             form.dataset.mode = 'edit';
             form.dataset.blogId = blogId;
-            
-            // Make image upload optional for edit
             document.getElementById('blogImage').removeAttribute('required');
             
-            // Show modal
-            modal.style.display = 'block';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
     } catch (error) {
         console.error('Error:', error);
