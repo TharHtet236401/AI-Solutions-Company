@@ -27,14 +27,29 @@
                     <% results.forEach(result => { %>
                         <div class="search-result">
                             <h2><a href="<%= result.url %>"><%= result.title %></a></h2>
-                            <p class="result-excerpt"><%= result.excerpt %></p>
+                            <p class="result-excerpt"><%- result.excerpt %></p>
                             <a href="<%= result.url %>" class="result-link"><%= result.url %></a>
                         </div>
                     <% }); %>
                 </div>
             <% } else { %>
-                <p>No results found.</p>
+                <div class="no-results">
+                    <p>No results found for "<%= query %>"</p>
+                    <div class="suggestion">
+                        <p>Suggestions:</p>
+                        <ul>
+                            <li>Make sure all words are spelled correctly</li>
+                            <li>Try different keywords</li>
+                            <li>Try more general keywords</li>
+                            <li>Try fewer keywords</li>
+                        </ul>
+                    </div>
+                </div>
             <% } %>
+        <% } else { %>
+            <div class="no-results">
+                <p>Enter a search term to find content across our website</p>
+            </div>
         <% } %>
     </main>
 

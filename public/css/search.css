@@ -1,7 +1,8 @@
 .search-results-container {
     max-width: 800px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 2rem;
+    min-height: calc(100vh - 300px); /* Account for header and footer */
     background: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -9,11 +10,51 @@
 
 .search-results-container h1 {
     color: #333;
-    padding: 1rem 0;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
     border-bottom: 2px solid #eee;
-    margin-bottom: 1rem;
 }
 
+/* Query result text styling */
+.search-results-container > p {
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+/* No results styling */
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.no-results p {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.no-results .suggestion {
+    color: #888;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.no-results .suggestion ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.no-results .suggestion li {
+    margin: 0.5rem 0;
+}
+
+/* Search results styling */
 .search-result {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -45,6 +86,8 @@
     margin: 0.75rem 0;
     font-size: 0.95rem;
     line-height: 1.5;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .result-link {
@@ -59,17 +102,12 @@
     text-decoration: underline;
 }
 
-/* Query result styling */
-.search-results-container > p {
-    color: #666;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-}
-
-/* No results message */
-.search-results-container p:last-child {
-    color: #666;
-    text-align: center;
-    padding: 2rem 0;
-    font-style: italic;
+/* Add these styles to your existing CSS */
+.result-excerpt mark.highlight {
+    background-color: #fff3cd;
+    padding: 2px 0;
+    border-radius: 2px;
+    color: #856404;
+    font-weight: 500;
+    box-shadow: 0 0 0 1px rgba(233, 185, 73, 0.2);
 } 

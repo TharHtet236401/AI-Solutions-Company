@@ -37,24 +37,48 @@ class SearchController {
                     const content = await fs.readFile(path.join(process.cwd(), page.path), 'utf-8');
                     const $ = cheerio.load(content);
                     
-                    // Remove navigation, scripts, styles, and footer
+                    // Remove navigation, scripts, styles, footer and EJS includes
                     $('.main-nav').remove();
                     $('script').remove();
                     $('style').remove();
                     $('.site-footer').remove();
                     
-                    // Get text content
-                    const text = $('body').text().toLowerCase();
+                    // Clean up EJS syntax and other unwanted content
+                    let text = $('body').text()
+                        .replace(/<%[^>]*%>/g, '') // Remove EJS syntax
+                        .replace(/\[Object object\]/gi, '') // Remove object references
+                        .replace(/undefined/gi, '') // Remove undefined values
+                        .replace(/\s+/g, ' ') // Normalize whitespace
+                        .toLowerCase()
+                        .trim();
                     
                     // Check if search query exists in the content
                     if (text.includes(searchQuery)) {
-                        // Find the surrounding context of the search term
                         const index = text.indexOf(searchQuery);
                         const start = Math.max(0, index - 100);
                         const end = Math.min(text.length, index + searchQuery.length + 100);
-                        const excerpt = text.slice(start, end)
+                        let excerpt = text.slice(start, end)
                             .replace(/\s+/g, ' ')
                             .trim();
+
+                        // Clean up any remaining template syntax or special characters
+                        excerpt = excerpt
+                            .replace(/<%[^>]*%>/g, '')
+                            .replace(/\[Object object\]/gi, '')
+                            .replace(/undefined/gi, '')
+                            .trim();
+
+                        // Escape HTML special characters to prevent XSS
+                        excerpt = excerpt
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#039;');
+
+                        // Highlight the search query
+                        const regex = new RegExp(searchQuery, 'gi');
+                        excerpt = excerpt.replace(regex, match => `<mark class="highlight">${match}</mark>`);
 
                         results.push({
                             title: page.title,
@@ -64,7 +88,6 @@ class SearchController {
                     }
                 } catch (error) {
                     console.error(`Error processing ${page.path}:`, error);
-                    // Continue with other pages even if one fails
                     continue;
                 }
             }
