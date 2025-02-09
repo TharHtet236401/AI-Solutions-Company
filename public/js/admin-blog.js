@@ -98,6 +98,8 @@ function openCreateBlogModal() {
     
     // Reset form and set title
     form.reset();
+    delete form.dataset.blogId;
+    form.dataset.mode = 'create';
     modalTitle.textContent = 'Create New Blog';
     
     // Reset image preview
@@ -106,46 +108,61 @@ function openCreateBlogModal() {
         previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
     }
     
-    modal.classList.add('active');
+    // Make image required for new blog
+    document.getElementById('blogImage').setAttribute('required', 'required');
+    
+    // Show modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
 function closeBlogModal() {
     const modal = document.getElementById('blogModal');
-    modal.classList.remove('active');
+    const form = document.getElementById('blogForm');
+    
+    form.reset();
+    form.dataset.mode = 'create';
+    delete form.dataset.blogId;
+    
+    // Reset image preview
+    const previewContainer = document.getElementById('imagePreview');
+    previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
+    
+    // Hide modal
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; // Restore scrolling
 }
 
 async function handleBlogSubmit(event) {
     event.preventDefault();
     
     const form = event.target;
+    const isEdit = form.dataset.mode === 'edit';
+    const blogId = form.dataset.blogId;
+    
     const formData = new FormData(form);
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalText = submitButton.innerHTML;
     
     try {
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-        submitButton.disabled = true;
-
-        const response = await fetch('/api/blogs', {
-            method: 'POST',
+        const url = isEdit ? `/api/blogs/${blogId}` : '/api/blogs';
+        const method = isEdit ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
             body: formData
         });
-
+        
         const data = await response.json();
-
+        
         if (data.con) {
-            window.showSuccess('Blog post created successfully');
+            showSuccess(`Blog ${isEdit ? 'updated' : 'created'} successfully`);
             closeBlogModal();
             await fetchAndRenderBlogs();
         } else {
-            window.showError(data.msg || 'Failed to create blog post');
+            showError(data.msg || `Failed to ${isEdit ? 'update' : 'create'} blog`);
         }
     } catch (error) {
         console.error('Error:', error);
-        window.showError('Failed to create blog post');
-    } finally {
-        submitButton.innerHTML = originalText;
-        submitButton.disabled = false;
+        showError(`Failed to ${isEdit ? 'update' : 'create'} blog`);
     }
 }
 
@@ -278,27 +295,48 @@ async function resetFilters() {
     }, 500);
 }
 
-async function editBlog(id) {
+async function editBlog(blogId) {
     try {
-        const response = await fetch(`/api/blogs/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-
+        // Fetch blog details
+        const response = await fetch(`/api/blogs/${blogId}`);
         const data = await response.json();
+        
         if (data.con) {
-            window.showSuccess('Blog post updated successfully');
-            closeBlogModal();
-            await fetchAndRenderBlogs();
-        } else {
-            window.showError(data.msg || 'Failed to update blog post');
+            const blog = data.result;
+            
+            // Get modal elements
+            const modal = document.getElementById('blogModal');
+            const form = document.getElementById('blogForm');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            // Set modal title
+            modalTitle.textContent = 'Edit Blog';
+            
+            // Populate form fields
+            form.elements['title'].value = blog.title;
+            form.elements['category'].value = blog.category;
+            form.elements['content'].value = blog.content;
+            
+            // Show current image preview
+            const previewContainer = document.getElementById('imagePreview');
+            previewContainer.innerHTML = `
+                <img src="${blog.photo}" alt="Current image" class="preview-image">
+                <p class="preview-note">Upload new image to change</p>
+            `;
+            
+            // Set form data attribute for edit mode
+            form.dataset.mode = 'edit';
+            form.dataset.blogId = blogId;
+            
+            // Make image upload optional for edit
+            document.getElementById('blogImage').removeAttribute('required');
+            
+            // Show modal
+            modal.style.display = 'block';
         }
     } catch (error) {
         console.error('Error:', error);
-        window.showError('Failed to update blog post');
+        showError('Failed to fetch blog details');
     }
 }
 
