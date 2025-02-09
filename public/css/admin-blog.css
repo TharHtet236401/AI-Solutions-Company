@@ -99,29 +99,60 @@
     border-top: 1px solid var(--border-color);
 }
 
-.blog-action-btn {
-    padding: 0.5rem 1rem;
+.blog-action-btn,
+.edit-btn,
+.delete-btn {
+    padding: 0.6rem 1.2rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .edit-btn {
-    background: rgba(52, 152, 219, 0.1);
+    background: #f8f9fa;
     color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+.edit-btn:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
 }
 
 .delete-btn {
-    background: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
+    background: #fff5f5;
+    color: #dc3545;
+    border: 1px solid #dc3545;
 }
 
-.blog-action-btn:hover {
+.delete-btn:hover {
+    background: #dc3545;
+    color: white;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+.blog-action-btn i,
+.edit-btn i,
+.delete-btn i {
+    font-size: 0.9rem;
+}
+
+/* Add hover effect for action buttons */
+.blog-action-btn:active,
+.edit-btn:active,
+.delete-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Modal Styles */
