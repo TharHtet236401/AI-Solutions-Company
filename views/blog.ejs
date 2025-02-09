@@ -15,14 +15,14 @@
 <body>
     <%- include('partials/nav-bar') %>
 
-    <section class="blog-hero fade-in-section">
+    <section id="blog-hero" class="blog-hero fade-in-section">
         <h1>AI Solutions Blog</h1>
         <p>Insights, trends, and innovations in artificial intelligence</p>
     </section>
 
-    <section class="blog-section fade-in-section">
+    <section id="blog-content" class="blog-section fade-in-section">
         <!-- Featured Blog -->
-        <div class="featured-blog">
+        <div id="featured-post" class="featured-blog">
             <div class="featured-image">
                 <img src="<%= featuredBlog ? featuredBlog.photo : '/images/blog/default.jpg' %>" 
                      alt="<%= featuredBlog ? featuredBlog.title : 'Featured Blog' %>">
@@ -52,7 +52,7 @@
         </div>
 
         <!-- Blog Grid -->
-        <div class="blog-grid">
+        <div id="blog-grid" class="blog-grid">
             <% if (blogs && blogs.length > 0) { %>
                 <% blogs.forEach(blog => { %>
                     <article class="blog-card">
