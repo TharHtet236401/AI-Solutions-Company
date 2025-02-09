@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - AI Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('./partials/nav-bar') %>
+
+    <main class="search-results-container">
+        <h1>Search Results</h1>
+        
+        <% if (query) { %>
+            <p>Results for: "<%= query %>"</p>
+            
+            <% if (results.length > 0) { %>
+                <div class="search-results">
+                    <% results.forEach(result => { %>
+                        <div class="search-result">
+                            <h2><a href="<%= result.url %>"><%= result.title %></a></h2>
+                            <p class="result-excerpt"><%= result.excerpt %></p>
+                            <a href="<%= result.url %>" class="result-link"><%= result.url %></a>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p>No results found.</p>
+            <% } %>
+        <% } %>
+    </main>
+
+    <%- include('./partials/footer') %>
+    <script src="/js/main.js"></script>
+    <script src="/js/nav.js"></script>
+</body>
+</html> 

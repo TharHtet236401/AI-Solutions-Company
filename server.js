@@ -23,9 +23,11 @@ import galleryRoutes from './routes/gallery.route.js';
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-
-// Serve static files from the public directory
+// Serve static files from the public directory - move this BEFORE routes
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // Ensure upload directories exist
 mkdirSync('public/uploads/blogs', { recursive: true });

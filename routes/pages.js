@@ -1,6 +1,7 @@
 import express from 'express';
 import { checkAuth } from '../middleware/authMiddleware.js';
 import Blog from '../models/blogs.model.js';
+import searchController from '../controllers/search.controller.js';
 const router = express.Router();
 
 // Routes with error handling
@@ -225,5 +226,8 @@ router.get("/admin/gallery-management", checkAuth, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+// Update the search route
+router.get('/search', (req, res) => searchController.search(req, res));
 
 export default router; 
