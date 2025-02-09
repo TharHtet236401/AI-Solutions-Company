@@ -3823,38 +3823,32 @@ img {
 
 /* Search Bar Styles */
 .nav-search {
-    margin: 0 2rem;
-    flex: 1;
-    max-width: 400px;
+    margin: 0 1rem;
+    flex: 0.8;
+    max-width: 300px;
 }
 
 .search-form {
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
-    padding: 0.5rem;
+    border-radius: 20px;
+    padding: 0.3rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
-}
-
-.search-form:focus-within {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .search-input {
     background: none;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 0.8rem;
     color: #fff;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     width: 100%;
 }
 
 .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .search-input:focus {
@@ -3864,65 +3858,45 @@ img {
 .search-btn {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.3rem 0.5rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
 }
 
 .search-btn:hover {
     color: #fff;
 }
 
-/* Update existing .main-nav styles */
-.main-nav {
-    background: #10375B;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 1000;
+.search-btn i {
+    font-size: 0.85rem;
 }
 
 /* Update responsive styles */
 @media (max-width: 992px) {
     .nav-search {
-        order: -1;
-        max-width: none;
-        width: 100%;
-        margin: 1rem 0;
-        display: none; /* Hide by default on mobile */
-    }
-
-    .nav-search.active {
-        display: block; /* Show when menu is active */
-    }
-
-    .main-nav {
-        flex-wrap: wrap;
-    }
-
-    .nav-brand {
-        flex: 1;
-    }
-
-    /* Update hamburger menu styles */
-    .hamburger.active + .nav-links + .nav-search {
-        display: block;
+        margin: 0.5rem 0;
     }
 }
 
 @media (max-width: 576px) {
     .nav-search {
-        margin: 0.5rem 0;
+        margin: 0.3rem 0;
     }
 
     .search-form {
-        padding: 0.3rem;
+        padding: 0.2rem;
     }
 
     .search-input {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+    
+    .search-btn i {
+        font-size: 0.8rem;
     }
 }
