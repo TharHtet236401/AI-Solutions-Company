@@ -1,5 +1,22 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import Gallery from "../models/gallery.model.js";
 import { fMsg, fError } from "../utils/libby.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Helper function to delete file
+const deleteFile = (filePath) => {
+    // Remove the leading slash and convert to absolute path
+    const absolutePath = path.join(__dirname, '..', 'public', filePath);
+    if (fs.existsSync(absolutePath)) {
+        fs.unlink(absolutePath, (err) => {
+            if (err) console.error('Error deleting file:', err);
+        });
+    }
+};
 
 export const getGallery = async (req, res) => {
   try {
@@ -75,4 +92,26 @@ export const createGallery = async (req, res) => {
     console.error("Error creating gallery item:", error);
     fError(res, "Error creating gallery item", 500);
   }
+};
+
+export const deleteGallery = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        const gallery = await Gallery.findById(id);
+        if (!gallery) {
+            return fError(res, "Gallery item not found", 404);
+        }
+
+        // Delete the image file if it exists
+        if (gallery.image) {
+            deleteFile(gallery.image);
+        }
+
+        await Gallery.findByIdAndDelete(id);
+        fMsg(res, "Gallery item deleted successfully");
+    } catch (error) {
+        console.error('Error deleting gallery item:', error);
+        fError(res, "Error deleting gallery item", 500);
+    }
 };
