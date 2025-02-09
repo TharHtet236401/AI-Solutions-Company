@@ -4,6 +4,7 @@ let totalPages = 1;
 let currentSort = '-createdAt';
 let currentCategory = '';
 let currentSearch = '';
+let galleryToDelete = null;
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchAndRenderGallery();
@@ -60,7 +61,7 @@ function renderGallery(items) {
                     <button class="gallery-action-btn edit-btn" onclick="editGalleryItem('${item._id}')">
                         <i class="fas fa-edit"></i> Edit
                     </button>
-                    <button class="gallery-action-btn delete-btn" onclick="deleteGalleryItem('${item._id}')">
+                    <button class="gallery-action-btn delete-btn" onclick="deleteGallery('${item._id}')">
                         <i class="fas fa-trash"></i> Delete
                     </button>
                 </div>
@@ -190,26 +191,52 @@ function closeGalleryModal() {
     modal.style.display = 'none';
 }
 
-async function deleteGalleryItem(id) {
-    if (confirm('Are you sure you want to delete this image?')) {
-        try {
-            const response = await fetch(`/api/gallery/${id}`, {
-                method: 'DELETE'
-            });
+function deleteGallery(id) {
+    galleryToDelete = id;
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
 
-            const data = await response.json();
-            if (data.con) {
-                await fetchAndRenderGallery();
-                window.showSuccess('Image deleted successfully');
-            } else {
-                window.showError(data.msg || 'Failed to delete image');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            window.showError('Failed to delete image');
+function closeDeleteModal() {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.classList.remove('active');
+    document.body.style.overflow = '';
+    galleryToDelete = null;
+}
+
+async function confirmDelete() {
+    if (!galleryToDelete) return;
+    
+    try {
+        const response = await fetch(`/api/gallery/${galleryToDelete}`, {
+            method: 'DELETE'
+        });
+
+        const data = await response.json();
+        if (data.con) {
+            showSuccess('Gallery item deleted successfully');
+            await fetchAndRenderGallery();
+        } else {
+            showError(data.msg || 'Failed to delete gallery item');
         }
+    } catch (error) {
+        console.error('Error:', error);
+        showError('Failed to delete gallery item');
+    } finally {
+        closeDeleteModal();
     }
 }
+
+// Add event listener to close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    });
+});
 
 // Utility function for debouncing
 function debounce(func, wait) {

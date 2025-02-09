@@ -98,6 +98,28 @@
         </div>
     </div>
 
+    <!-- Add this after your existing gallery modal -->
+    <div class="delete-modal" id="deleteModal">
+        <div class="delete-modal-content">
+            <div class="delete-modal-header">
+                <i class="fas fa-exclamation-circle"></i>
+                <h3>Confirm Delete</h3>
+            </div>
+            <div class="delete-modal-body">
+                <p>Are you sure you want to delete this gallery item?</p>
+                <p class="delete-warning">This action cannot be undone.</p>
+            </div>
+            <div class="delete-modal-actions">
+                <button class="cancel-delete-btn" onclick="closeDeleteModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="confirm-delete-btn" onclick="confirmDelete()">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/admin-dashboard.js"></script>
     <script src="/js/admin-gallery.js"></script>
     <script src="/js/admin-header.js"></script>
