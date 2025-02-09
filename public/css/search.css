@@ -60,6 +60,7 @@
     padding: 1.5rem;
     border-bottom: 1px solid #eee;
     transition: background-color 0.2s;
+    position: relative;
 }
 
 .search-result:hover {
@@ -110,4 +111,12 @@
     color: #856404;
     font-weight: 500;
     box-shadow: 0 0 0 1px rgba(233, 185, 73, 0.2);
+}
+
+/* Add these styles */
+.result-section {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
 } 

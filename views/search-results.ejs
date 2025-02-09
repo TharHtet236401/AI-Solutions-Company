@@ -27,6 +27,7 @@
                     <% results.forEach(result => { %>
                         <div class="search-result">
                             <h2><a href="<%= result.url %>"><%= result.title %></a></h2>
+                            <div class="result-section"><%= result.section %></div>
                             <p class="result-excerpt"><%- result.excerpt %></p>
                             <a href="<%= result.url %>" class="result-link"><%= result.url %></a>
                         </div>

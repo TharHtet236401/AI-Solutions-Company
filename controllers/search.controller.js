@@ -43,54 +43,67 @@ class SearchController {
                     $('style').remove();
                     $('.site-footer').remove();
                     
-                    // Clean up EJS syntax and other unwanted content
-                    let text = $('body').text()
-                        .replace(/<%[^>]*%>/g, '') // Remove EJS syntax
-                        .replace(/\[Object object\]/gi, '') // Remove object references
-                        .replace(/undefined/gi, '') // Remove undefined values
-                        .replace(/\s+/g, ' ') // Normalize whitespace
-                        .toLowerCase()
-                        .trim();
+                    // Process each major section
+                    const sections = $('section, div[class*="-section"], div[class*="-container"]');
                     
-                    // Check if search query exists in the content
-                    if (text.includes(searchQuery)) {
-                        const index = text.indexOf(searchQuery);
-                        const start = Math.max(0, index - 100);
-                        const end = Math.min(text.length, index + searchQuery.length + 100);
-                        let excerpt = text.slice(start, end)
-                            .replace(/\s+/g, ' ')
-                            .trim();
-
-                        // Clean up any remaining template syntax or special characters
-                        excerpt = excerpt
+                    sections.each((i, section) => {
+                        const $section = $(section);
+                        const sectionId = $section.attr('id') || $section.attr('class');
+                        const sectionText = $section.text()
                             .replace(/<%[^>]*%>/g, '')
                             .replace(/\[Object object\]/gi, '')
                             .replace(/undefined/gi, '')
+                            .replace(/\s+/g, ' ')
+                            .toLowerCase()
                             .trim();
 
-                        // Escape HTML special characters to prevent XSS
-                        excerpt = excerpt
-                            .replace(/&/g, '&amp;')
-                            .replace(/</g, '&lt;')
-                            .replace(/>/g, '&gt;')
-                            .replace(/"/g, '&quot;')
-                            .replace(/'/g, '&#039;');
+                        if (sectionText.includes(searchQuery)) {
+                            const index = sectionText.indexOf(searchQuery);
+                            const start = Math.max(0, index - 100);
+                            const end = Math.min(sectionText.length, index + searchQuery.length + 100);
+                            let excerpt = sectionText.slice(start, end)
+                                .replace(/\s+/g, ' ')
+                                .trim();
 
-                        // Highlight the search query
-                        const regex = new RegExp(searchQuery, 'gi');
-                        excerpt = excerpt.replace(regex, match => `<mark class="highlight">${match}</mark>`);
+                            // Clean up and escape HTML
+                            excerpt = excerpt
+                                .replace(/<%[^>]*%>/g, '')
+                                .replace(/\[Object object\]/gi, '')
+                                .replace(/undefined/gi, '')
+                                .trim()
+                                .replace(/&/g, '&amp;')
+                                .replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;')
+                                .replace(/"/g, '&quot;')
+                                .replace(/'/g, '&#039;');
 
-                        results.push({
-                            title: page.title,
-                            url: page.url,
-                            excerpt: '...' + excerpt + '...'
-                        });
-                    }
+                            // Highlight the search query
+                            const regex = new RegExp(searchQuery, 'gi');
+                            excerpt = excerpt.replace(regex, match => `<mark class="highlight">${match}</mark>`);
+
+                            // Create a URL with the section ID
+                            const sectionUrl = `${page.url}#${sectionId}`;
+
+                            results.push({
+                                title: page.title,
+                                url: sectionUrl,
+                                excerpt: '...' + excerpt + '...',
+                                section: $section.find('h1,h2,h3').first().text().trim() || 'Relevant Section'
+                            });
+                        }
+                    });
                 } catch (error) {
                     console.error(`Error processing ${page.path}:`, error);
                     continue;
                 }
             }
+
+            // Sort results by relevance (you can customize this)
+            results.sort((a, b) => {
+                const aCount = (a.excerpt.match(new RegExp(searchQuery, 'gi')) || []).length;
+                const bCount = (b.excerpt.match(new RegExp(searchQuery, 'gi')) || []).length;
+                return bCount - aCount;
+            });
 
             res.render('search-results', { 
                 results, 

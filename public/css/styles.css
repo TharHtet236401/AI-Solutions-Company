@@ -3900,3 +3900,13 @@ img {
         font-size: 0.8rem;
     }
 }
+
+/* Add this to your main styles */
+.highlight-section {
+    animation: highlightFade 3s ease-out;
+}
+
+@keyframes highlightFade {
+    0% { background-color: rgba(255, 243, 205, 0.5); }
+    100% { background-color: transparent; }
+}
