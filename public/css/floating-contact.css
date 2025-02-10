@@ -114,6 +114,10 @@
     padding: 12px 16px;
     border-radius: 15px;
     font-size: 0.95em;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
 }
 
 .message.user .message-content {
