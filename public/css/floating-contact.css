@@ -94,15 +94,15 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .message {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 6px;
     max-width: 80%;
-    margin: 2px 0;
+    margin: 0;
 }
 
 .message.user {
@@ -112,14 +112,20 @@
 
 .message-content {
     background: #f0f2f5;
-    padding: 6px 10px;
+    padding: 3px 12px;
     border-radius: 15px;
-    font-size: 0.95em;
+    font-size: 0.9em;
     word-wrap: break-word;
     word-break: break-word;
     white-space: pre-line;
     max-width: 100%;
-    line-height: 1.2;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.message-content p {
+    margin: 0;
+    padding: 0;
 }
 
 .message.user .message-content {
