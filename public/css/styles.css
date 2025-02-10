@@ -3910,3 +3910,55 @@ img {
     0% { background-color: rgba(255, 243, 205, 0.5); }
     100% { background-color: transparent; }
 }
+
+/* Add these standardized hero styles */
+.blog-hero,
+.gallery-hero {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-hero .hero-content,
+.gallery-hero .hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+    z-index: 2;
+}
+
+.blog-hero h1,
+.gallery-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.blog-hero p,
+.gallery-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-hero,
+    .gallery-hero {
+        height: 250px;
+    }
+
+    .blog-hero h1,
+    .gallery-hero h1 {
+        font-size: 2rem;
+    }
+
+    .blog-hero p,
+    .gallery-hero p {
+        font-size: 1rem;
+    }
+}
