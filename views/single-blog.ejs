@@ -17,23 +17,23 @@
     <%- include('partials/nav-bar') %>
 
     <div class="blog-post-hero">
-        <h1><%= blog.title %></h1>
         <div class="blog-post-meta">
-            <span class="blog-date">
-                <i class="far fa-calendar"></i>
-                <%= new Date(blog.createdAt).toLocaleDateString() %>
-            </span>
-            <span class="blog-category">
+            <div class="meta-item">
                 <i class="fas fa-tag"></i>
                 <%= blog.category %>
-            </span>
-            <% if (blog.author) { %>
-                <span class="blog-author">
-                    <i class="fas fa-user"></i>
-                    <%= blog.author.name %>
-                </span>
-            <% } %>
-        </div>
+            </div>
+        
+            <div class="meta-item">
+                <i class="far fa-calendar"></i>
+                <%= new Date(blog.createdAt).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                }) %>
+            </div>
+        </div>  
+        <h1><%= blog.title %></h1>
+       
     </div>
 
     <main class="single-blog-container">
