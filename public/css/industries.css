@@ -484,6 +484,26 @@
     }
 }
 
+@media screen and (max-width: 1024px) {
+    .metrics-visual {
+        display: none;
+    }
+
+    .metrics-content {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-text {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .metrics-list {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
 /* Animations */
 @keyframes circuitMove {
     0% { transform: translateY(0); }
