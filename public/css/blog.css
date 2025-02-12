@@ -803,14 +803,42 @@ body {
     gap: 1rem;
 }
 
-.share-link {
+.blog-share span {
     color: #666;
-    font-size: 1.2rem;
-    transition: color 0.3s;
+    font-size: 0.95rem;
+}
+
+.share-link {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .share-link:hover {
-    color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.share-link.facebook {
+    background-color: #4267B2;
+}
+
+.share-link.twitter {
+    background-color: #1DA1F2;
+}
+
+.share-link.linkedin {
+    background-color: #0077b5;
+}
+
+.share-link i {
+    font-size: 1rem;
 }
 
 .blog-navigation {
@@ -911,6 +939,15 @@ body {
         display: block;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .share-link {
+        width: 32px;
+        height: 32px;
+    }
+
+    .share-link i {
+        font-size: 0.9rem;
     }
 }
 
