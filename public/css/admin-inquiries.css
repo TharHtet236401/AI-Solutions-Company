@@ -313,15 +313,27 @@
 
 /* Close Button Animation */
 .inquiry-modal .close-btn {
-    transform: rotate(0deg);
-    transition: all 0.3s ease;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.05);  /* Initial light background */
+    border: none;
     color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
 
 .inquiry-modal .close-btn:hover {
+    background-color: #e74c3c;  /* Red background on hover */
+    color: white;  /* White icon on hover */
     transform: rotate(90deg);
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #e74c3c;
 }
 
 /* Fade Out Animation */
@@ -635,8 +647,9 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: none;
+    background: rgba(0, 0, 0, 0.05);  /* Initial light background */
     border: none;
+    color: #666;
     font-size: 1.5rem;
     cursor: pointer;
     width: 32px;
@@ -649,8 +662,9 @@
 }
 
 .inquiry-modal .close-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #e74c3c;
+    background-color: #e74c3c;  /* Red background on hover */
+    color: white;  /* White icon on hover */
+    transform: rotate(90deg);
 }
 
 .inquiry-modal .modal-content {
