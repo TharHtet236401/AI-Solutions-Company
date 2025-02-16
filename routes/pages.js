@@ -179,6 +179,18 @@ router.get("/admin/settings", checkAuth, async (req, res) => {
     }
 });
 
+router.get('/admin/visualization', checkAuth, async (req, res) => {
+    try {
+        res.render('admin/data-visualization', {
+            title: 'Data Visualization',
+            activeTab: 'visualization'
+        });
+    } catch (error) {
+        console.error('Error loading visualization page:', error);
+        res.status(500).send('Error loading visualization page');
+    }
+});
+
 router.get("/admin/logout", (req, res) => {
     res.clearCookie('jwt');
     res.redirect('/admin/login');

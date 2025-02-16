@@ -22,5 +22,11 @@ router.get('/blogs', validateToken, async (req, res) => {
     }
 });
 
+router.get('/visualization', validateToken, (req, res) => {
+    res.render('admin/data-visualization', {
+        title: 'Data Visualization'
+    });
+});
+
 // Make sure this route is registered in your server.js
 export default router; 
