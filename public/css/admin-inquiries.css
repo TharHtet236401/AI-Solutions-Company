@@ -676,8 +676,9 @@
     overflow-y: auto;
     padding: 0;
     position: relative;
-    scrollbar-width: thin;
-    scrollbar-color: #3498db #f1f1f1;
+    /* Remove custom scrollbar styling */
+    scrollbar-width: normal;
+    scrollbar-color: initial;
 }
 
 .inquiry-modal .inquiry-content {
@@ -1161,28 +1162,20 @@
 .inquiry-details {
     overflow-y: auto;
     padding: 2rem;
-    /* Customize scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: #3498db #f1f1f1;
+    /* Remove Webkit scrollbar styles */
+    scrollbar-width: initial;
+    scrollbar-color: initial;
 }
 
-/* Webkit scrollbar styles */
-.inquiry-details::-webkit-scrollbar {
-    width: 8px;
-}
-
-.inquiry-details::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.inquiry-details::-webkit-scrollbar-thumb {
-    background: #3498db;
-    border-radius: 4px;
-}
-
+/* Remove Webkit scrollbar styles */
+.inquiry-details::-webkit-scrollbar,
+.inquiry-details::-webkit-scrollbar-track,
+.inquiry-details::-webkit-scrollbar-thumb,
 .inquiry-details::-webkit-scrollbar-thumb:hover {
-    background: #2980b9;
+    /* Remove all custom scrollbar styling */
+    width: initial;
+    background: initial;
+    border-radius: initial;
 }
 
 /* Keep header and footer fixed */
