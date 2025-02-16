@@ -764,13 +764,120 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .inquiry-modal .modal-content {
-        margin: 1rem;
-        padding: 1.5rem;
+        width: 95%;
+        max-height: 95vh;
+        margin: 10px;
     }
-    
+
+    .inquiry-modal .modal-header {
+        padding: 1rem;
+    }
+
+    .inquiry-modal .modal-header h2 {
+        font-size: 1.2rem;
+        padding-right: 30px; /* Make space for close button */
+    }
+
+    .inquiry-modal .close-btn {
+        top: 0.7rem;
+        right: 0.7rem;
+    }
+
+    .inquiry-modal .inquiry-content {
+        padding: 1rem;
+    }
+
+    .inquiry-section {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+    }
+
     .info-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .info-item {
+        background: #f8f9fa;
+        padding: 0.8rem;
+        border-radius: 8px;
+    }
+
+    .info-item label {
+        font-size: 0.8rem;
+    }
+
+    .info-item span {
+        font-size: 0.95rem;
+    }
+
+    .job-details {
+        padding: 1rem;
+    }
+
+    .job-details p {
+        font-size: 0.9rem;
+    }
+
+    /* Email composer responsive */
+    .email-composer {
+        margin: 0 -1rem;
+    }
+
+    .email-field {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .email-field label {
+        min-width: auto;
+    }
+
+    .email-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .template-btn, 
+    .send-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Even smaller screens */
+@media (max-width: 480px) {
+    .inquiry-modal .modal-content {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .inquiry-section h3 {
+        font-size: 1rem;
+    }
+
+    .status-badge {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .email-content {
+        min-height: 150px;
+    }
+
+    /* Improve touch targets */
+    .inquiry-modal .close-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .template-btn, 
+    .send-btn {
+        padding: 1rem;
     }
 }
 
