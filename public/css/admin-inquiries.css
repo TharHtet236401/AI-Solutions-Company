@@ -276,6 +276,65 @@
     color: white;
 }
 
+/* Modal and Animation Styles */
+.inquiry-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.inquiry-modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Content Animation */
+.inquiry-modal .modal-content {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.inquiry-modal.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Close Button Animation */
+.inquiry-modal .close-btn {
+    transform: rotate(0deg);
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.inquiry-modal .close-btn:hover {
+    transform: rotate(90deg);
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #e74c3c;
+}
+
+/* Fade Out Animation */
+.inquiry-modal.closing {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.inquiry-modal.closing .modal-content {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
 /* Modal */
 .modal {
     display: none;
@@ -559,57 +618,56 @@
 /* Inquiry Modal Styles */
 .inquiry-modal .modal-header {
     position: relative;
-    padding: 1.5rem 2rem;
-    margin: -2rem -2rem 1.5rem -2rem;
-    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 .inquiry-modal .modal-header h2 {
     margin: 0;
     font-size: 1.5rem;
-    color: var(--text-primary);
+    color: #333;
 }
 
 .inquiry-modal .close-btn {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 1000;
-    background: white;
+    top: 1rem;
+    right: 1rem;
+    background: none;
     border: none;
-    font-size: 1.2rem;
-    color: var(--text-secondary);
+    font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.5rem;
-    transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
 .inquiry-modal .close-btn:hover {
-    background: rgba(0,0,0,0.05);
-    color: var(--text-primary);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #e74c3c;
 }
 
 .inquiry-modal .modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
     max-width: 800px;
-    max-height: 90vh;
+    max-height: 85vh;
     overflow-y: auto;
-    padding: 2rem;
+    padding: 0;
     position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #3498db #f1f1f1;
 }
 
 .inquiry-modal .inquiry-content {
-    padding-top: 1rem; /* Add some space after the fixed header */
+    padding: 2rem;
 }
 
 .inquiry-section {
@@ -823,16 +881,6 @@
     animation: slideIn 0.3s ease;
 }
 
-/* Add sticky header container */
-.inquiry-modal .header-container {
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 100;
-    margin: -2rem -2rem 1.5rem -2rem;
-    padding: 2rem 2rem 0;
-}
-
 /* Add sorting styles */
 .inquiries-table th[data-sort] {
     cursor: pointer;
@@ -979,4 +1027,75 @@
     display: inline;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+}
+
+/* Modal Content Scrolling */
+.inquiry-modal-content {
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.inquiry-details {
+    overflow-y: auto;
+    padding: 2rem;
+    /* Customize scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #3498db #f1f1f1;
+}
+
+/* Webkit scrollbar styles */
+.inquiry-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.inquiry-details::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.inquiry-details::-webkit-scrollbar-thumb {
+    background: #3498db;
+    border-radius: 4px;
+}
+
+.inquiry-details::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;
+}
+
+/* Keep header and footer fixed */
+.inquiry-modal-header,
+.inquiry-modal-footer {
+    position: sticky;
+    background: #fff;
+    z-index: 1;
+}
+
+.inquiry-modal-header {
+    top: 0;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.inquiry-modal-footer {
+    bottom: 0;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Main content area */
+.inquiry-modal .inquiry-content {
+    padding: 2rem;
+}
+
+/* Footer area */
+.inquiry-modal .modal-footer {
+    position: relative;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    background: white;
 } 
