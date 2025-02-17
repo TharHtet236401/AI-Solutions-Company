@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - AI Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/otp-verification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="verification-container">
+        <div class="verification-card">
+            <div class="verification-header">
+                <i class="fas fa-envelope-circle-check"></i>
+                <h1>Email Verification</h1>
+                <p>We've sent a verification code to your email</p>
+                <p class="email-display"><%= email || 'Email not provided' %></p>
+            </div>
+            
+            <form id="otpForm" class="otp-form">
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" maxlength="1" pattern="[0-9]" required>
+                </div>
+                
+                <button type="submit" class="verify-btn">
+                    <span>Verify Email</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="verification-footer">
+                <p>Didn't receive the code?</p>
+                <button id="resendBtn" class="resend-btn">
+                    Resend Code
+                    <span class="countdown"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/otp-verification.js"></script>
+</body>
+</html> 

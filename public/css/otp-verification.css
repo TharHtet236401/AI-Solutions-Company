@@ -1,0 +1,139 @@
+.verification-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10375B, #1a4b76);
+    padding: 2rem;
+}
+
+.verification-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.verification-header {
+    margin-bottom: 2rem;
+}
+
+.verification-header i {
+    font-size: 3rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.verification-header h1 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.verification-header p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.email-display {
+    color: #3498db !important;
+    font-weight: 500;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.otp-inputs input {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.otp-inputs input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.verify-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.verify-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.verification-footer {
+    margin-top: 2rem;
+}
+
+.verification-footer p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: #3498db;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.resend-btn:hover {
+    color: #2980b9;
+}
+
+.resend-btn:disabled {
+    color: #999;
+    cursor: not-allowed;
+}
+
+.countdown {
+    color: #666;
+    margin-left: 0.5rem;
+}
+
+@media (max-width: 480px) {
+    .verification-card {
+        padding: 2rem;
+    }
+
+    .otp-inputs {
+        gap: 0.5rem;
+    }
+
+    .otp-inputs input {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+} 

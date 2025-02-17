@@ -36,7 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.con) {
                 // Show success message
                 showMessage('Your message has been sent successfully!', 'success');
-                contactForm.reset();
+                
+                // Add a small delay before redirect to show the success message
+                setTimeout(() => {
+                    // Redirect to OTP verification page with email
+                    window.location.href = `/otp-verification?email=${encodeURIComponent(formData.email)}`;
+                }, 1500);
             } else {
                 // Show error message
                 showMessage(data.msg || 'Something went wrong. Please try again.', 'error');

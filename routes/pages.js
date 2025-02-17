@@ -213,6 +213,19 @@ router.get("/blog/:id", async (req, res) => {
     }
 });
 
+router.get("/otp-verification", async (req, res) => {
+    try {
+        const email = req.query.email;
+        console.log("Email from query:", email); // Debug log
+        res.render("otp-verification", { 
+            title: "OTP Verification",
+            email: email || '' // Pass email to template
+        });
+    } catch (error) {
+        console.error("Error rendering OTP verification page:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 // Add this route for blog management
 router.get("/admin/blog-management", checkAuth, async (req, res) => {
     try {
