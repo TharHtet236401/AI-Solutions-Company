@@ -42,30 +42,48 @@ document.addEventListener('DOMContentLoaded', function() {
     otpForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const otp = Array.from(inputs).map(input => input.value).join('');
-        
         try {
-            const response = await fetch('/api/verify-otp', {
+            // Get all input values and join them
+            const verificationCode = Array.from(inputs).map(input => input.value).join('').toLowerCase();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.verify-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+
+            // Send verification request
+            const response = await fetch('http://localhost:3000/api/inquiries/verify', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    otp,
-                    email: document.querySelector('.email-display').textContent
-                })
+                body: JSON.stringify({ verificationCode })
             });
 
             const data = await response.json();
 
             if (data.con) {
-                // Redirect to success page or show success message
-                window.location.href = '/verification-success';
+                // Show success message
+                showMessage('Email verified successfully!', 'success');
+                
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = '/contact'; // or wherever you want to redirect
+                }, 1500);
             } else {
-                showError('Invalid verification code. Please try again.');
+                showMessage(data.msg || 'Invalid verification code. Please try again.', 'error');
+                // Clear inputs on error
+                inputs.forEach(input => input.value = '');
+                inputs[0].focus();
             }
         } catch (error) {
-            showError('An error occurred. Please try again.');
+            console.error('Error:', error);
+            showMessage('An error occurred. Please try again.', 'error');
+        } finally {
+            // Reset button state
+            const submitBtn = this.querySelector('.verify-btn');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Verify Email</span><i class="fas fa-arrow-right"></i>';
         }
     });
 
@@ -117,4 +135,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Start initial countdown
     startCountdown();
+
+    // Add function to show messages
+    function showMessage(message, type) {
+        // Remove any existing messages
+        const existingMessage = document.querySelector('.message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        messageDiv.textContent = message;
+
+        // Insert before the form
+        const form = document.getElementById('otpForm');
+        form.parentNode.insertBefore(messageDiv, form);
+
+        // Remove message after 5 seconds
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 5000);
+    }
 }); 
