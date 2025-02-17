@@ -2,6 +2,7 @@ import Inquiry from "../models/inquiries.model.js";
 import { fMsg, fError } from "../utils/libby.js";
 import excel from 'exceljs';
 import { Parser } from 'json2csv';
+import UnvalidatedInquiry from "../models/unvalidated_inquiries.model.js";
 
 export const getInquiries = async (req, res) => {
   try { 
@@ -163,7 +164,9 @@ export const createInquiry = async (req, res) => {
     fError(res, "All fields are required", 400);
     return;
   }
-  const inquiry = new Inquiry({
+
+  const verificationCode = Math.random().toString(16).substring(2, 8);
+  const inquiry = new UnvalidatedInquiry({
     name,
     email,
     phoneNumber,
@@ -172,6 +175,9 @@ export const createInquiry = async (req, res) => {
     jobTitle,
     jobDetails,
     status,
+    verificationCode,
+    verificationCodeExpiresAt: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
+      verificationCodeSentAt: new Date(), 
     });
     await inquiry.save();
     fMsg(res, "Inquiry created successfully",inquiry,201);

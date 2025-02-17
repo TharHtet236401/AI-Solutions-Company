@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
+    const submitBtn = document.querySelector('.submit-btn');
 
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Disable submit button and show loading state
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-
         try {
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            // Get form data
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -21,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 status: 'pending'
             };
 
-            const response = await fetch('/api/inquiries', {
+            // Send API request
+            const response = await fetch('http://localhost:3000/api/inquiries', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,22 +35,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (data.con) {
                 // Show success message
-                showMessage('Thank you! Your inquiry has been submitted successfully.', 'success');
+                showMessage('Your message has been sent successfully!', 'success');
                 contactForm.reset();
             } else {
                 // Show error message
-                showMessage('Sorry, there was an error submitting your inquiry. Please try again.', 'error');
+                showMessage(data.msg || 'Something went wrong. Please try again.', 'error');
             }
         } catch (error) {
             console.error('Error:', error);
-            showMessage('Sorry, there was an error submitting your inquiry. Please try again.', 'error');
+            showMessage('An error occurred. Please try again later.', 'error');
         } finally {
-            // Reset submit button
+            // Re-enable submit button
             submitBtn.disabled = false;
             submitBtn.innerHTML = 'Submit Request <i class="fas fa-paper-plane"></i>';
         }
     });
 
+    // Function to show messages
     function showMessage(message, type) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;
