@@ -250,7 +250,6 @@ export const VERIFICATION_CODE_TEMPLATE = `
 </head>
 <body style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #2c3e50; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
   <div style="background: linear-gradient(135deg, #10375B, #1a4b76); padding: 2.5rem; text-align: center; border-radius: 20px 20px 0 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-    <img src="https://aisolutions.com/images/logo-white.png" alt="AI Solutions" style="max-width: 150px; margin-bottom: 1rem;">
     <h1 style="color: white; margin: 0; font-size: 2rem; font-weight: 500;">Verification Code</h1>
   </div>
   <div style="background-color: white; padding: 2.5rem; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
