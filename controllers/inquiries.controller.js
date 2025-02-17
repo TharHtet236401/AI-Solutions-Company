@@ -186,6 +186,35 @@ export const createInquiry = async (req, res) => {
   }
 };
 
+export const verifyInquiry = async (req, res) => {
+  try {
+    const { verificationCode } = req.body;
+    const sentInquiry = await UnvalidatedInquiry.findOne({ verificationCode });
+    if (!sentInquiry) {
+      return fError(res, "Invalid verification code", 400);
+    }
+
+    if (sentInquiry.verificationCodeExpiresAt < new Date()) {
+      return fError(res, "Verification code expired", 400);
+    }
+
+    const inquiry = await Inquiry.create({
+        name: sentInquiry.name,
+        email: sentInquiry.email,
+        phoneNumber: sentInquiry.phoneNumber,
+        companyName: sentInquiry.companyName,
+        country: sentInquiry.country,
+        jobTitle: sentInquiry.jobTitle,
+        jobDetails: sentInquiry.jobDetails,
+        status: sentInquiry.status,
+    });
+    await sentInquiry.deleteOne();
+    fMsg(res, "Inquiry verified successfully", inquiry, 200);
+  } catch (error) {
+    fError(res, "Error verifying inquiry", 500);
+  }
+};
+
 export const deleteInquiry = async (req, res) => {
   try {
     const { id } = req.params;
