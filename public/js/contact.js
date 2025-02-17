@@ -37,10 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show success message
                 showMessage('Your message has been sent successfully!', 'success');
                 
-                // Add a small delay before redirect to show the success message
+                // Log the email to debug
+                console.log("Email being sent:", formData.email);
+                
+                // Add a small delay before redirect
                 setTimeout(() => {
-                    // Redirect to OTP verification page with email
-                    window.location.href = `/otp-verification?email=${encodeURIComponent(formData.email)}`;
+                    const redirectUrl = `/otp-verification?email=${encodeURIComponent(formData.email)}`;
+                    console.log("Redirecting to:", redirectUrl); // Debug log
+                    window.location.href = redirectUrl;
                 }, 1500);
             } else {
                 // Show error message

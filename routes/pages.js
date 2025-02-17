@@ -216,10 +216,15 @@ router.get("/blog/:id", async (req, res) => {
 router.get("/otp-verification", async (req, res) => {
     try {
         const email = req.query.email;
-        console.log("Email from query:", email); // Debug log
+        console.log("Email from query:", email); // Add this to debug
+        
+        if (!email) {
+            return res.redirect('/contact'); // Redirect back if no email
+        }
+        
         res.render("otp-verification", { 
             title: "OTP Verification",
-            email: email || '' // Pass email to template
+            email: email
         });
     } catch (error) {
         console.error("Error rendering OTP verification page:", error);

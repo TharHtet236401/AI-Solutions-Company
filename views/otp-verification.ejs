@@ -18,7 +18,11 @@
                 <i class="fas fa-envelope-circle-check"></i>
                 <h1>Email Verification</h1>
                 <p>We've sent a verification code to your email</p>
-                <p class="email-display"><%= email || 'Email not provided' %></p>
+                <% if (email) { %>
+                    <p class="email-display"><%= email %></p>
+                <% } else { %>
+                    <p class="email-display text-danger">No email provided in URL. Please try again.</p>
+                <% } %>
             </div>
             
             <form id="otpForm" class="otp-form">
