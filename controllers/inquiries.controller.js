@@ -3,7 +3,7 @@ import { fMsg, fError } from "../utils/libby.js";
 import excel from 'exceljs';
 import { Parser } from 'json2csv';
 import UnvalidatedInquiry from "../models/unvalidated_inquiries.model.js";
-import { sendVerficationCodeEmail } from "../email/mailtrap/email.js";
+import { sendVerficationCodeEmail, sendThankYouEmail } from "../email/mailtrap/email.js";
 
 export const getInquiries = async (req, res) => {
   try { 
@@ -212,6 +212,7 @@ export const verifyInquiry = async (req, res) => {
         status: sentInquiry.status,
     });
     await sentInquiry.deleteOne();
+    await sendThankYouEmail(inquiry.email, inquiry.name);
     fMsg(res, "Inquiry verified successfully", inquiry, 200);
   } catch (error) {
     fError(res, "Error verifying inquiry", 500);
