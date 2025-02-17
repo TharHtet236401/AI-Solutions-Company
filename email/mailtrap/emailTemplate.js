@@ -246,25 +246,40 @@ export const VERIFICATION_CODE_TEMPLATE = `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verification Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(135deg, #10375B, #1a4b76); padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-    <h1 style="color: white; margin: 0;">Verification Code</h1>
+<body style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #2c3e50; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
+  <div style="background: linear-gradient(135deg, #10375B, #1a4b76); padding: 2.5rem; text-align: center; border-radius: 20px 20px 0 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <img src="https://aisolutions.com/images/logo-white.png" alt="AI Solutions" style="max-width: 150px; margin-bottom: 1rem;">
+    <h1 style="color: white; margin: 0; font-size: 2rem; font-weight: 500;">Verification Code</h1>
   </div>
-  <div style="background-color: #f8f9fa; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <p>Hello,</p>
-    <p>Your verification code is:</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <div style="background-color: white; padding: 20px; border-radius: 8px; font-size: 28px; font-weight: bold; letter-spacing: 8px; color: #10375B; border: 2px solid #e8eef3;">
-        {verificationCode}
+  <div style="background-color: white; padding: 2.5rem; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    <p style="font-size: 1.1rem; color: #2c3e50; margin-bottom: 1.5rem;">Hello,</p>
+    <p style="font-size: 1.1rem; color: #2c3e50; margin-bottom: 2rem;">Please use the following verification code to complete your inquiry submission:</p>
+    <div style="text-align: center; margin: 2rem 0;">
+      <div style="background: linear-gradient(135deg, #f8f9fa, #ffffff); padding: 1.5rem; border-radius: 12px; display: inline-block; border: 2px solid #e8eef3; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <div style="font-size: 2.5rem; font-weight: 700; letter-spacing: 0.5rem; color: #10375B; text-transform: uppercase;">
+          {verificationCode}
+        </div>
       </div>
     </div>
-    <p>This code will expire in 15 minutes for security reasons.</p>
-    <p>Please do not share this code with anyone.</p>
-    <p style="margin-top: 30px;">Best regards,<br>AI Solutions Team</p>
+    <div style="background-color: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin: 2rem 0; border-left: 4px solid #3498db;">
+      <p style="margin: 0; color: #2c3e50; font-size: 0.95rem;">
+        <strong style="color: #10375B;">Important:</strong><br>
+        • This code will expire in 15 minutes<br>
+        • Please do not share this code with anyone
+      </p>
+    </div>
+    <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #e8eef3;">
+      <p style="margin: 0; color: #2c3e50;">Best regards,</p>
+      <p style="margin: 0.5rem 0 0; color: #10375B; font-weight: 500;">AI Solutions Team</p>
+    </div>
   </div>
-  <div style="text-align: center; margin-top: 20px; color: #666; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
+  <div style="text-align: center; margin-top: 1.5rem; color: #666;">
+    <p style="font-size: 0.9rem; margin: 0;">
+      © 2024 AI Solutions. All rights reserved.<br>
+      <span style="color: #999; font-size: 0.8rem;">This is an automated message, please do not reply.</span>
+    </p>
   </div>
 </body>
 </html>
