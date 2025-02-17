@@ -1,24 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
     const otpForm = document.getElementById('otpForm');
-    const inputs = document.querySelectorAll('.otp-inputs input');
+    const inputs = document.querySelectorAll('.otp-input');
     const resendBtn = document.getElementById('resendBtn');
     let countdownInterval;
 
     // Auto-focus and input handling
     inputs.forEach((input, index) => {
+        // Convert input to uppercase and allow only alphanumeric
         input.addEventListener('input', function(e) {
-            if (e.target.value.length === 1) {
+            // Convert to uppercase
+            this.value = this.value.toUpperCase();
+            
+            if (this.value.length === 1) {
                 if (index < inputs.length - 1) {
                     inputs[index + 1].focus();
                 }
             }
         });
 
+        // Handle backspace
         input.addEventListener('keydown', function(e) {
             if (e.key === 'Backspace' && !e.target.value) {
                 if (index > 0) {
                     inputs[index - 1].focus();
                 }
+            }
+        });
+
+        // Prevent non-alphanumeric characters
+        input.addEventListener('keypress', function(e) {
+            const char = String.fromCharCode(e.keyCode || e.which);
+            const regex = /^[A-Za-z0-9]$/;
+            
+            if (!regex.test(char)) {
+                e.preventDefault();
             }
         });
     });
