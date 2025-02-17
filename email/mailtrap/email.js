@@ -6,7 +6,8 @@ import {
   PASSWORD_CHANGED_ALERT_TEMPLATE,
   PASSWORD_CHANGE_REQUEST_TEMPLATE,
   OTP_LOGIN_TEMPLATE,
-  AUTHENTICATOR_SETUP_TEMPLATE
+  AUTHENTICATOR_SETUP_TEMPLATE,
+  VERIFICATION_CODE_TEMPLATE
 } from "./emailTemplate.js";
 
 
@@ -29,6 +30,25 @@ export const sendVerificationEmail = async (email, verificationToken, verificati
     console.error(`Error sending verification`, error);
 
     throw new Error(`Error sending verification email: ${error}`);
+  }
+};
+
+export const sendVerficationCodeEmail = async (email, verificationCode) => {
+  const recipient = [{ email }];
+  console.log(email, verificationCode);
+  try {
+    const response = await mailtrapClient.send({
+      from: sender,
+      to: recipient,
+      subject: "Verification Code",
+      html: VERIFICATION_CODE_TEMPLATE
+        .replace("{verificationCode}", verificationCode),
+      category: "Verification Code",
+    });
+    console.log("Verification code email sent successfully");
+  } catch (error) {
+    console.error(`Error sending verification code email`, error);
+    throw new Error(`Error sending verification code email: ${error}`);
   }
 };
 

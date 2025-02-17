@@ -239,3 +239,33 @@ export const AUTHENTICATOR_SETUP_TEMPLATE = `
 </html>
 `;
 
+export const VERIFICATION_CODE_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Code</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: linear-gradient(135deg, #10375B, #1a4b76); padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+    <h1 style="color: white; margin: 0;">Verification Code</h1>
+  </div>
+  <div style="background-color: #f8f9fa; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    <p>Hello,</p>
+    <p>Your verification code is:</p>
+    <div style="text-align: center; margin: 30px 0;">
+      <div style="background-color: white; padding: 20px; border-radius: 8px; font-size: 28px; font-weight: bold; letter-spacing: 8px; color: #10375B; border: 2px solid #e8eef3;">
+        {verificationCode}
+      </div>
+    </div>
+    <p>This code will expire in 15 minutes for security reasons.</p>
+    <p>Please do not share this code with anyone.</p>
+    <p style="margin-top: 30px;">Best regards,<br>AI Solutions Team</p>
+  </div>
+  <div style="text-align: center; margin-top: 20px; color: #666; font-size: 0.8em;">
+    <p>This is an automated message, please do not reply to this email.</p>
+  </div>
+</body>
+</html>
+`;

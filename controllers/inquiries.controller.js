@@ -3,6 +3,7 @@ import { fMsg, fError } from "../utils/libby.js";
 import excel from 'exceljs';
 import { Parser } from 'json2csv';
 import UnvalidatedInquiry from "../models/unvalidated_inquiries.model.js";
+import { sendVerficationCodeEmail } from "../email/mailtrap/email.js";
 
 export const getInquiries = async (req, res) => {
   try { 
@@ -180,6 +181,8 @@ export const createInquiry = async (req, res) => {
       verificationCodeSentAt: new Date(), 
     });
     await inquiry.save();
+    const resetURL = `localhost:3000/otp-verification`;
+    await sendVerficationCodeEmail(inquiry.email, verificationCode, resetURL);
     fMsg(res, "Inquiry created successfully",inquiry,201);
   } catch (error) {
     fError(res, "Error creating inquiry", 500);
