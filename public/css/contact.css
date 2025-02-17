@@ -120,15 +120,17 @@
 
 .form-row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
+    width: 100%;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .form-group label {
@@ -148,8 +150,9 @@
 .form-group input,
 .form-group textarea {
     width: 100%;
+    box-sizing: border-box;
     padding: 0.8rem;
-    border: 1px solid #ddd !important; /* This prevents the red border */
+    border: 1px solid #ddd !important;
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -167,6 +170,8 @@
 
 /* Custom select styling */
 .form-group select {
+    width: 100%;
+    max-width: none;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -175,7 +180,7 @@
     background-position: calc(100% - 1rem) center;
     padding-right: 2.5rem;
     cursor: pointer;
-    font-size: 16px; /* This prevents iOS from zooming in */
+    font-size: 16px;
 }
 
 .form-group textarea {
@@ -309,11 +314,10 @@
     .form-group select {
         font-size: 16px;
         padding: 0.7rem;
-        background-size: 10px; /* Make the dropdown arrow smaller */
+        background-size: 10px;
         padding-right: 2rem;
     }
 
-    /* Style the select options on mobile */
     .form-group select option {
         font-size: 16px;
         padding: 8px;
