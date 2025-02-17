@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (data.con) {
                 // Show success message
-                showMessage('Your message has been sent successfully!', 'success');
+                showMessage('Please verify your email to complete your inquiry submission', 'success');
                 
                 // Log the email to debug
                 console.log("Email being sent:", formData.email);
