@@ -347,15 +347,18 @@ function showInquiryModal(inquiry) {
                 <div class="inquiry-section">
                     <h3><i class="fas fa-info-circle"></i>Status Information</h3>
                     <div class="info-grid">
-                        <div class="info-item">
+                        <div class="info-item status-item">
                             <label>Current Status</label>
-                            <span class="status-badge ${highlightMatch(inquiry.status, currentSearch) || inquiry.status.toLowerCase()}">
-                                ${highlightMatch(inquiry.status, currentSearch) || inquiry.status}
-                            </span>
+                            <select class="status-select" onchange="updateInquiryStatus('${inquiry._id}', this.value)">
+                                <option value="pending" ${inquiry.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="in-progress" ${inquiry.status === 'in-progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="follow-up" ${inquiry.status === 'follow-up' ? 'selected' : ''}>Follow Up</option>
+                                <option value="closed" ${inquiry.status === 'closed' ? 'selected' : ''}>Closed</option>
+                            </select>
                         </div>
                         <div class="info-item">
                             <label>Submission Date</label>
-                            <span>${highlightMatch(formatDate(inquiry.createdAt), currentSearch) || formatDate(inquiry.createdAt)} at ${highlightMatch(formatTime(inquiry.createdAt), currentSearch) || formatTime(inquiry.createdAt)}</span>
+                            <span>${formatDate(inquiry.createdAt)} at ${formatTime(inquiry.createdAt)}</span>
                         </div>
                     </div>
                 </div>
@@ -517,19 +520,16 @@ async function sendEmail(inquiryId) {
 }
 
 function loadEmailTemplate(name, companyName) {
-    const templates = {
-        default: `Dear ${name},
+    const template = `Dear ${name},
 
 Thank you for your inquiry about our services. We appreciate your interest in ${companyName}.
 
 We will review your requirements and get back to you with a detailed response shortly.
 
 Best regards,
-AI Solutions Team`
-    };
-    
-    const emailBody = document.getElementById('emailBody');
-    emailBody.value = templates.default;
+AI Solutions Team`;
+
+    document.getElementById('replyContent').value = template;
 }
 
 function showSuccess(message) {
@@ -676,4 +676,33 @@ function highlightMatch(text, searchTerm) {
     if (!searchTerm || !text) return text;
     const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     return text.toString().replace(regex, '<mark class="highlight">$1</mark>');
+}
+
+async function updateInquiryStatus(inquiryId, newStatus) {
+    try {
+        const response = await fetch(`/api/inquiries/status/${inquiryId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: newStatus })
+        });
+
+        const data = await response.json();
+        
+        if (data.con) {
+            showSuccess('Status updated successfully');
+            // Update the status badge in the modal
+            const statusBadge = document.querySelector('.status-badge');
+            if (statusBadge) {
+                statusBadge.className = `status-badge ${newStatus.toLowerCase()}`;
+                statusBadge.textContent = newStatus;
+            }
+        } else {
+            showError(data.msg || 'Failed to update status');
+        }
+    } catch (error) {
+        console.error('Error updating status:', error);
+        showError('Error updating status');
+    }
 } 
