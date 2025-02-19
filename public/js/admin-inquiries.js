@@ -488,7 +488,7 @@ function formatTime(dateString) {
 async function sendEmail(inquiryId) {
     const subject = document.getElementById('emailSubject').value;
     const content = document.getElementById('emailBody').value;
-    const email = document.querySelector('.email-field span').textContent; // Get the email from the span
+    const email = document.querySelector('.email-field span').textContent;
     
     if (!content.trim()) {
         showError('Please enter an email message');
@@ -496,6 +496,12 @@ async function sendEmail(inquiryId) {
     }
     
     try {
+        // Show loading state
+        const sendBtn = document.querySelector('.send-btn');
+        const originalBtnText = sendBtn.innerHTML;
+        sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        sendBtn.disabled = true;
+
         const response = await fetch(`/api/inquiries/reply/${inquiryId}`, {
             method: 'POST',
             headers: {
@@ -511,16 +517,27 @@ async function sendEmail(inquiryId) {
         const data = await response.json();
         if (data.con) {
             showSuccess('Email sent successfully');
-            // Close the modal after successful send
-            document.getElementById('inquiryDetailsModal').style.display = 'none';
-            // Refresh the inquiries list
-            await fetchAndRenderInquiries();
+            
+            // Wait for 1 second to show the success message
+            setTimeout(() => {
+                // Close the modal
+                const modal = document.getElementById('inquiryDetailsModal');
+                modal.style.display = 'none';
+                
+                // Refresh the inquiries list
+                fetchAndRenderInquiries();
+            }, 1000);
         } else {
             showError(data.msg || 'Failed to send email');
         }
     } catch (error) {
         console.error('Error sending email:', error);
         showError('Error sending email');
+    } finally {
+        // Reset button state
+        const sendBtn = document.querySelector('.send-btn');
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reply';
+        sendBtn.disabled = false;
     }
 }
 
@@ -539,13 +556,24 @@ AI Solutions Team`;
 
 function showSuccess(message) {
     const successDiv = document.createElement('div');
-    successDiv.className = 'success-message';
-    successDiv.textContent = message;
+    successDiv.className = 'success-message fade-in';
+    successDiv.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+    `;
     
     const container = document.querySelector('.dashboard-content');
     container.insertBefore(successDiv, container.firstChild);
     
-    setTimeout(() => successDiv.remove(), 3000);
+    // Add fade-out class after 2 seconds
+    setTimeout(() => {
+        successDiv.classList.add('fade-out');
+    }, 2000);
+    
+    // Remove the element after fade out
+    setTimeout(() => {
+        successDiv.remove();
+    }, 2500);
 }
 
 window.addEventListener('resize', () => {
