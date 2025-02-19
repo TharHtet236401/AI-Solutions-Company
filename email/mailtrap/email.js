@@ -1,7 +1,8 @@
 import { mailtrapClient, sender } from "./mailtrap.config.js";
 import {
   VERIFICATION_CODE_TEMPLATE,
-  THANK_YOU_TEMPLATE
+  THANK_YOU_TEMPLATE,
+  INQUIRY_REPLY_TEMPLATE
 } from "./emailTemplate.js";
 
 
@@ -40,6 +41,26 @@ export const sendThankYouEmail = async (email, name) => {
   } catch (error) {
     console.error(`Error sending thank you email`, error);
     throw new Error(`Error sending thank you email: ${error}`);
+  }
+};
+
+export const sendInquiryReplyEmail = async (email,subject, replyContent,name) => {
+  const recipient = [{ email }];
+  console.log("this is in email function",email,subject, replyContent,name);
+  try {
+    const response = await mailtrapClient.send({
+      from: sender,
+      to: recipient,
+      subject: subject,
+      html: INQUIRY_REPLY_TEMPLATE.replace("{replyContent}", replyContent).replace("{name}", name),
+      category: "Inquiry Reply",
+    });
+   
+
+    console.log("Inquiry reply email sent successfully");
+  } catch (error) {
+    console.error(`Error sending inquiry reply email`, error);
+    throw new Error(`Error sending inquiry reply email: ${error}`);
   }
 };
 

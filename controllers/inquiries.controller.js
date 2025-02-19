@@ -3,7 +3,7 @@ import { fMsg, fError } from "../utils/libby.js";
 import excel from 'exceljs';
 import { Parser } from 'json2csv';
 import UnvalidatedInquiry from "../models/unvalidated_inquiries.model.js";
-import { sendVerficationCodeEmail, sendThankYouEmail } from "../email/mailtrap/email.js";
+import { sendVerficationCodeEmail, sendThankYouEmail ,sendInquiryReplyEmail} from "../email/mailtrap/email.js";
 
 export const getInquiries = async (req, res) => {
   try { 
@@ -260,18 +260,17 @@ export const updateInquiryStatus = async (req, res) => {
 export const replyToInquiry = async (req, res) => {
     try {
         const { id } = req.params;
-        const { subject, content } = req.body;
+        const { subject, content,email} = req.body;
         
         const inquiry = await Inquiry.findById(id);
         if (!inquiry) {
             return fError(res, "Inquiry not found", 404);
         }
-        
-        // Here you would implement your email sending logic
-        // using nodemailer or your preferred email service
+        console.log("this is in controller",email, subject, content,inquiry.name);
+        await sendInquiryReplyEmail(email, subject, content,inquiry.name);
         
         // Update inquiry status
-        inquiry.status = 'followed-up';
+        inquiry.status = 'follow-up';
         await inquiry.save();
         
         fMsg(res, "Email sent successfully");

@@ -7,7 +7,8 @@ import {
   updateInquiryStatus,
   exportInquiries,
   overviewData,
-  verifyInquiry
+  verifyInquiry,
+  replyToInquiry
 } from "../controllers/inquiries.controller.js";
 import { validateToken } from "../utils/validator.js";
 
@@ -24,7 +25,7 @@ router.post("/", createInquiry);
 router.delete("/:id", deleteInquiry);
 router.patch("/status/:id", validateToken, updateInquiryStatus);
 router.post("/verify", verifyInquiry);
-
+router.post("/reply/:id", replyToInquiry);
 
 
 export default router;
