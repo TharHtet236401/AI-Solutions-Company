@@ -529,7 +529,7 @@ We will review your requirements and get back to you with a detailed response sh
 Best regards,
 AI Solutions Team`;
 
-    document.getElementById('replyContent').value = template;
+    document.getElementById('emailBody').value = template;
 }
 
 function showSuccess(message) {
