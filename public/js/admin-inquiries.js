@@ -381,7 +381,7 @@ function showInquiryModal(inquiry) {
                                 class="email-content">${highlightMatch(inquiry.jobDetails, currentSearch) || inquiry.jobDetails}</textarea>
                         </div>
                         <div class="email-actions">
-                            <button class="template-btn" onclick="loadEmailTemplate()">
+                            <button class="template-btn" onclick="loadEmailTemplate('${inquiry.name}', '${inquiry.companyName}')">
                                 <i class="fas fa-file-alt"></i> Load Template
                             </button>
                             <button class="send-btn" onclick="sendEmail('${inquiry._id}')">
@@ -516,16 +516,15 @@ async function sendEmail(inquiryId) {
     }
 }
 
-function loadEmailTemplate() {
+function loadEmailTemplate(name, companyName) {
     const templates = {
-        default: `Dear [Name],
+        default: `Dear ${name},
 
-Thank you for your inquiry about our services. We appreciate your interest in [Company Name].
+Thank you for your inquiry about our services. We appreciate your interest in ${companyName}.
 
 We will review your requirements and get back to you with a detailed response shortly.
 
 Best regards,
-[Your Name]
 AI Solutions Team`
     };
     
