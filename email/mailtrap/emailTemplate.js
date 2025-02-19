@@ -96,16 +96,14 @@ export const INQUIRY_REPLY_TEMPLATE = `
   <title>Inquiry Reply</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<body style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #2c3e50; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
-  <div style="background: linear-gradient(135deg, #10375B, #1a4b76); padding: 2.5rem; text-align: center; border-radius: 20px 20px 0 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-    <h1 style="color: white; margin: 0; font-size: 2rem; font-weight: 500;">Inquiry Reply</h1>
+<body style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #2c3e50; max-width: 600px; margin: 0 auto; padding: 0; background-color: #ffffff;">
+  <div style="background: linear-gradient(135deg, #10375B, #1a4b76); padding: 1.5rem; text-align: center; border-radius: 8px 8px 0 0;">
+    <h1 style="color: white; margin: 0; font-size: 1.5rem; font-weight: 500;">AI Solutions</h1>
   </div>
-  <div style="background-color: white; padding: 2.5rem; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <p style="font-size: 1.1rem; color: #2c3e50; margin-bottom: 1.5rem;">{replyContent}</p>
+  <div style="padding: 1.5rem; border-radius: 0 0 8px 8px; border: 1px solid #eee;">
+    <div style="white-space: pre-line; font-size: 1rem; color: #2c3e50;">{replyContent}</div>
   </div>
 </body>
 </html>
-
-
 `;
   

@@ -44,17 +44,16 @@ export const sendThankYouEmail = async (email, name) => {
   }
 };
 
-export const sendInquiryReplyEmail = async (email,subject, replyContent) => {
+export const sendInquiryReplyEmail = async (email, subject, replyContent) => {
   const recipient = [{ email }];
   try {
     const response = await mailtrapClient.send({
       from: sender,
       to: recipient,
       subject: subject,
-      html: INQUIRY_REPLY_TEMPLATE.replace("{replyContent}", replyContent),
+      html: INQUIRY_REPLY_TEMPLATE.replace("{replyContent}", replyContent.replace(/\n/g, '<br>')),
       category: "Inquiry Reply",
     });
-   
 
     console.log("Inquiry reply email sent successfully");
   } catch (error) {
