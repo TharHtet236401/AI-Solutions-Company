@@ -266,8 +266,8 @@ export const replyToInquiry = async (req, res) => {
         if (!inquiry) {
             return fError(res, "Inquiry not found", 404);
         }
-        console.log("this is in controller",email, subject, content,inquiry.name);
-        await sendInquiryReplyEmail(email, subject, content,inquiry.name);
+        console.log("this is in controller",email, subject, content);
+        await sendInquiryReplyEmail(email, subject, content);
         
         // Update inquiry status
         inquiry.status = 'follow-up';

@@ -101,7 +101,6 @@ export const INQUIRY_REPLY_TEMPLATE = `
     <h1 style="color: white; margin: 0; font-size: 2rem; font-weight: 500;">Inquiry Reply</h1>
   </div>
   <div style="background-color: white; padding: 2.5rem; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <p style="font-size: 1.1rem; color: #2c3e50; margin-bottom: 1.5rem;">Dear {name},</p>
     <p style="font-size: 1.1rem; color: #2c3e50; margin-bottom: 1.5rem;">{replyContent}</p>
   </div>
 </body>
