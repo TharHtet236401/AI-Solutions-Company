@@ -488,6 +488,7 @@ function formatTime(dateString) {
 async function sendEmail(inquiryId) {
     const subject = document.getElementById('emailSubject').value;
     const content = document.getElementById('emailBody').value;
+    const email = document.querySelector('.email-field span').textContent; // Get the email from the span
     
     if (!content.trim()) {
         showError('Please enter an email message');
@@ -495,21 +496,25 @@ async function sendEmail(inquiryId) {
     }
     
     try {
-        const response = await fetch(`/api/inquiries/${inquiryId}/reply`, {
+        const response = await fetch(`/api/inquiries/reply/${inquiryId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 subject,
-                content
+                content,
+                email
             })
         });
         
         const data = await response.json();
         if (data.con) {
             showSuccess('Email sent successfully');
-            await updateInquiryStatus(inquiryId, 'followed-up');
+            // Close the modal after successful send
+            document.getElementById('inquiryDetailsModal').style.display = 'none';
+            // Refresh the inquiries list
+            await fetchAndRenderInquiries();
         } else {
             showError(data.msg || 'Failed to send email');
         }
