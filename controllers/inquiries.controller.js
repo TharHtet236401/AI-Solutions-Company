@@ -547,11 +547,14 @@ export const getVisualizationData = async (req, res) => {
             }
         ]);
 
-        // Get year distribution
+        // Get year distribution starting from 2022
         const yearDistribution = await Inquiry.aggregate([
             {
                 $match: {
-                    createdAt: { $ne: null } // Filter out null dates
+                    createdAt: { 
+                        $ne: null,
+                        $gte: new Date('2022-01-01') 
+                    }
                 }
             },
             {
@@ -561,10 +564,7 @@ export const getVisualizationData = async (req, res) => {
                 }
             },
             {
-                $sort: { _id: -1 }
-            },
-            {
-                $limit: 5
+                $sort: { _id: 1 } // Sort by year ascending
             }
         ]);
 

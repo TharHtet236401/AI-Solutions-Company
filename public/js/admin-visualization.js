@@ -103,51 +103,58 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Year Distribution Chart
         const yearDistribution = Array.isArray(visualizationData.yearDistribution) ? 
             visualizationData.yearDistribution : [];
-        const yearLabels = yearDistribution.map(item => item._id?.toString() || 'Unknown');
-        const yearData = yearDistribution.map(item => item.count || 0);
+            
+        // Ensure we have all years from 2022 to current year
+        const currentYear = new Date().getFullYear();
+        const years = {};
+        
+        // Initialize all years from 2022 to current with 0
+        for (let year = 2022; year <= currentYear; year++) {
+            years[year] = 0;
+        }
+        
+        // Fill in actual data
+        yearDistribution.forEach(item => {
+            const year = item._id?.toString() || 'Unknown';
+            if (years.hasOwnProperty(year)) {
+                years[year] = item.count || 0;
+            }
+        });
+
+        const yearLabels = Object.keys(years);
+        const yearData = Object.values(years);
 
         console.log('Year data:', { labels: yearLabels, data: yearData });
 
         if (yearLabels.length > 0) {
             const yearCtx = document.getElementById('yearDistributionChart').getContext('2d');
             new Chart(yearCtx, {
-                type: 'pie',
+                type: 'bar',
                 data: {
                     labels: yearLabels,
                     datasets: [{
+                        label: 'Number of Inquiries',
                         data: yearData,
-                        backgroundColor: [
-                            'rgba(63, 81, 181, 0.9)',   // indigo
-                            'rgba(0, 188, 212, 0.9)',   // cyan
-                            'rgba(0, 150, 136, 0.9)',   // teal
-                            'rgba(139, 195, 74, 0.9)',  // light green
-                            'rgba(255, 193, 7, 0.9)'    // amber
-                        ],
-                        borderColor: '#ffffff',
-                        borderWidth: 2,
-                        hoverBorderWidth: 0,
-                        hoverOffset: 10
+                        backgroundColor: 'rgba(63, 81, 181, 0.8)',
+                        borderColor: 'rgba(63, 81, 181, 1)',
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        hoverBackgroundColor: 'rgba(63, 81, 181, 0.9)',
+                        barThickness: 40,
+                        maxBarThickness: 50
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    indexAxis: 'x',
                     plugins: {
                         legend: {
-                            position: 'right',
-                            labels: {
-                                padding: 20,
-                                font: {
-                                    size: 13,
-                                    family: "'Segoe UI', sans-serif"
-                                },
-                                usePointStyle: true,
-                                pointStyle: 'circle'
-                            }
+                            display: false
                         },
                         title: {
                             display: true,
-                            text: 'Inquiries by Year',
+                            text: 'Inquiries by Year (Since 2022)',
                             font: {
                                 size: 16,
                                 family: "'Segoe UI', sans-serif",
@@ -173,12 +180,46 @@ document.addEventListener('DOMContentLoaded', async function() {
                             borderWidth: 1,
                             padding: 12,
                             boxPadding: 6,
-                            usePointStyle: true
+                            callbacks: {
+                                label: function(context) {
+                                    return `Total Inquiries: ${context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: "'Segoe UI', sans-serif"
+                                },
+                                color: '#666',
+                                callback: function(value) {
+                                    return Math.floor(value); // Show only whole numbers
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: "'Segoe UI', sans-serif",
+                                    weight: '500'
+                                },
+                                color: '#333'
+                            }
                         }
                     },
                     animation: {
-                        animateScale: true,
-                        animateRotate: true,
                         duration: 2000,
                         easing: 'easeInOutQuart'
                     }
