@@ -139,8 +139,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendMessage = document.getElementById('sendMessage');
     const chatMessages = document.getElementById('chatMessages');
 
+    // Track if greeting has been shown
+    let greetingShown = false;
+
     chatButton.addEventListener('click', () => {
         chatWindow.classList.toggle('hidden');
+        
+        // Show greeting only when opening for the first time
+        if (!greetingShown) {
+            setTimeout(() => {
+                addMessage("👋 Hello! I'm your AI assistant. How can I help you today?", false);
+                greetingShown = true;
+            }, 500); // Small delay for smooth animation
+        }
     });
 
     closeChat.addEventListener('click', () => {
