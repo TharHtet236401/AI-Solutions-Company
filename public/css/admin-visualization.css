@@ -4,98 +4,159 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin: 2rem 0;
+    padding: 1rem;
+}
+
+.error-message {
+    grid-column: 1 / -1;
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    text-align: center;
+    border: 1px solid #ef9a9a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .chart-card {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: var(--card-bg, #ffffff);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     height: 400px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
 }
 
 .chart-card h3 {
-    color: var(--text-primary);
+    color: var(--text-primary, #2c3e50);
     margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
 }
 
 .chart-card canvas {
     flex: 1;
     width: 100% !important;
     height: 100% !important;
+    max-height: 300px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    background: linear-gradient(to right, rgba(41,98,255,0.1), rgba(0,0,0,0));
+    border-radius: 12px;
+}
+
+.section-header h2 {
+    color: var(--text-primary, #2c3e50);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-secondary, #666);
+    font-size: 1.1rem;
 }
 
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding: 1rem;
 }
 
 .metric-card {
-    background: var(--card-bg);
+    background: var(--card-bg, #ffffff);
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
 }
 
 .metric-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 1rem;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .metric-header h4 {
-    color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 500;
+    color: var(--text-primary, #2c3e50);
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .metric-header i {
-    color: var(--accent-color);
-    font-size: 1.2rem;
+    color: var(--accent-color, #2962ff);
+    font-size: 1.4rem;
 }
 
 .metric-value {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    color: var(--accent-color, #2962ff);
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .metric-label {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
     .visualization-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
-    .metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .chart-card {
+        height: 350px;
     }
 }
 
 @media (max-width: 768px) {
     .metrics-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .chart-card {
-        padding: 1rem;
+        padding: 1.5rem;
+        height: 300px;
     }
 
-    .chart-card h3 {
-        font-size: 1.1rem;
+    .section-header h2 {
+        font-size: 1.75rem;
+    }
+
+    .section-header p {
+        font-size: 1rem;
     }
 }
 
@@ -103,4 +164,5 @@
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    background-color: var(--bg-color, #f8f9fa);
 } 

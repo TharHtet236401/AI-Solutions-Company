@@ -527,3 +527,58 @@ async function getWeeklyTrend() {
   ]);
 }
 
+export const getVisualizationData = async (req, res) => {
+    try {
+        // Get status distribution
+        const statusDistribution = await Inquiry.aggregate([
+            {
+                $group: {
+                    _id: "$status",
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $match: {
+                    _id: { $ne: null } // Filter out null status
+                }
+            },
+            {
+                $sort: { count: -1 }
+            }
+        ]);
+
+        // Get year distribution
+        const yearDistribution = await Inquiry.aggregate([
+            {
+                $match: {
+                    createdAt: { $ne: null } // Filter out null dates
+                }
+            },
+            {
+                $group: {
+                    _id: { $year: "$createdAt" },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { _id: -1 }
+            },
+            {
+                $limit: 5
+            }
+        ]);
+
+        // Ensure we have arrays even if empty
+        const response = {
+            statusDistribution: statusDistribution || [],
+            yearDistribution: yearDistribution || []
+        };
+
+        fMsg(res, "Visualization data fetched successfully", response, 200);
+
+    } catch (error) {
+        console.error('Error in getVisualizationData:', error);
+        fError(res, "Error fetching visualization data", 500);
+    }
+};
+

@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Visualization - Admin Dashboard</title>
     <%- include('./partials/admin-styles') %>
     <!-- Add Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="admin-container">
-        <%- include('./partials/sidebar') %>
-        <div class="main-content">
-            <%- include('./partials/header') %>
-            
-            <div class="dashboard-content">
-                <div class="section-header">
-                    <h2>Data Visualization</h2>
-                    <p>Analytics and Insights</p>
-                </div>
+      <%- include('./partials/sidebar') %>
+      <div class="main-content">
+        <%- include('./partials/header') %>
 
-                <div class="visualization-grid">
-                    <!-- Inquiries Over Time -->
-                    <div class="chart-card">
-                        <h3>Inquiries Trend</h3>
-                        <canvas id="inquiriesTrendChart"></canvas>
-                    </div>
+        <div class="dashboard-content">
+          <div class="section-header">
+            <h2>Data Visualization</h2>
+            <p>Analytics and Insights</p>
+          </div>
 
-                    <!-- Status Distribution -->
-                    <div class="chart-card">
-                        <h3>Inquiry Status Distribution</h3>
-                        <canvas id="statusDistributionChart"></canvas>
-                    </div>
-
-                    <!-- Geographic Distribution -->
-                    <div class="chart-card">
-                        <h3>Geographic Distribution</h3>
-                        <canvas id="geographicChart"></canvas>
-                    </div>
-
-                    <!-- Industry Distribution -->
-                    <div class="chart-card">
-                        <h3>Industry Distribution</h3>
-                        <canvas id="industryChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Additional Metrics -->
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <h4>Response Time</h4>
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="metric-value">24h</div>
-                        <div class="metric-label">Average Response Time</div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <h4>Conversion Rate</h4>
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="metric-value">65%</div>
-                        <div class="metric-label">Inquiry to Client Rate</div>
-                    </div>
-                </div>
+          <div class="visualization-grid">
+            <!-- Status Distribution -->
+            <div class="chart-card">
+              <h3>Inquiry Status Distribution</h3>
+              <canvas id="statusDistributionChart"></canvas>
             </div>
+
+            <!-- Year Distribution -->
+            <div class="chart-card">
+              <h3>Inquiries by Year</h3>
+              <canvas id="yearDistributionChart"></canvas>
+            </div>
+
+            <!-- Geographic Distribution -->
+            <div class="chart-card">
+              <h3>Geographic Distribution</h3>
+              <canvas id="geographicChart"></canvas>
+            </div>
+
+            <!-- Industry Distribution -->
+            <div class="chart-card">
+              <h3>Industry Distribution</h3>
+              <canvas id="industryChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Additional Metrics -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <h4>Response Time</h4>
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="metric-value">24h</div>
+              <div class="metric-label">Average Response Time</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <h4>Conversion Rate</h4>
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="metric-value">65%</div>
+              <div class="metric-label">Inquiry to Client Rate</div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <script src="/js/admin-visualization.js"></script>
     <script src="/js/admin-header.js"></script>
-</body>
-</html> 
+  </body>
+</html>

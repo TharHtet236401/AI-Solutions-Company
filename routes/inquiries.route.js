@@ -8,17 +8,16 @@ import {
   exportInquiries,
   overviewData,
   verifyInquiry,
-  replyToInquiry
+  replyToInquiry,
+  getVisualizationData
 } from "../controllers/inquiries.controller.js";
 import { validateToken } from "../utils/validator.js";
-
-
-
 
 const router = express.Router();
 
 router.get("/", getInquiries);
 router.get("/overview", overviewData);
+router.get("/visualization-data", getVisualizationData);
 router.get("/export", exportInquiries);
 router.get("/:id", getInquiry);
 router.post("/", createInquiry);
@@ -26,6 +25,5 @@ router.delete("/:id", deleteInquiry);
 router.patch("/status/:id", validateToken, updateInquiryStatus);
 router.post("/verify", verifyInquiry);
 router.post("/reply/:id", replyToInquiry);
-
 
 export default router;
