@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Visualization data:', visualizationData);
 
         // Validate data existence
-        if (!visualizationData || !visualizationData.statusDistribution || !visualizationData.yearDistribution) {
+        if (!visualizationData || !visualizationData.statusDistribution || !visualizationData.yearDistribution || !visualizationData.geographicalDistribution) {
             throw new Error('Invalid data structure received from server');
         }
 
@@ -216,6 +216,112 @@ document.addEventListener('DOMContentLoaded', async function() {
                                     weight: '500'
                                 },
                                 color: '#333'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        // Geographical Distribution Chart
+        const geographicalDistribution = Array.isArray(visualizationData.geographicalDistribution) ? 
+            visualizationData.geographicalDistribution : [];
+        const geoLabels = geographicalDistribution.map(item => item._id || 'Unknown');
+        const geoData = geographicalDistribution.map(item => item.count || 0);
+
+        if (geoLabels.length > 0) {
+            const geoCtx = document.getElementById('geographicChart').getContext('2d');
+            new Chart(geoCtx, {
+                type: 'bar',
+                data: {
+                    labels: geoLabels,
+                    datasets: [{
+                        label: 'Number of Inquiries',
+                        data: geoData,
+                        backgroundColor: 'rgba(0, 150, 136, 0.8)',
+                        borderColor: 'rgba(0, 150, 136, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(0, 150, 136, 0.9)',
+                        barThickness: 25,
+                        maxBarThickness: 35
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',  // This makes it a horizontal bar chart
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Top 10 Countries by Inquiries',
+                            font: {
+                                size: 16,
+                                family: "'Segoe UI', sans-serif",
+                                weight: '600'
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#333',
+                            titleFont: {
+                                size: 14,
+                                weight: '600'
+                            },
+                            bodyColor: '#666',
+                            bodyFont: {
+                                size: 13
+                            },
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            boxPadding: 6,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Total Inquiries: ${context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: "'Segoe UI', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: "'Segoe UI', sans-serif"
+                                },
+                                color: '#666',
+                                callback: function(value) {
+                                    return Math.floor(value); // Show only whole numbers
+                                }
                             }
                         }
                     },

@@ -568,10 +568,32 @@ export const getVisualizationData = async (req, res) => {
             }
         ]);
 
+        // Get geographical distribution
+        const geographicalDistribution = await Inquiry.aggregate([
+            {
+                $match: {
+                    country: { $ne: null } // Filter out null countries
+                }
+            },
+            {
+                $group: {
+                    _id: "$country",
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { count: -1 } // Sort by count in descending order
+            },
+            {
+                $limit: 10 // Get top 10 countries
+            }
+        ]);
+
         // Ensure we have arrays even if empty
         const response = {
             statusDistribution: statusDistribution || [],
-            yearDistribution: yearDistribution || []
+            yearDistribution: yearDistribution || [],
+            geographicalDistribution: geographicalDistribution || []
         };
 
         fMsg(res, "Visualization data fetched successfully", response, 200);
