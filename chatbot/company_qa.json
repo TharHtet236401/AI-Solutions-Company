@@ -1,0 +1,994 @@
+[
+    {
+        "category": "company_overview",
+        "question": "What does your company do?",
+        "answer": "We are a leading AI solutions provider specializing in machine learning, natural language processing, and computer vision technologies. We help businesses implement AI-driven automation, analytics, and intelligent decision-making systems. Our solutions include custom AI development, pre-built AI models, and AI consulting services.",
+        "patterns": [
+            "Tell me about your company",
+            "What is your company's specialty?",
+            "What kind of company are you?",
+            "What are your main services?",
+            
+            "What do you guys do?",
+            "What's your business about?",
+            "Company description?",
+            "What's your expertise?",
+            
+            "company info",
+            "business type",
+            "company focus",
+            
+            "AI provider",
+            "technology company",
+            "AI solutions",
+            "tech services"
+        ]
+    },
+    {
+        "category": "ai_solutions",
+        "question": "What AI solutions do you offer?",
+        "answer": "Our AI solutions include: Natural Language Processing (chatbots, text analysis, sentiment analysis), Computer Vision (image recognition, object detection, video analytics), Machine Learning (predictive analytics, recommendation systems, anomaly detection), and Deep Learning applications. We provide both custom solutions and pre-trained models.",
+        "patterns": [
+            "What are your AI capabilities?",
+            "Tell me about your AI services",
+            "What AI technologies do you use?",
+            "AI product offerings?",
+            
+            "What can your AI do?",
+            "AI features?",
+            "Types of AI?",
+            "AI tools available?",
+            
+            "artificial intellignce",
+            "machine learing",
+            "AI technolgies",
+            
+            "AI systems",
+            "neural networks",
+            "deep learning",
+            "ML solutions"
+        ]
+    },
+    {
+        "category": "implementation_process",
+        "question": "How do you implement AI solutions?",
+        "answer": "Our AI implementation process includes: Initial assessment and data evaluation, solution design, model development and training, integration with existing systems, testing and validation, deployment, and ongoing monitoring. We ensure seamless integration while maintaining data security and system performance.",
+        "patterns": [
+            "How do you deploy AI systems?",
+            "What's your implementation approach?",
+            "AI integration process?",
+            "How do you set up AI?",
+            
+            "How long to implement?",
+            "Setup process?",
+            "Getting started with AI?",
+            "AI deployment steps?",
+            
+            "instalation process",
+            "deployment steps",
+            "setup procedure",
+            
+            "implementation methodology",
+            "AI deployment",
+            "system integration",
+            "solution rollout"
+        ]
+    },
+    {
+        "category": "use_cases",
+        "question": "What are common use cases for your AI solutions?",
+        "answer": "Our AI solutions are used for: Customer service automation (chatbots, voice assistants), Business analytics (predictive modeling, trend analysis), Process automation (document processing, workflow optimization), Security (fraud detection, threat analysis), and Quality control (visual inspection, defect detection).",
+        "patterns": [
+            "How are your AI solutions used?",
+            "What problems do you solve?",
+            "Applications of your AI?",
+            "Where is your AI used?",
+            
+            "What can I use AI for?",
+            "Real examples?",
+            "Success stories?",
+            "AI applications?",
+            
+            "use cases",
+            "applications",
+            "examples",
+            
+            "practical applications",
+            "solution scenarios",
+            "implementation examples",
+            "business cases"
+        ]
+    },
+    {
+        "category": "ai_consulting",
+        "question": "What AI consulting services do you provide?",
+        "answer": "Our AI consulting services include: AI readiness assessment, strategy development, technology selection, proof of concept development, data strategy planning, AI governance framework setup, and team training. We help organizations identify and implement the most effective AI solutions for their needs.",
+        "patterns": [
+            "Do you offer AI consulting?",
+            "AI advisory services?",
+            "Can you help plan AI implementation?",
+            "AI strategy consulting?",
+            
+            "Need AI advice",
+            "Help with AI planning",
+            "AI guidance needed",
+            "Strategic AI help",
+            
+            "consulting services",
+            "advisory help",
+            "strategic planning",
+            
+            "AI roadmap",
+            "technology consulting",
+            "digital transformation",
+            "AI strategy"
+        ]
+    },
+    {
+        "category": "data_requirements",
+        "question": "What are the data requirements for AI implementation?",
+        "answer": "AI implementation typically requires: Quality training data, proper data formatting and labeling, adequate data volume, relevant historical data, and ongoing data collection capabilities. We help assess data readiness, implement data collection strategies, and ensure data quality for optimal AI performance.",
+        "patterns": [
+            "What data do you need?",
+            "Data prerequisites?",
+            "Training data requirements?",
+            "Data preparation needs?",
+            
+            "How much data needed?",
+            "Data for AI?",
+            "Data collection?",
+            "What data to prepare?",
+            
+            "data needs",
+            "data specs",
+            "data volumes",
+            
+            "data infrastructure",
+            "data preparation",
+            "data requirements",
+            "training data"
+        ]
+    },
+    {
+        "category": "pricing_model",
+        "question": "How do you price AI solutions?",
+        "answer": "Our AI pricing is based on several factors: Solution complexity, data volume, processing requirements, integration needs, and deployment scope. We offer flexible pricing models including subscription-based, usage-based, and project-based pricing. Custom solutions are priced based on specific requirements and scope.",
+        "patterns": [
+            "What's the cost of AI implementation?",
+            "AI solution pricing?",
+            "How much do AI services cost?",
+            "Price for AI development?",
+            
+            "AI costs?",
+            "Pricing plans?",
+            "Service rates?",
+            "Implementation cost?",
+            
+            "solution cost",
+            "price points",
+            "service fees",
+            
+            "cost structure",
+            "pricing models",
+            "payment plans",
+            "cost estimation"
+        ]
+    },
+    {
+        "category": "maintenance_support",
+        "question": "How do you handle AI system maintenance?",
+        "answer": "We provide comprehensive AI maintenance including: Model performance monitoring, regular retraining and updates, system optimization, bug fixes, and technical support. Our support team offers 24/7 monitoring, periodic performance reviews, and continuous improvement recommendations.",
+        "patterns": [
+            "How do you maintain AI systems?",
+            "AI support services?",
+            "System maintenance?",
+            "Ongoing AI support?",
+            
+            "AI updates?",
+            "System upkeep?",
+            "Maintenance plans?",
+            "Support options?",
+            
+            "maintainance",
+            "system support",
+            "upkeep",
+            
+            "model maintenance",
+            "system updates",
+            "performance monitoring",
+            "technical support"
+        ]
+    },
+    {
+        "category": "company_info",
+        "question": "What are your company's working hours?",
+        "answer": "Our standard business hours are Monday through Friday, 9:00 AM to 5:00 PM local time. However, some departments may have flexible working hours or different shifts to accommodate global operations and customer service needs.",
+        "patterns": [
+            "What are the official business hours?",
+            "During which hours is the company operational?",
+            "What is your operating schedule?",
+            "Could you specify your business hours?",
+            
+            "When are you guys open?",
+            "What time do you open and close?",
+            "When can I reach you?",
+            "Are you open now?",
+            "What time you close?",
+            
+            "whats ur working hrs",
+            "company timings??",
+            "buisness hours",
+            "opening times",
+            "work schedule",
+            
+            "operational hours",
+            "business schedule",
+            "office hours",
+            "service hours",
+            "availability window"
+        ]
+    },
+    {
+        "category": "benefits",
+        "question": "What benefits does the company offer?",
+        "answer": "We offer a comprehensive benefits package including health insurance (medical, dental, vision), 401(k) matching, paid time off, parental leave, professional development opportunities, flexible working arrangements, and wellness programs.",
+        "patterns": [
+            "What is included in the employee benefits package?",
+            "Could you detail the compensation benefits?",
+            
+            "What perks do you offer?",
+            "What do I get besides salary?",
+            
+            "benifits package",
+            "employe benefits",
+            
+            "compensation package",
+            "fringe benefits"
+        ]
+    },
+    {
+        "category": "career_growth",
+        "question": "What are the career growth opportunities?",
+        "answer": "We provide multiple pathways for career advancement including leadership training programs, skill development workshops, mentorship opportunities, cross-functional project assignments, and both vertical and lateral career moves. Regular performance reviews help identify and support your career goals.",
+        "patterns": [
+            "What are the professional development opportunities?",
+            "How does career progression work?",
+            
+            "Can I move up in the company?",
+            "How do I get promoted?",
+            
+            "carrer growth",
+            "job advancment",
+            
+            "career trajectory",
+            "professional advancement"
+        ]
+    },
+    {
+        "category": "technical_support",
+        "question": "How can I get technical support?",
+        "answer": "Technical support is available 24/7 through multiple channels: our online help desk at support.company.com, live chat, email at support@company.com, or by phone at 1-800-SUPPORT. For urgent issues, our phone support team provides immediate assistance, while our online knowledge base offers solutions for common problems.",
+        "patterns": [
+            "How do I contact technical assistance?",
+            "What are the support channels available?",
+            "How can I reach your support team?",
+            "What is the process for obtaining technical help?",
+            
+            "How do I get help with technical issues?",
+            "Who do I talk to for tech help?",
+            "Need help with your product",
+            "Having problems with software",
+            "Where can I get help?",
+            
+            "tech suport contact",
+            "tehnical help",
+            "support phone #",
+            "tech assistance",
+            "tech issues",
+            
+            "IT support",
+            "technical assistance",
+            "help desk",
+            "support ticket",
+            "customer support"
+        ]
+    },
+    {
+        "category": "warranty_info",
+        "question": "What is your warranty policy?",
+        "answer": "Our products come with a standard 1-year limited warranty covering manufacturing defects and malfunctions. Extended warranty options are available for up to 3 years. The warranty includes parts and labor for repairs, with free shipping for warranty claims. Certain conditions and exclusions apply, such as damage from misuse or unauthorized modifications.",
+        "patterns": [
+            "What does the product warranty cover?",
+            "What are the warranty terms and conditions?",
+            
+            "How long is the warranty good for?",
+            "Is my product still under warranty?",
+            
+            "waranty coverage",
+            "product garantee",
+            
+            "warranty period",
+            "product protection"
+        ]
+    },
+    {
+        "category": "shipping_details",
+        "question": "What are your shipping options and delivery times?",
+        "answer": "We offer several shipping options: Standard (5-7 business days), Express (2-3 business days), and Next Day delivery. International shipping is available to most countries. Free shipping on orders over $50. All orders are tracked and insured. Shipping costs vary based on location and package weight.",
+        "patterns": [
+            "What are the available delivery methods?",
+            "How long does shipping take?",
+            
+            "When will my stuff arrive?",
+            "How much is shipping?",
+            
+            "shiping time",
+            "delivry options",
+            
+            "freight services",
+            "courier options"
+        ]
+    },
+    {
+        "category": "return_policy",
+        "question": "What is your return policy?",
+        "answer": "We offer a 30-day return policy for unused items in original packaging. Returns are free for defective items. For non-defective items, customers are responsible for return shipping costs. Refunds are processed within 5-7 business days after receiving the returned item. Special items or customized products may have different return conditions.",
+        "patterns": [
+            "What is the procedure for returns?",
+            "How do I return a product?",
+            
+            "Can I send this back?",
+            "How do I get my money back?",
+            
+            "return proces",
+            "refund policy",
+            
+            "merchandise return",
+            "return authorization"
+        ]
+    },
+    {
+        "category": "job_opportunities",
+        "question": "What job positions are currently available?",
+        "answer": "Current job openings are listed on our careers page at careers.company.com. We regularly hire for positions in engineering, sales, customer service, marketing, and operations. Each listing includes detailed requirements, responsibilities, and benefits. We offer both entry-level and senior positions, with opportunities for remote work in many roles.",
+        "patterns": [
+            "What employment opportunities exist?",
+            "Are you currently recruiting?",
+            
+            "Are you guys hiring?",
+            "Got any job openings?",
+            
+            "job vacancies",
+            "employmnt opportunities",
+            
+            "career openings",
+            "position vacancies"
+        ]
+    },
+    {
+        "category": "locations",
+        "question": "Where are your office locations?",
+        "answer": "Our headquarters is located in Silicon Valley, with regional offices in New York, London, Singapore, and Sydney. We also have satellite offices in major tech hubs across North America, Europe, and Asia. Many of our teams operate in a hybrid or remote work model, allowing us to employ talent globally.",
+        "patterns": [
+            "What are your office addresses?",
+            "Where are your facilities located?",
+            
+            "Where can I find you guys?",
+            "Which cities are you in?",
+            
+            "office adress",
+            "company location",
+            
+            "global presence",
+            "facility locations"
+        ]
+    },
+    {
+        "category": "product_pricing",
+        "question": "How much do your products/services cost?",
+        "answer": "Our pricing varies by product line and service tier. Basic packages start at $29/month, professional at $99/month, and enterprise solutions are custom-priced. Volume discounts are available for bulk purchases. For detailed pricing, visit our pricing page or contact our sales team for a customized quote.",
+        "patterns": [
+            "What are your price points?",
+            "Could you provide pricing information?",
+            
+            "How much does it cost?",
+            "What's the price?",
+            
+            "price list",
+            "cost info",
+            
+            "rate card",
+            "pricing structure"
+        ]
+    },
+    {
+        "category": "payment_methods",
+        "question": "What payment methods do you accept?",
+        "answer": "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, bank transfers, and corporate purchase orders. For enterprise clients, we also offer net-30 payment terms subject to credit approval. All transactions are processed through secure, encrypted channels.",
+        "patterns": [
+            "Which payment options are available?",
+            "What forms of payment do you take?",
+            
+            "Can I pay with PayPal?",
+            "Do you take credit cards?",
+            
+            "payment optins",
+            "acceptd payments",
+            
+            "transaction methods",
+            "payment processing"
+        ]
+    },
+    {
+        "category": "data_security",
+        "question": "How do you protect customer data?",
+        "answer": "We implement industry-leading security measures including end-to-end encryption, multi-factor authentication, and regular security audits. Our systems are SOC 2 Type II certified and GDPR compliant. We perform regular backups and maintain strict access controls to protect all customer data.",
+        "patterns": [
+            "What security measures are in place?",
+            "How is my information protected?",
+            "What data protection protocols do you use?",
+            "How do you ensure data privacy?",
+            "What security standards do you follow?",
+            
+            "Is my data safe?",
+            "Do you encrypt data?",
+            "How secure is my info?",
+            "Can my data be hacked?",
+            "Is my information private?",
+            
+            "data protecton",
+            "security mesures",
+            "data safty",
+            "info security",
+            "data privacy",
+            
+            "information security",
+            "cybersecurity protocols",
+            "data governance",
+            "security compliance",
+            "data protection measures",
+            "encryption standards",
+            "security infrastructure"
+        ]
+    },
+    {
+        "category": "training_resources",
+        "question": "What training resources are available?",
+        "answer": "We provide comprehensive training resources including video tutorials, documentation, webinars, and hands-on workshops. Our learning portal offers self-paced courses, certification programs, and interactive training modules. Custom training sessions are available for enterprise clients.",
+        "patterns": [
+            "How can I learn to use your products?",
+            "What educational resources do you offer?",
+            
+            "Got any tutorials?",
+            "Where can I find help guides?",
+            
+            "product traing",
+            "learning materals",
+            
+            "knowledge resources",
+            "educational content"
+        ]
+    },
+    {
+        "category": "system_requirements",
+        "question": "What are the system requirements?",
+        "answer": "Our software requires Windows 10/11 or macOS 10.15+, minimum 8GB RAM, 2.0GHz processor, and 10GB free disk space. For web applications, we support the latest versions of Chrome, Firefox, Safari, and Edge browsers. Mobile apps require iOS 14+ or Android 10+.",
+        "patterns": [
+            "What specifications do I need?",
+            "What are the technical requirements?",
+            
+            "Will it run on my computer?",
+            "What do I need to use this?",
+            
+            "tech specs",
+            "compatability",
+            
+            "hardware requirements",
+            "software specifications"
+        ]
+    },
+    {
+        "category": "maintenance_schedule",
+        "question": "When is system maintenance performed?",
+        "answer": "Scheduled maintenance is performed during off-peak hours, typically between 2AM-4AM EST on the second Sunday of each month. Emergency maintenance may occur as needed. All users receive notifications 72 hours before scheduled maintenance. Our system status page provides real-time updates.",
+        "patterns": [
+            "When are maintenance windows?",
+            "What is the maintenance schedule?",
+            
+            "When is the system down?",
+            "When do you do updates?",
+            
+            "maintainance times",
+            "system downtime",
+            
+            "service windows",
+            "update schedule"
+        ]
+    },
+    {
+        "category": "partner_program",
+        "question": "How does your partner program work?",
+        "answer": "Our partner program offers three tiers: Silver, Gold, and Platinum. Benefits include revenue sharing, lead generation, marketing support, and technical training. Partners receive access to our partner portal, dedicated account manager, and co-marketing opportunities. Annual requirements include revenue targets and certification maintenance.",
+        "patterns": [
+            "What are the partnership opportunities?",
+            "How can I become a partner?",
+            
+            "Can we work together?",
+            "Do you have reseller programs?",
+            
+            "partner benefits",
+            "reseler program",
+            
+            "channel partnership",
+            "strategic alliance"
+        ]
+    },
+    {
+        "category": "compliance_certifications",
+        "question": "What compliance certifications do you have?",
+        "answer": "We maintain ISO 27001, SOC 2 Type II, HIPAA, and GDPR compliance certifications. Our systems undergo regular third-party audits and penetration testing. We also comply with industry-specific regulations such as PCI DSS for payment processing and CCPA for data privacy.",
+        "patterns": [
+            "What security certifications do you hold?",
+            "Are you regulatory compliant?",
+            
+            "Are you HIPAA certified?",
+            "Do you follow GDPR?",
+            
+            "security standards",
+            "regulatory compliance",
+            
+            "industry certifications",
+            "compliance framework"
+        ]
+    },
+    {
+        "category": "product_features",
+        "question": "What features does your product offer?",
+        "answer": "Our product includes advanced analytics, real-time reporting, customizable dashboards, automated workflows, API integration capabilities, role-based access control, and enterprise-grade security. Key features include data visualization tools, collaboration features, mobile app access, and 24/7 system monitoring.",
+        "patterns": [
+            "What can your product do?",
+            "What are the main features?",
+            "Tell me about product capabilities",
+            "What functionality is included?",
+            
+            "What does it do?",
+            "How does your product work?",
+            "Show me the features",
+            "What am I getting?",
+            
+            "product fetures",
+            "functionaliti",
+            "prodct capabilities",
+            
+            "system features",
+            "platform capabilities",
+            "software functions",
+            "technical specifications"
+        ]
+    },
+    {
+        "category": "pricing_plans",
+        "question": "What are your pricing plans and packages?",
+        "answer": "We offer three main pricing tiers: Basic ($29/month) includes core features for small teams, Professional ($99/month) adds advanced analytics and API access, and Enterprise (custom pricing) provides full customization, dedicated support, and SLA guarantees. All plans include free updates and basic support. Volume discounts available for annual subscriptions.",
+        "patterns": [
+            "How much does it cost?",
+            "What are the subscription options?",
+            "Can you explain your pricing model?",
+            "What packages do you offer?",
+            
+            "How much to buy?",
+            "What's the price?",
+            "Cost of subscription?",
+            "Price packages?",
+            
+            "pricing info",
+            "subcription cost",
+            "package prices",
+            
+            "rate card",
+            "fee structure",
+            "payment plans",
+            "cost breakdown"
+        ]
+    },
+    {
+        "category": "implementation",
+        "question": "How long does implementation take?",
+        "answer": "Implementation typically takes 2-4 weeks depending on your requirements and system complexity. This includes initial setup, data migration, system configuration, user training, and testing. Our implementation team provides dedicated support throughout the process, with a detailed timeline and milestone tracking.",
+        "patterns": [
+            "What is the implementation process?",
+            "How long until we can go live?",
+            "What's the deployment timeline?",
+            "Implementation duration?",
+            
+            "How long to set up?",
+            "When can we start using it?",
+            "Setup time?",
+            "How quick to deploy?",
+            
+            "instalation time",
+            "setup proces",
+            "deploymnt duration",
+            
+            "onboarding timeline",
+            "integration period",
+            "rollout schedule",
+            "system deployment"
+        ]
+    },
+    {
+        "category": "security_compliance",
+        "question": "What security certifications and compliance standards do you meet?",
+        "answer": "We maintain ISO 27001, SOC 2 Type II, HIPAA, and GDPR compliance. Our security measures include end-to-end encryption, multi-factor authentication, regular security audits, and penetration testing. We also provide detailed security documentation and compliance reports for enterprise clients.",
+        "patterns": [
+            "Are you security certified?",
+            "What compliance standards do you follow?",
+            "Tell me about your security measures",
+            "Is my data secure?",
+            
+            "How safe is my data?",
+            "Security standards?",
+            "Data protection?",
+            "Privacy compliance?",
+            
+            "secrity certifications",
+            "data protecton",
+            "compliance standars",
+            
+            "information security",
+            "regulatory compliance",
+            "data governance",
+            "privacy standards"
+        ]
+    },
+    {
+        "category": "api_integration",
+        "question": "How does your API integration work?",
+        "answer": "Our RESTful API provides seamless integration with existing systems. We offer comprehensive API documentation, SDKs for major programming languages, webhook support, and custom integration assistance. The API supports real-time data sync, automated workflows, and secure authentication protocols.",
+        "patterns": [
+            "Can I integrate with other systems?",
+            "Explain the API capabilities",
+            "What integration options exist?",
+            "How to connect to other platforms?",
+            
+            "Does it work with my system?",
+            "Can I connect my tools?",
+            "Integration options?",
+            "API features?",
+            
+            "sistem integration",
+            "api conection",
+            "data sync",
+            
+            "technical integration",
+            "system connectivity",
+            "interface options",
+            "integration protocols"
+        ]
+    },
+    {
+        "category": "support_sla",
+        "question": "What are your support levels and SLA terms?",
+        "answer": "We provide tiered support levels: Standard (9-5 business hours, email support), Premium (24/7 phone and email, 4-hour response), and Enterprise (dedicated support manager, 1-hour response). SLAs guarantee 99.9% uptime, incident response times, and resolution commitments based on severity levels.",
+        "patterns": [
+            "What support do you provide?",
+            "Response time guarantees?",
+            "Support availability?",
+            "Service level agreement details?",
+            
+            "When can I get help?",
+            "How fast do you respond?",
+            "Support hours?",
+            "Help desk timing?",
+            
+            "suport levels",
+            "response times",
+            "service garantee",
+            
+            "support terms",
+            "service agreement",
+            "incident response",
+            "support coverage"
+        ]
+    },
+    {
+        "category": "data_migration",
+        "question": "How do you handle data migration?",
+        "answer": "Our data migration process includes initial assessment, data mapping, test migration, validation, and final migration. We support various data formats, provide cleaning and transformation tools, and ensure zero data loss. The process is fully documented and includes rollback capabilities.",
+        "patterns": [
+            "Can you migrate our existing data?",
+            "What's the data transfer process?",
+            "How do you move our data?",
+            "Data migration procedure?",
+            
+            "Moving our data over?",
+            "Can we transfer our info?",
+            "Data import process?",
+            "How to move data?",
+            
+            "data tranfer",
+            "data migraton",
+            "importing data",
+            
+            "data conversion",
+            "system migration",
+            "information transfer",
+            "data transition"
+        ]
+    },
+    {
+        "category": "consulting_services",
+        "question": "What consulting services do you offer?",
+        "answer": "We provide comprehensive consulting services including business strategy, digital transformation, technology assessment, and process optimization. Our certified consultants offer industry-specific expertise, custom solution design, and implementation guidance. Services include needs analysis, roadmap development, and ROI planning.",
+        "patterns": [
+            "What kind of consulting do you do?",
+            "Tell me about your consulting services",
+            "Do you offer strategic consulting?",
+            "What advisory services are available?",
+            
+            "Can you help with strategy?",
+            "Do you do consulting?",
+            "Need business advice",
+            "Looking for consultants",
+            
+            "consulting options",
+            "advisory servics",
+            "business consulting",
+            
+            "strategic services",
+            "professional services",
+            "management consulting",
+            "technology consulting"
+        ]
+    },
+    {
+        "category": "managed_services",
+        "question": "What managed services do you provide?",
+        "answer": "Our managed services include 24/7 infrastructure monitoring, system administration, security management, backup and recovery, performance optimization, and proactive maintenance. We offer both cloud and on-premise managed services with dedicated support teams and guaranteed SLAs.",
+        "patterns": [
+            "Do you offer managed IT services?",
+            "What's included in managed services?",
+            "Tell me about your IT management",
+            "Managed service offerings?",
+            
+            "Can you manage our IT?",
+            "IT support services?",
+            "System management options?",
+            "Ongoing IT services?",
+            
+            "managed IT",
+            "IT servics",
+            "tech management",
+            
+            "infrastructure management",
+            "IT operations",
+            "system administration",
+            "operational support"
+        ]
+    },
+    {
+        "category": "cloud_services",
+        "question": "What cloud services do you offer?",
+        "answer": "We provide comprehensive cloud services including cloud migration, hybrid cloud solutions, cloud security, disaster recovery, and cloud optimization. Our services support major platforms (AWS, Azure, Google Cloud) with expertise in IaaS, PaaS, and SaaS implementations. We ensure seamless integration and optimal performance.",
+        "patterns": [
+            "What are your cloud solutions?",
+            "Cloud service offerings?",
+            "Do you provide cloud hosting?",
+            "Cloud platform support?",
+            
+            "Help with cloud setup?",
+            "Moving to cloud?",
+            "Cloud migration help?",
+            "Need cloud services",
+            
+            "cloud solutions",
+            "cloud servics",
+            "cloud hosting",
+            
+            "cloud computing",
+            "cloud platforms",
+            "cloud infrastructure",
+            "cloud deployment"
+        ]
+    },
+    {
+        "category": "training_services",
+        "question": "What training services are available?",
+        "answer": "We offer comprehensive training services including customized workshops, certification programs, hands-on labs, and user adoption programs. Training is available in-person or virtual, with both standard and custom curricula. We provide technical training, admin training, end-user training, and train-the-trainer programs.",
+        "patterns": [
+            "What training do you provide?",
+            "Training program details?",
+            "How do you handle user training?",
+            "Available training options?",
+            
+            "Can you train our team?",
+            "Need staff training",
+            "User training available?",
+            "Training packages?",
+            
+            "training programs",
+            "user trainig",
+            "staff education",
+            
+            "skills development",
+            "capability building",
+            "knowledge transfer",
+            "learning programs"
+        ]
+    },
+    {
+        "category": "custom_development",
+        "question": "Do you offer custom development services?",
+        "answer": "Yes, we provide full-cycle custom development services including requirements analysis, design, development, testing, and deployment. Our team specializes in web applications, mobile apps, API development, and system integrations. We follow agile methodology with regular deliverables and client collaboration.",
+        "patterns": [
+            "Can you build custom solutions?",
+            "Custom software development?",
+            "Do you do custom programming?",
+            "Bespoke development services?",
+            
+            "Need custom software",
+            "Can you build something custom?",
+            "Custom app development?",
+            "Tailored solutions?",
+            
+            "custom dev",
+            "software developmnt",
+            "custom coding",
+            
+            "application development",
+            "bespoke solutions",
+            "custom programming",
+            "software engineering"
+        ]
+    },
+    {
+        "category": "maintenance_services",
+        "question": "What maintenance services do you provide?",
+        "answer": "We offer comprehensive maintenance services including preventive maintenance, system updates, performance tuning, security patching, and emergency support. Our maintenance plans include regular health checks, optimization recommendations, and detailed reporting. We provide both scheduled maintenance and on-demand support.",
+        "patterns": [
+            "How do you handle maintenance?",
+            "System maintenance options?",
+            "Maintenance service plans?",
+            "Regular maintenance support?",
+            
+            "Need system maintenance",
+            "Ongoing support options?",
+            "Regular updates?",
+            "System upkeep?",
+            
+            "maintainance services",
+            "system maintenance",
+            "regular updates",
+            
+            "preventive maintenance",
+            "system upkeep",
+            "ongoing support",
+            "routine maintenance"
+        ]
+    },
+    {
+        "category": "contact_general",
+        "question": "How can I contact your AI company?",
+        "answer": "You can reach our AI solutions team through multiple channels: Phone: 1-800-AI-HELP (24/7 technical support), Email: support@aicompany.com, Website: www.aicompany.com/contact. For enterprise inquiries, contact our sales team at 1-888-AI-SALES or enterprise@aicompany.com.",
+        "patterns": [
+            "What are your contact details?",
+            "How do I reach you?",
+            "Contact information please",
+            "Ways to contact you?",
+            
+            "How to get in touch?",
+            "Need your contact info",
+            "Contact details?",
+            "Where can I reach you?",
+            
+            "contact info",
+            "contact detals",
+            "reachability",
+            
+            "contact methods",
+            "communication channels",
+            "contact options",
+            "get in touch"
+        ]
+    },
+    {
+        "category": "phone_support",
+        "question": "What are your support phone numbers?",
+        "answer": "Our AI support phone numbers: Technical Support: 1-800-AI-HELP (24/7), Sales Team: 1-888-AI-SALES (Mon-Fri, 9AM-6PM EST), Enterprise Support: 1-877-AI-ENTERPRISE (24/7), International: +1-555-AI-GLOBAL. Each line has AI-assisted routing for faster response.",
+        "patterns": [
+            "What's your support number?",
+            "Phone number for AI help?",
+            "Technical support phone?",
+            "How can I call support?",
+            
+            "Need phone support",
+            "Support line number?",
+            "Emergency contact number?",
+            "Helpdesk phone?",
+            
+            "phone numbr",
+            "support line",
+            "contact no",
+            
+            "support hotline",
+            "help center number",
+            "technical assistance",
+            "phone contact"
+        ]
+    },
+    {
+        "category": "email_contacts",
+        "question": "What are your email addresses?",
+        "answer": "Our email contacts: AI Support: support@aicompany.com, Sales: sales@aicompany.com, Enterprise Solutions: enterprise@aicompany.com, Training: training@aicompany.com, Partner Program: partners@aicompany.com. All emails are monitored by our AI system for quick routing and response.",
+        "patterns": [
+            "What's your email address?",
+            "Email for support?",
+            "Sales team email?",
+            "Where to email questions?",
+            
+            "Need support email",
+            "Email contact info?",
+            "How to email you?",
+            "Contact email?",
+            
+            "email adress",
+            "support mail",
+            "contact email",
+            
+            "electronic mail",
+            "email support",
+            "mail contact",
+            "business email"
+        ]
+    },
+    {
+        "category": "online_presence",
+        "question": "Where can I find you online?",
+        "answer": "Our online presence includes: Main website: www.aicompany.com, Support portal: support.aicompany.com, Developer docs: dev.aicompany.com, Training platform: learn.aicompany.com. We're also active on LinkedIn (/aicompany), Twitter (@AICompany), and GitHub (/aicompany).",
+        "patterns": [
+            "What's your website?",
+            "Online support portal?",
+            "Developer documentation?",
+            "Where's your documentation?",
+            
+            "Website address?",
+            "Support site?",
+            "Online resources?",
+            "Web portal?",
+            
+            "web address",
+            "online help",
+            "documentation",
+            
+            "digital presence",
+            "online platform",
+            "web resources",
+            "support portal"
+        ]
+    },
+    {
+        "category": "emergency_support",
+        "question": "How do I get emergency support?",
+        "answer": "For emergency AI system support: Call our 24/7 emergency line at 1-800-AI-URGENT, Email urgent@aicompany.com with 'URGENT' in subject, or use the red 'Emergency Support' button in our client portal. Premium and Enterprise clients have dedicated emergency response teams.",
+        "patterns": [
+            "Need urgent help",
+            "Emergency contact?",
+            "Immediate support needed",
+            "Critical issue help",
+            
+            "System down help",
+            "Urgent assistance",
+            "Emergency number?",
+            "Crisis support?",
+            
+            "urgent help",
+            "emergency contact",
+            "critical support",
+            
+            "immediate assistance",
+            "urgent support",
+            "emergency line",
+            "crisis help"
+        ]
+    }
+]

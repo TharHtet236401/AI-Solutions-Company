@@ -19,6 +19,7 @@ import usersRoutes from './routes/users.route.js';
 import inquiriesRoutes from './routes/inquiries.route.js';
 import blogsRoutes from './routes/blogs.route.js';
 import galleryRoutes from './routes/gallery.route.js';
+import chatRoutes from './routes/chat.route.js';
 // Set EJS as the template engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -45,6 +46,7 @@ app.use('/api/users', usersRoutes);
 app.use('/api/inquiries', inquiriesRoutes);
 app.use('/api/blogs', blogsRoutes);
 app.use('/api/gallery', galleryRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
