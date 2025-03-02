@@ -24,19 +24,18 @@ async function loadUsers(params = {}) {
     try {
         const queryParams = new URLSearchParams({
             page: currentPage,
-            limit: itemsPerPage,
             ...params
         });
+        
         const response = await fetch(`/api/users?${queryParams}`);
-        console.log(response);
         const data = await response.json();
 
-        if (response.ok) {
-            users = data.users;
-            renderUsers(data.users);
-            renderPagination(data.totalPages);
+        if (data.con) {
+            users = data.result.users;
+            renderUsers(data.result.users);
+            renderPagination(data.result.totalPages);
         } else {
-            showToast('error', data.message || 'Error loading users');
+            showToast('error', data.msg || 'Error loading users');
         }
     } catch (error) {
         console.error('Error loading users:', error);
