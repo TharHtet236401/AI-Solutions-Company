@@ -15,7 +15,6 @@ function setupEventListeners() {
     
     // Filters
     document.getElementById('roleFilter').addEventListener('change', handleFilters);
-    document.getElementById('statusFilter').addEventListener('change', handleFilters);
     document.getElementById('sortOrder').addEventListener('change', handleFilters);
 }
 

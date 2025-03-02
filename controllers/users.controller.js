@@ -9,34 +9,32 @@ import {
 
 export const getUsers = async (req, res) => {
   try {
-    // Get page and limit from query params, default to page 1 and 10 items per page
     const page = parseInt(req.query.page) || 1;
-    const limit = 10;
-    const role = req.query.role;
-    const sort = req.query.sort || '-createdAt'; // Default to latest first
-
-    // Calculate skip value for pagination
+    const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
+    const role = req.query.role;
+    const sort = req.query.sort || '-createdAt';
 
-    // Build query
-    let query = {};
-    if (role && role.trim() !== '') {
-      query.role = role.toLowerCase(); // Convert to lowercase to match our stored values
+    // Build query object
+    const query = {};
+    
+    // Add role filter if provided
+    if (role) {
+      query.role = role;
     }
 
-    // Get total count of users for pagination
     const totalUsers = await User.countDocuments(query);
     const totalPages = Math.ceil(totalUsers / limit);
 
-    // Get paginated and filtered users
     const users = await User.find(query)
       .sort(sort)
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .select('-password');
 
-    return res.json({
+    return res.status(200).json({
       con: true,
-      msg: "Users fetched successfully",
+      msg: 'Users fetched successfully',
       result: {
         users,
         currentPage: page,
@@ -45,10 +43,10 @@ export const getUsers = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Error in getUsers:', error);
     return res.status(500).json({
       con: false,
-      msg: "Error fetching users",
-      result: null
+      msg: 'Internal server error'
     });
   }
 };

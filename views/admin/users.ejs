@@ -120,6 +120,37 @@
             outline: none;
         }
 
+        .date-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-filter input[type="date"] {
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            border-radius: 4px;
+            padding: 7px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .date-filter input[type="date"]:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+            outline: none;
+        }
+
+        .date-separator {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
         .refresh-btn {
             background: #3498db;
             color: white;
