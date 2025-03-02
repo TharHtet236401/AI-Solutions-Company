@@ -55,7 +55,7 @@
         }
 
         .action-btn.edit-btn {
-            background-color: #10375B;
+            background-color: #2962ff;
         }
 
         .action-btn.delete-btn {
@@ -64,7 +64,7 @@
 
         .action-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(16, 55, 91, 0.2);
+            box-shadow: 0 4px 15px rgba(41, 98, 255, 0.2);
         }
 
         .role-badge {
@@ -138,6 +138,48 @@
             background: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Pagination Styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #2962ff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+
+        .pagination-btn.active {
+            background: #2962ff;
+            color: white;
+            border-color: #2962ff;
+        }
+
+        .pagination-btn:hover:not(.disabled) {
+            background: #2962ff;
+            color: white;
+            border-color: #2962ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(41, 98, 255, 0.2);
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f5f5f5;
         }
     </style>
 </head>
