@@ -9,10 +9,38 @@ import {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    fMsg(res, "Users fetched successfully", users);
+    // Get page and limit from query params, default to page 1 and 10 items per page
+    const page = parseInt(req.query.page) || 1;
+    const limit = 10;
+
+    // Calculate skip value for pagination
+    const skip = (page - 1) * limit;
+
+    // Get total count of users for pagination
+    const totalUsers = await User.countDocuments();
+    const totalPages = Math.ceil(totalUsers / limit);
+
+    // Get paginated users
+    const users = await User.find()
+      .skip(skip)
+      .limit(limit);
+
+    return res.json({
+      con: true,
+      msg: "Users fetched successfully",
+      result: {
+        users,
+        currentPage: page,
+        totalPages,
+        totalUsers
+      }
+    });
   } catch (error) {
-    fError(res, "Error fetching users", 500);
+    return res.status(500).json({
+      con: false,
+      msg: "Error fetching users",
+      result: null
+    });
   }
 };
 

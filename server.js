@@ -20,6 +20,8 @@ import inquiriesRoutes from './routes/inquiries.route.js';
 import blogsRoutes from './routes/blogs.route.js';
 import galleryRoutes from './routes/gallery.route.js';
 import chatRoutes from './routes/chat.route.js';
+import adminRoutes from './routes/admin.route.js';
+
 // Set EJS as the template engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -42,6 +44,7 @@ app.use((req, res, next) => {
 
 // Use page routes
 app.use('/', pageRoutes);
+app.use('/admin', adminRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/inquiries', inquiriesRoutes);
 app.use('/api/blogs', blogsRoutes);
