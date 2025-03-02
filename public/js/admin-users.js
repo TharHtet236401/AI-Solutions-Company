@@ -51,14 +51,14 @@ function renderUsers(users) {
     users.forEach(user => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>
+            <td class="col-username">
                 <div class="user-info">
                     <span>${user.username}</span>
                 </div>
             </td>
-            <td><span class="role-badge ${user.role}">${user.role}</span></td>
-            <td>${formatDate(user.createdAt)}</td>
-            <td>
+            <td class="col-role"><span class="role-badge ${user.role}">${user.role}</span></td>
+            <td class="col-created">${formatDate(user.createdAt)}</td>
+            <td class="col-actions">
                 <div class="action-buttons">
                     <button class="action-btn edit-btn" onclick="editUser('${user._id}')">
                         <i class="fas fa-edit"></i>

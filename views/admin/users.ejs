@@ -7,6 +7,66 @@
     <link rel="stylesheet" href="/css/admin-dashboard.css">
     <link rel="stylesheet" href="/css/admin-users.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .users-table th,
+        .users-table td {
+            padding: 12px 16px;
+            text-align: left;
+        }
+        
+        .users-table .col-username {
+            width: 30%;
+        }
+        
+        .users-table .col-role {
+            width: 20%;
+        }
+        
+        .users-table .col-created {
+            width: 30%;
+        }
+        
+        .users-table .col-actions {
+            width: 20%;
+            text-align: center;
+        }
+
+        .users-table td:last-child {
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .action-btn.edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .action-btn.delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
     <div class="admin-container">
@@ -49,10 +109,10 @@
                     <table class="users-table">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Role</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th class="col-username">Username</th>
+                                <th class="col-role">Role</th>
+                                <th class="col-created">Created At</th>
+                                <th class="col-actions">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="usersTableBody">
