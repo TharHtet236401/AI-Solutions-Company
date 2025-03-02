@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['admin', 'staff'],
         default: 'admin'
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 const User = mongoose.model('User', userSchema);
