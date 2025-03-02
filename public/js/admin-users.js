@@ -53,14 +53,10 @@ function renderUsers(users) {
         tr.innerHTML = `
             <td>
                 <div class="user-info">
-                    <img src="${user.avatar || '/images/default-avatar.png'}" alt="${user.username}" class="user-avatar">
                     <span>${user.username}</span>
                 </div>
             </td>
-            <td>${user.email}</td>
             <td><span class="role-badge ${user.role}">${user.role}</span></td>
-            <td><span class="status-badge ${user.status}">${user.status}</span></td>
-            <td>${formatDate(user.lastLogin)}</td>
             <td>${formatDate(user.createdAt)}</td>
             <td>
                 <div class="action-buttons">
