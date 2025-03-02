@@ -116,3 +116,18 @@ export const getUser = async (req, res) => {
     fError(res, "Error fetching user", 500);
   }
 };
+
+export const deleteUser = async (req, res) => {
+  try {
+    console.log("trying to delete user", req.params.id);
+    const user = await User.findById(req.params.id);
+    const currentUser = await User.findById(req.user._id);
+    if (!user) return fError(res, "User not found", 404);
+    if (user._id.toString() === currentUser._id.toString() || currentUser.role !== "admin")
+      return fError(res, "You cannot delete your own account or you are not an admin", 400);
+    await User.findByIdAndDelete(req.params.id);
+    fMsg(res, "User deleted successfully");
+  } catch (error) {
+    fError(res, "Error deleting user", 500);
+  }
+};
