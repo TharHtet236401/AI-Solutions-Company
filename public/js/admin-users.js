@@ -22,13 +22,34 @@ function setupEventListeners() {
 // Fetch users from the server
 async function loadUsers(params = {}) {
     try {
+        // Clean up the filter values
+        const roleFilter = params.role || '';
+        
         const queryParams = new URLSearchParams({
-            page: currentPage,
-            ...params
+            page: currentPage
         });
         
-        const response = await fetch(`/api/users?${queryParams}`);
+        // Only add role filter if it's not empty
+        if (roleFilter.trim()) {
+            queryParams.append('role', roleFilter);
+        }
+        
+        // Add sort parameter if provided
+        if (params.sort) {
+            queryParams.append('sort', params.sort);
+        }
+
+        console.log('Request URL:', `/api/users?${queryParams}`);
+        console.log('Current Filters:', params);
+
+        const response = await fetch(`/api/users?${queryParams}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
         const data = await response.json();
+        console.log('Response data:', data);
 
         if (data.con) {
             users = data.result.users;
@@ -216,9 +237,10 @@ function handleSearch(event) {
 function handleFilters() {
     const filters = {
         role: document.getElementById('roleFilter').value,
-        status: document.getElementById('statusFilter').value,
         sort: document.getElementById('sortOrder').value
     };
+    
+    console.log('Applying filters:', filters);
     loadUsers(filters);
 }
 
@@ -226,9 +248,11 @@ function handleFilters() {
 function resetFilters() {
     document.getElementById('searchInput').value = '';
     document.getElementById('roleFilter').value = '';
-    document.getElementById('statusFilter').value = '';
     document.getElementById('sortOrder').value = '-createdAt';
-    loadUsers();
+    loadUsers({
+        role: '',
+        sort: '-createdAt'
+    });
 }
 
 // Utility functions

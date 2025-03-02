@@ -181,6 +181,75 @@
             cursor: not-allowed;
             background: #f5f5f5;
         }
+
+        /* Modal Button Styles */
+        .submit-btn {
+            background: #2962ff;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .submit-btn:hover {
+            background: #1259ca;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(41, 98, 255, 0.2);
+        }
+
+        .cancel-btn {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cancel-btn:hover {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Password Input Styles */
+        .password-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-group input {
+            padding-right: 40px;
+            width: 100%;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #2962ff;
+        }
+
+        .toggle-password i {
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -207,8 +276,7 @@
                         <select id="roleFilter" class="filter-select">
                             <option value="">All Roles</option>
                             <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                            <option value="editor">Editor</option>
+                            <option value="staff">Staff</option>
                         </select>
                         <select id="sortOrder" class="filter-select">
                             <option value="-createdAt">Latest First</option>
@@ -259,18 +327,27 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="password-group">
+                        <input type="password" id="password" name="password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <div class="password-group">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select id="role" name="role" required>
-                        <option value="user">User</option>
+                        <option value="staff">Staff</option>
                         <option value="admin">Admin</option>
-                        <option value="editor">Editor</option>
                     </select>
                 </div>
                 <div class="form-actions">

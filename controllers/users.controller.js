@@ -12,16 +12,25 @@ export const getUsers = async (req, res) => {
     // Get page and limit from query params, default to page 1 and 10 items per page
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
+    const role = req.query.role;
+    const sort = req.query.sort || '-createdAt'; // Default to latest first
 
     // Calculate skip value for pagination
     const skip = (page - 1) * limit;
 
+    // Build query
+    let query = {};
+    if (role && role.trim() !== '') {
+      query.role = role.toLowerCase(); // Convert to lowercase to match our stored values
+    }
+
     // Get total count of users for pagination
-    const totalUsers = await User.countDocuments();
+    const totalUsers = await User.countDocuments(query);
     const totalPages = Math.ceil(totalUsers / limit);
 
-    // Get paginated users
-    const users = await User.find()
+    // Get paginated and filtered users
+    const users = await User.find(query)
+      .sort(sort)
       .skip(skip)
       .limit(limit);
 
@@ -119,7 +128,6 @@ export const getUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    console.log("trying to delete user", req.params.id);
     const user = await User.findById(req.params.id);
     const currentUser = await User.findById(req.user._id);
     if (!user) return fError(res, "User not found", 404);
