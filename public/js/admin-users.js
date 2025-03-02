@@ -171,16 +171,17 @@ async function handleUserSubmit(event) {
     const userData = Object.fromEntries(formData.entries());
 
     try {
-        const url = editingUserId 
-            ? `/api/admin/users/${editingUserId}`
-            : '/api/admin/users';
-            
-        const method = editingUserId ? 'PUT' : 'POST';
-
-        // Remove empty password for edit
-        if (editingUserId && !userData.password) {
-            delete userData.password;
+        // Validate password match for new user
+        if (!editingUserId && userData.password !== userData.confirmPassword) {
+            showToast('error', 'Passwords do not match');
+            return;
         }
+
+        // Remove confirmPassword as it's not needed in the API
+        delete userData.confirmPassword;
+
+        const url = '/api/users';
+        const method = 'POST';
 
         const response = await fetch(url, {
             method,
@@ -192,12 +193,12 @@ async function handleUserSubmit(event) {
 
         const data = await response.json();
 
-        if (response.ok) {
-            showToast('success', `User successfully ${editingUserId ? 'updated' : 'created'}`);
+        if (data.con) {
+            showToast('success', 'User successfully created');
             closeUserModal();
             loadUsers();
         } else {
-            showToast('error', data.message || 'Error saving user');
+            showToast('error', data.msg || 'Error saving user');
         }
     } catch (error) {
         console.error('Error saving user:', error);
@@ -264,8 +265,8 @@ function formatDate(dateString) {
 }
 
 function showToast(type, message) {
-    // Implement your toast notification system here
-    console.log(`${type}: ${message}`);
+    // You can implement a proper toast notification here
+    alert(message); // For now, using alert as a simple notification
 }
 
 function debounce(func, wait) {

@@ -54,20 +54,60 @@ export const getUsers = async (req, res) => {
 export const createUser = async (req, res) => {
   try {
     const { username, password, role } = req.body;
-    const user = await User.findOne({ username });
-    if (user) return fError(res, "User already exists", 400);
-    const newUser = new User({ username, password, role });
-    if (!username || !password || !role)
-      return fError(res, "All fields are required", 400);
-    if (role !== "admin" && role !== "staff")
-      return fError(res, "Invalid role", 400);
 
+    // Validate required fields
+    if (!username || !password || !role) {
+      return res.status(400).json({
+        con: false,
+        msg: "All fields are required"
+      });
+    }
+
+    // Validate role
+    if (role !== "admin" && role !== "staff") {
+      return res.status(400).json({
+        con: false,
+        msg: "Invalid role"
+      });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({
+        con: false,
+        msg: "Username already exists"
+      });
+    }
+
+    // Hash password
     const hashedPassword = await encode(password);
-    newUser.password = hashedPassword;
+
+    // Create new user
+    const newUser = new User({
+      username,
+      password: hashedPassword,
+      role
+    });
+
     await newUser.save();
-    fMsg(res, "User created successfully", newUser, 201);
+
+    // Return success without password
+    const userWithoutPassword = newUser.toObject();
+    delete userWithoutPassword.password;
+
+    return res.status(201).json({
+      con: true,
+      msg: "User created successfully",
+      result: userWithoutPassword
+    });
+
   } catch (error) {
-    fError(res, "Error creating user ddd", 500);
+    console.error('Error in createUser:', error);
+    return res.status(500).json({
+      con: false,
+      msg: "Error creating user"
+    });
   }
 };
 
