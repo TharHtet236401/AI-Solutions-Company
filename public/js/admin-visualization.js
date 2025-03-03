@@ -1,19 +1,131 @@
 document.addEventListener('DOMContentLoaded', async function() {
     try {
-        // Fetch visualization data from the API
-        const response = await fetch('/api/inquiries/visualization-data');
-        const data = await response.json();
+        // Fetch both inquiries and staff visualization data
+        const [inquiriesResponse, staffResponse] = await Promise.all([
+            fetch('/api/inquiries/visualization-data'),
+            fetch('/api/users/visualization-data')
+        ]);
+
+        const inquiriesData = await inquiriesResponse.json();
+        const staffData = await staffResponse.json();
         
-        if (!data.con) {
+        if (!inquiriesData.con || !staffData.con) {
             throw new Error('Failed to fetch visualization data');
         }
 
-        const visualizationData = data.result;
-        console.log('Visualization data:', visualizationData);
+        const visualizationData = inquiriesData.result;
+        const staffVisualizationData = staffData.result;
 
-        // Validate data existence
-        if (!visualizationData || !visualizationData.statusDistribution || !visualizationData.yearDistribution || !visualizationData.geographicalDistribution) {
-            throw new Error('Invalid data structure received from server');
+        // Staff Role Distribution Chart
+        if (staffVisualizationData.roleDistribution) {
+            const roleLabels = staffVisualizationData.roleDistribution.map(item => item._id);
+            const roleData = staffVisualizationData.roleDistribution.map(item => item.count);
+
+            const roleCtx = document.getElementById('staffRoleChart').getContext('2d');
+            new Chart(roleCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: roleLabels,
+                    datasets: [{
+                        data: roleData,
+                        backgroundColor: [
+                            'rgba(63, 81, 181, 0.8)',  // blue for admin
+                            'rgba(76, 175, 80, 0.8)',  // green for staff
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 13,
+                                    family: "'Segoe UI', sans-serif"
+                                },
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#333',
+                            bodyColor: '#666',
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    const total = roleData.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.raw / total) * 100).toFixed(1);
+                                    return `${context.label}: ${context.raw} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        }
+
+        // Staff Growth Chart
+        if (staffVisualizationData.growthData) {
+            const growthLabels = staffVisualizationData.growthData.map(item => {
+                const date = new Date(item._id);
+                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            });
+            const growthData = staffVisualizationData.growthData.map(item => item.count);
+
+            const growthCtx = document.getElementById('staffGrowthChart').getContext('2d');
+            new Chart(growthCtx, {
+                type: 'line',
+                data: {
+                    labels: growthLabels,
+                    datasets: [{
+                        label: 'Total Staff',
+                        data: growthData,
+                        borderColor: 'rgba(63, 81, 181, 1)',
+                        backgroundColor: 'rgba(63, 81, 181, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#333',
+                            bodyColor: '#666',
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            padding: 12
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         // Status Distribution Chart

@@ -238,3 +238,58 @@ export const updateUser = async (req, res) => {
     });
   }
 };
+
+export const getVisualizationData = async (req, res) => {
+    try {
+        // Get role distribution
+        const roleDistribution = await User.aggregate([
+            {
+                $group: {
+                    _id: "$role",
+                    count: { $sum: 1 }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        // Get staff growth over time (monthly)
+        const growthData = await User.aggregate([
+            {
+                $group: {
+                    _id: {
+                        year: { $year: "$createdAt" },
+                        month: { $month: "$createdAt" }
+                    },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $project: {
+                    _id: {
+                        $dateFromParts: {
+                            year: "$_id.year",
+                            month: "$_id.month"
+                        }
+                    },
+                    count: 1
+                }
+            },
+            { $sort: { "_id": 1 } }
+        ]);
+
+        return res.status(200).json({
+            con: true,
+            msg: 'Visualization data fetched successfully',
+            result: {
+                roleDistribution,
+                growthData
+            }
+        });
+    } catch (error) {
+        console.error('Error in getVisualizationData:', error);
+        return res.status(500).json({
+            con: false,
+            msg: 'Error fetching visualization data'
+        });
+    }
+};
