@@ -215,12 +215,13 @@ async function deleteUser(userId) {
             method: 'DELETE'
         });
 
-        if (response.ok) {
+        const data = await response.json();
+        
+        if (data.con) {
             showToast('success', 'User successfully deleted');
             loadUsers();
         } else {
-            const data = await response.json();
-            showToast('error', data.message || 'Error deleting user');
+            showToast('error', data.msg || 'Error deleting user');
         }
     } catch (error) {
         console.error('Error deleting user:', error);
@@ -265,8 +266,31 @@ function formatDate(dateString) {
 }
 
 function showToast(type, message) {
-    // You can implement a proper toast notification here
-    alert(message); // For now, using alert as a simple notification
+    const container = document.getElementById('toastContainer');
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    // Add icon based on type
+    const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+    
+    toast.innerHTML = `
+        <i class="fas fa-${icon}"></i>
+        <span class="toast-message">${message}</span>
+        <button class="toast-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    // Add to container
+    container.appendChild(toast);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out forwards';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 function debounce(func, wait) {
