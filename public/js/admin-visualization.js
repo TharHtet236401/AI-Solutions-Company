@@ -82,57 +82,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
 
-        // Staff Growth Chart
-        if (staffVisualizationData.growthData) {
-            const growthLabels = staffVisualizationData.growthData.map(item => {
-                const date = new Date(item._id);
-                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-            });
-            const growthData = staffVisualizationData.growthData.map(item => item.count);
-
-            const growthCtx = document.getElementById('staffGrowthChart').getContext('2d');
-            new Chart(growthCtx, {
-                type: 'line',
-                data: {
-                    labels: growthLabels,
-                    datasets: [{
-                        label: 'Total Staff',
-                        data: growthData,
-                        borderColor: 'rgba(63, 81, 181, 1)',
-                        backgroundColor: 'rgba(63, 81, 181, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                            titleColor: '#333',
-                            bodyColor: '#666',
-                            borderColor: 'rgba(0, 0, 0, 0.1)',
-                            borderWidth: 1,
-                            padding: 12
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
         // Status Distribution Chart
         const statusDistribution = Array.isArray(visualizationData.statusDistribution) ? 
             visualizationData.statusDistribution : [];
