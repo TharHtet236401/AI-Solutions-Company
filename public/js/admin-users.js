@@ -132,7 +132,11 @@ function renderPagination(totalPages) {
 // Handle page change
 function changePage(page) {
     currentPage = page;
-    loadUsers();
+    loadUsers({
+        role: document.getElementById('roleFilter').value,
+        sort: document.getElementById('sortOrder').value,
+        search: document.getElementById('searchInput').value
+    });
 }
 
 // Modal functions
