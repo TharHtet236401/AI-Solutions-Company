@@ -29,8 +29,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                     datasets: [{
                         data: roleData,
                         backgroundColor: [
-                            'rgba(63, 81, 181, 0.8)',  // blue for admin
-                            'rgba(76, 175, 80, 0.8)',  // green for staff
+                            'rgba(63, 81, 181, 0.8)',   // Super Admin - Blue
+                            'rgba(76, 175, 80, 0.8)',   // Customer Support - Green
+                            'rgba(255, 152, 0, 0.8)',   // Sales - Orange
+                            'rgba(233, 30, 99, 0.8)',   // Marketing - Pink
+                            'rgba(156, 39, 176, 0.8)',  // Content - Purple
+                            'rgba(0, 188, 212, 0.8)',   // Accounting - Cyan
+                            'rgba(121, 85, 72, 0.8)',   // Executive - Brown
                         ],
                         borderColor: '#ffffff',
                         borderWidth: 2,
