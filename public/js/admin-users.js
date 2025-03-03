@@ -62,11 +62,11 @@ async function loadUsers(params = {}) {
             renderUsers(data.result.users);
             renderPagination(data.result.totalPages);
         } else {
-            showToast('error', data.msg || 'Error loading users');
+            showToast('error', data.msg || 'Error loading staff list');
         }
     } catch (error) {
-        console.error('Error loading users:', error);
-        showToast('error', 'Failed to load users');
+        console.error('Error loading staff list:', error);
+        showToast('error', 'Failed to load staff list');
     }
 }
 
@@ -138,7 +138,7 @@ function changePage(page) {
 // Modal functions
 function openCreateUserModal() {
     editingUserId = null;
-    document.getElementById('modalTitle').textContent = 'Add New User';
+    document.getElementById('modalTitle').textContent = 'Add New Staff';
     document.getElementById('userForm').reset();
     document.getElementById('password').required = true;
     toggleModal(true);
@@ -150,7 +150,7 @@ function editUser(userId) {
     if (!user) return;
 
     // Update modal title
-    document.getElementById('modalTitle').textContent = 'Edit User';
+    document.getElementById('modalTitle').textContent = 'Edit Staff';
     
     // Fill in the form fields
     document.getElementById('username').value = user.username;
@@ -219,15 +219,15 @@ async function handleUserSubmit(event) {
         const data = await response.json();
 
         if (data.con) {
-            showToast('success', `User successfully ${editingUserId ? 'updated' : 'created'}`);
+            showToast('success', `Staff member successfully ${editingUserId ? 'updated' : 'created'}`);
             closeUserModal();
             loadUsers();
         } else {
-            showToast('error', data.msg || 'Error saving user');
+            showToast('error', data.msg || 'Error saving staff member');
         }
     } catch (error) {
-        console.error('Error saving user:', error);
-        showToast('error', 'Failed to save user');
+        console.error('Error saving staff member:', error);
+        showToast('error', 'Failed to save staff member');
     }
 }
 
@@ -255,14 +255,14 @@ async function confirmDelete() {
         const data = await response.json();
         
         if (data.con) {
-            showToast('success', 'User successfully deleted');
+            showToast('success', 'Staff member successfully deleted');
             loadUsers();
         } else {
-            showToast('error', data.msg || 'Error deleting user');
+            showToast('error', data.msg || 'Error deleting staff member');
         }
     } catch (error) {
-        console.error('Error deleting user:', error);
-        showToast('error', 'Failed to delete user');
+        console.error('Error deleting staff member:', error);
+        showToast('error', 'Failed to delete staff member');
     } finally {
         closeDeleteModal();
     }
