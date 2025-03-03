@@ -967,4 +967,46 @@ tbody tr:hover {
         max-width: unset;
         bottom: 1rem;
     }
+}
+
+/* Filter Actions */
+.filter-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.count-display {
+    background-color: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    margin-left: auto;
+}
+
+.count-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+.count-number {
+    font-size: 1rem;
+    color: #1e293b;
+    font-weight: 600;
+    background: rgba(41, 98, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
 } 

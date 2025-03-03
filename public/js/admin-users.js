@@ -61,6 +61,13 @@ async function loadUsers(params = {}) {
             users = data.result.users;
             renderUsers(data.result.users);
             renderPagination(data.result.totalPages);
+            
+            // Update staff count display
+            const staffCount = document.getElementById('staffCount');
+            const countText = roleFilter 
+                ? `${data.result.totalUsers} ${roleFilter}` 
+                : `${data.result.totalUsers} Total`;
+            staffCount.textContent = countText;
         } else {
             showToast('error', data.msg || 'Error loading staff list');
         }

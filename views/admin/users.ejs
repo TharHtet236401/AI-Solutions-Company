@@ -665,7 +665,7 @@
                     <div class="filter-group">
                         <div class="search-input-wrapper">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" id="searchInput" class="search-input" placeholder="Search by username...">
+                            <input type="text" id="searchInput" class="search-input" placeholder="Search staff...">
                         </div>
                         <select id="roleFilter" class="filter-select">
                             <option value="">All Roles</option>
@@ -684,6 +684,10 @@
                         <button class="refresh-btn" onclick="resetFilters()">
                             <i class="fas fa-sync-alt"></i>
                         </button>
+                    </div>
+                    <div class="count-display">
+                        <span class="count-label">Total Staff:</span>
+                        <span id="staffCount" class="count-number">0</span>
                     </div>
                 </div>
 
