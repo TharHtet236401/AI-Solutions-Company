@@ -14,6 +14,7 @@ export const getUsers = async (req, res) => {
     const skip = (page - 1) * limit;
     const role = req.query.role;
     const sort = req.query.sort || '-createdAt';
+    const search = req.query.search;
 
     // Build query object
     const query = {};
@@ -21,6 +22,11 @@ export const getUsers = async (req, res) => {
     // Add role filter if provided
     if (role) {
       query.role = role;
+    }
+
+    // Add search filter if provided
+    if (search) {
+      query.username = { $regex: search, $options: 'i' }; // Case-insensitive search
     }
 
     const totalUsers = await User.countDocuments(query);

@@ -24,12 +24,18 @@ async function loadUsers(params = {}) {
     try {
         // Clean up the filter values
         const roleFilter = params.role || '';
+        const searchTerm = params.search || '';
         
         const queryParams = new URLSearchParams({
             page: currentPage
         });
         
-        // Only add role filter if it's not empty
+        // Add search parameter if provided
+        if (searchTerm.trim()) {
+            queryParams.append('search', searchTerm);
+        }
+
+        // Add role filter if provided
         if (roleFilter.trim()) {
             queryParams.append('role', roleFilter);
         }
@@ -246,26 +252,34 @@ async function confirmDelete() {
 
 // Search and filter handlers
 function handleSearch(event) {
+    currentPage = 1; // Reset to first page when searching
     const searchTerm = event.target.value;
-    loadUsers({ search: searchTerm });
+    loadUsers({ 
+        search: searchTerm,
+        role: document.getElementById('roleFilter').value,
+        sort: document.getElementById('sortOrder').value
+    });
 }
 
 function handleFilters() {
+    currentPage = 1; // Reset to first page when filtering
     const filters = {
         role: document.getElementById('roleFilter').value,
-        sort: document.getElementById('sortOrder').value
+        sort: document.getElementById('sortOrder').value,
+        search: document.getElementById('searchInput').value
     };
     
-    console.log('Applying filters:', filters);
     loadUsers(filters);
 }
 
 // Reset filters
 function resetFilters() {
+    currentPage = 1; // Reset to first page
     document.getElementById('searchInput').value = '';
     document.getElementById('roleFilter').value = '';
     document.getElementById('sortOrder').value = '-createdAt';
     loadUsers({
+        search: '',
         role: '',
         sort: '-createdAt'
     });
