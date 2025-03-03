@@ -149,14 +149,22 @@ function editUser(userId) {
     const user = users.find(u => u._id === userId);
     if (!user) return;
 
+    // Update modal title
     document.getElementById('modalTitle').textContent = 'Edit User';
-    document.getElementById('username').value = user.username;
-    document.getElementById('email').value = user.email;
-    document.getElementById('role').value = user.role;
-    document.getElementById('status').value = user.status;
-    document.getElementById('password').required = false;
     
-    toggleModal(true);
+    // Fill in the form fields
+    document.getElementById('username').value = user.username;
+    document.getElementById('role').value = user.role;
+    
+    // Make password fields optional for editing
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    passwordInput.required = false;
+    confirmPasswordInput.required = false;
+    
+    // Show the modal
+    const modal = document.getElementById('userModal');
+    modal.classList.add('show');
 }
 
 function closeUserModal() {
@@ -178,17 +186,27 @@ async function handleUserSubmit(event) {
     const userData = Object.fromEntries(formData.entries());
 
     try {
-        // Validate password match for new user
-        if (!editingUserId && userData.password !== userData.confirmPassword) {
-            showToast('error', 'Passwords do not match');
-            return;
+        // Validate password match if password is provided
+        if (userData.password || userData.confirmPassword) {
+            if (userData.password !== userData.confirmPassword) {
+                showToast('error', 'Passwords do not match');
+                return;
+            }
         }
 
         // Remove confirmPassword as it's not needed in the API
         delete userData.confirmPassword;
 
-        const url = '/api/users';
-        const method = 'POST';
+        // Remove password if it's empty (for editing)
+        if (!userData.password) {
+            delete userData.password;
+        }
+
+        const url = editingUserId 
+            ? `/api/users/${editingUserId}`
+            : '/api/users';
+        
+        const method = editingUserId ? 'PUT' : 'POST';
 
         const response = await fetch(url, {
             method,
@@ -201,7 +219,7 @@ async function handleUserSubmit(event) {
         const data = await response.json();
 
         if (data.con) {
-            showToast('success', 'User successfully created');
+            showToast('success', `User successfully ${editingUserId ? 'updated' : 'created'}`);
             closeUserModal();
             loadUsers();
         } else {

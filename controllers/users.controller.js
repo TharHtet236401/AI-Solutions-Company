@@ -183,3 +183,58 @@ export const deleteUser = async (req, res) => {
     fError(res, "Error deleting user", 500);
   }
 };
+
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, password, role } = req.body;
+
+    // Find user
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        con: false,
+        msg: "User not found"
+      });
+    }
+
+    // Check if username is being changed and if it's already taken
+    if (username !== user.username) {
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        return res.status(400).json({
+          con: false,
+          msg: "Username already exists"
+        });
+      }
+    }
+
+    // Update user fields
+    user.username = username;
+    user.role = role;
+
+    // Only update password if provided
+    if (password) {
+      user.password = await encode(password);
+    }
+
+    await user.save();
+
+    // Return success without password
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+
+    return res.status(200).json({
+      con: true,
+      msg: "User updated successfully",
+      result: userWithoutPassword
+    });
+
+  } catch (error) {
+    console.error('Error in updateUser:', error);
+    return res.status(500).json({
+      con: false,
+      msg: "Error updating user"
+    });
+  }
+};
