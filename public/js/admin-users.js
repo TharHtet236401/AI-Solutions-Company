@@ -2,6 +2,7 @@ let currentPage = 1;
 const itemsPerPage = 10;
 let users = [];
 let editingUserId = null;
+let userToDelete = null;
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
@@ -207,11 +208,23 @@ async function handleUserSubmit(event) {
 }
 
 // Delete user
-async function deleteUser(userId) {
-    if (!confirm('Are you sure you want to delete this user?')) return;
+function deleteUser(userId) {
+    userToDelete = userId;
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.classList.add('show');
+}
+
+function closeDeleteModal() {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.classList.remove('show');
+    userToDelete = null;
+}
+
+async function confirmDelete() {
+    if (!userToDelete) return;
 
     try {
-        const response = await fetch(`/api/users/${userId}`, {
+        const response = await fetch(`/api/users/${userToDelete}`, {
             method: 'DELETE'
         });
 
@@ -226,6 +239,8 @@ async function deleteUser(userId) {
     } catch (error) {
         console.error('Error deleting user:', error);
         showToast('error', 'Failed to delete user');
+    } finally {
+        closeDeleteModal();
     }
 }
 
@@ -303,4 +318,15 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-} 
+}
+
+// Add event listener to close modal when clicking outside
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('click', (e) => {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    });
+    // ... existing event listeners ...
+}); 
