@@ -248,25 +248,38 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Password Input Styles */
+        /* Update Password Input Styles */
         .password-group {
             position: relative;
-            display: flex;
-            align-items: center;
+            width: 100%;
         }
 
         .password-group input {
-            padding-right: 40px;
             width: 100%;
+            padding: 8px 40px 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #1e293b;
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .password-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
 
         .toggle-password {
             position: absolute;
             right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
-            color: #666;
+            color: #94a3b8;
             padding: 5px;
             display: flex;
             align-items: center;
@@ -275,7 +288,11 @@
         }
 
         .toggle-password:hover {
-            color: #2962ff;
+            color: #3498db;
+        }
+
+        .toggle-password:focus {
+            outline: none;
         }
 
         .toggle-password i {
