@@ -64,7 +64,7 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/ai-solutions-company.git
+   git clone https://github.com/tharhtet236401/ai-solutions-company.git
    cd ai-solutions-company
    ```
 
