@@ -175,6 +175,9 @@ export const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const currentUser = await User.findById(req.user._id);
+    if (req.user.role !== "Super Admin") {
+      return fError(res, "You are not authorized to delete the users", 403);
+    }
     if (!user) return fError(res, "User not found", 404);
     if (user._id.toString() === currentUser._id.toString() || currentUser.role !== "Super Admin")
       return fError(res, "You cannot delete your own account or you are not an admin", 400);
@@ -189,6 +192,10 @@ export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const { username, password, role } = req.body;
+
+    if (req.user.role !== "Super Admin") {
+      return fError(res, "You are not authorized to update the users", 403);
+    }
 
     // Find user
     const user = await User.findById(id);
