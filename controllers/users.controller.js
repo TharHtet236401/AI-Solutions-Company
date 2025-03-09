@@ -70,12 +70,12 @@ export const createUser = async (req, res) => {
     }
 
     // Validate role
-    // if (role !== "admin" && role !== "staff") {
-    //   return res.status(400).json({
-    //     con: false,
-    //     msg: "Invalid role"
-    //   });
-    // }
+    if (role == "Super Admin") {
+      return res.status(400).json({
+        con: false,
+        msg: "You cannot create a Super Admin account"
+      });
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ username });
@@ -164,6 +164,7 @@ export const logoutUser = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
+    if (!user) return fError(res, "User not found", 404);
     fMsg(res, "User fetched successfully", user);
   } catch (error) {
     fError(res, "Error fetching user", 500);
@@ -192,20 +193,14 @@ export const updateUser = async (req, res) => {
     // Find user
     const user = await User.findById(id);
     if (!user) {
-      return res.status(404).json({
-        con: false,
-        msg: "User not found"
-      });
+      return fError(res, "User not found", 404);
     }
 
     // Check if username is being changed and if it's already taken
     if (username !== user.username) {
       const existingUser = await User.findOne({ username });
       if (existingUser) {
-        return res.status(400).json({
-          con: false,
-          msg: "Username already exists"
-        });
+        return fError(res, "Username already exists", 400);
       }
     }
 
