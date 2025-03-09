@@ -75,11 +75,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    securityForm.addEventListener('submit', function(e) {
+    // Handle security form submission
+    securityForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        // Add your security form submission logic here
-        // After successful submission
-        cancelEdit('security');
+        
+        const currentPassword = securityForm.querySelector('input[name="currentPassword"]').value;
+        const newPassword = securityForm.querySelector('input[name="newPassword"]').value;
+        const confirmPassword = securityForm.querySelector('input[name="confirmPassword"]').value;
+        
+        // Basic validation
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            showError('All password fields are required');
+            return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+            showError('New passwords do not match');
+            return;
+        }
+        
+        const saveBtn = securityForm.querySelector('.save-btn');
+        const originalText = saveBtn.textContent;
+        saveBtn.textContent = 'Updating...';
+        saveBtn.disabled = true;
+        
+        try {
+            const response = await fetch('/api/users/update-password', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    currentPassword,
+                    newPassword,
+                    confirmPassword
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.con) {
+                showSuccess(data.msg || 'Password updated successfully');
+                securityForm.reset();
+                toggleEdit('security', false);
+            } else {
+                showError(data.msg || 'Failed to update password');
+            }
+        } catch (error) {
+            console.error('Error updating password:', error);
+            showError('An error occurred while updating password');
+        } finally {
+            saveBtn.textContent = originalText;
+            saveBtn.disabled = false;
+        }
     });
 });
 
