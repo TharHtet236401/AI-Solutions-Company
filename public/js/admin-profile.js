@@ -17,6 +17,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Setup password toggle functionality
+    const passwordToggles = document.querySelectorAll('.password-toggle');
+    passwordToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const icon = this.querySelector('i');
+            
+            // Only toggle if the input is not disabled
+            if (!input.disabled) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        });
+    });
+
     // Form submission handlers
     const profileForm = document.getElementById('profileForm');
     const securityForm = document.getElementById('securityForm');
