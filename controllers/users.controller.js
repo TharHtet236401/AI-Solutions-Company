@@ -13,12 +13,12 @@ export const getUsers = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     const role = req.query.role;
-    const sort = req.query.sort || '-createdAt';
+    const sort = req.query.sort || "-createdAt";
     const search = req.query.search;
 
     // Build query object
     const query = {};
-    
+
     // Add role filter if provided
     if (role) {
       query.role = role;
@@ -26,7 +26,7 @@ export const getUsers = async (req, res) => {
 
     // Add search filter if provided
     if (search) {
-      query.username = { $regex: search, $options: 'i' }; // Case-insensitive search
+      query.username = { $regex: search, $options: "i" }; // Case-insensitive search
     }
 
     const totalUsers = await User.countDocuments(query);
@@ -36,23 +36,23 @@ export const getUsers = async (req, res) => {
       .sort(sort)
       .skip(skip)
       .limit(limit)
-      .select('-password');
+      .select("-password");
 
     return res.status(200).json({
       con: true,
-      msg: 'Users fetched successfully',
+      msg: "Users fetched successfully",
       result: {
         users,
         currentPage: page,
         totalPages,
-        totalUsers
-      }
+        totalUsers,
+      },
     });
   } catch (error) {
-    console.error('Error in getUsers:', error);
+    console.error("Error in getUsers:", error);
     return res.status(500).json({
       con: false,
-      msg: 'Internal server error'
+      msg: "Internal server error",
     });
   }
 };
@@ -65,7 +65,7 @@ export const createUser = async (req, res) => {
     if (!username || !password || !role) {
       return res.status(400).json({
         con: false,
-        msg: "All fields are required"
+        msg: "All fields are required",
       });
     }
 
@@ -73,7 +73,7 @@ export const createUser = async (req, res) => {
     if (role == "Super Admin") {
       return res.status(400).json({
         con: false,
-        msg: "You cannot create a Super Admin account"
+        msg: "You cannot create a Super Admin account",
       });
     }
 
@@ -82,7 +82,7 @@ export const createUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({
         con: false,
-        msg: "Username already exists"
+        msg: "Username already exists",
       });
     }
 
@@ -93,7 +93,7 @@ export const createUser = async (req, res) => {
     const newUser = new User({
       username,
       password: hashedPassword,
-      role
+      role,
     });
 
     await newUser.save();
@@ -105,14 +105,13 @@ export const createUser = async (req, res) => {
     return res.status(201).json({
       con: true,
       msg: "User created successfully",
-      result: userWithoutPassword
+      result: userWithoutPassword,
     });
-
   } catch (error) {
-    console.error('Error in createUser:', error);
+    console.error("Error in createUser:", error);
     return res.status(500).json({
       con: false,
-      msg: "Error creating user"
+      msg: "Error creating user",
     });
   }
 };
@@ -130,12 +129,14 @@ export const loginUser = async (req, res) => {
     // Generate token and set cookie
     const token = generateTokenAndSetCookie(res, user._id);
 
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
     // Send response with user and token
     return res.status(200).json({
       con: true,
       msg: "User logged in successfully",
       result: {
-        user,
+        user: userWithoutPassword,
         token: token, // Send the token directly
       },
     });
@@ -179,8 +180,15 @@ export const deleteUser = async (req, res) => {
       return fError(res, "You are not authorized to delete the users", 403);
     }
     if (!user) return fError(res, "User not found", 404);
-    if (user._id.toString() === currentUser._id.toString() || currentUser.role !== "Super Admin")
-      return fError(res, "You cannot delete your own account or you are not an admin", 400);
+    if (
+      user._id.toString() === currentUser._id.toString() ||
+      currentUser.role !== "Super Admin"
+    )
+      return fError(
+        res,
+        "You cannot delete your own account or you are not an admin",
+        400
+      );
     await User.findByIdAndDelete(req.params.id);
     fMsg(res, "User deleted successfully");
   } catch (error) {
@@ -193,9 +201,9 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, password, role } = req.body;
 
-    if (req.user.role !== "Super Admin") {
-      return fError(res, "You are not authorized to update the users", 403);
-    }
+    // if (req.user.role !== "Super Admin") {
+    //   return fError(res, "You are not authorized to update the users", 403);
+    // }
 
     // Find user
     const user = await User.findById(id);
@@ -229,71 +237,70 @@ export const updateUser = async (req, res) => {
     return res.status(200).json({
       con: true,
       msg: "User updated successfully",
-      result: userWithoutPassword
+      result: userWithoutPassword,
     });
-
   } catch (error) {
-    console.error('Error in updateUser:', error);
+    console.error("Error in updateUser:", error);
     return res.status(500).json({
       con: false,
-      msg: "Error updating user"
+      msg: "Error updating user",
     });
   }
 };
 
 export const getVisualizationData = async (req, res) => {
-    try {
-        // Get role distribution
-        const roleDistribution = await User.aggregate([
-            {
-                $group: {
-                    _id: "$role",
-                    count: { $sum: 1 }
-                }
-            },
-            { $sort: { _id: 1 } }
-        ]);
+  try {
+    // Get role distribution
+    const roleDistribution = await User.aggregate([
+      {
+        $group: {
+          _id: "$role",
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
 
-        // Get staff growth over time (monthly)
-        const growthData = await User.aggregate([
-            {
-                $group: {
-                    _id: {
-                        year: { $year: "$createdAt" },
-                        month: { $month: "$createdAt" }
-                    },
-                    count: { $sum: 1 }
-                }
+    // Get staff growth over time (monthly)
+    const growthData = await User.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: "$createdAt" },
+            month: { $month: "$createdAt" },
+          },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: {
+            $dateFromParts: {
+              year: "$_id.year",
+              month: "$_id.month",
             },
-            {
-                $project: {
-                    _id: {
-                        $dateFromParts: {
-                            year: "$_id.year",
-                            month: "$_id.month"
-                        }
-                    },
-                    count: 1
-                }
-            },
-            { $sort: { "_id": 1 } }
-        ]);
+          },
+          count: 1,
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
 
-        return res.status(200).json({
-            con: true,
-            msg: 'Visualization data fetched successfully',
-            result: {
-                roleDistribution,
-                growthData
-            }
-        });
-    } catch (error) {
-        console.error('Error in getVisualizationData:', error);
-        return res.status(500).json({
-            con: false,
-            msg: 'Error fetching visualization data'
-        });
-    }
+    return res.status(200).json({
+      con: true,
+      msg: "Visualization data fetched successfully",
+      result: {
+        roleDistribution,
+        growthData,
+      },
+    });
+  } catch (error) {
+    console.error("Error in getVisualizationData:", error);
+    return res.status(500).json({
+      con: false,
+      msg: "Error fetching visualization data",
+    });
+  }
 };
 
 export const updatePersonalInfo = async (req, res) => {
@@ -301,9 +308,7 @@ export const updatePersonalInfo = async (req, res) => {
     const { username } = req.body;
     const user = await User.findById(req.user._id);
     if (!user) return fError(res, "User not found", 404);
-    console.log('User IDs:', user._id.toString(), req.user._id.toString());
-    // Compare the string values of the ObjectIds
-    if(user._id.toString() !== req.user._id.toString()) {
+    if (user._id.toString() !== req.user._id.toString()) {
       return fError(res, "You are not authorized to update this user", 403);
     }
     user.username = username;
@@ -314,5 +319,25 @@ export const updatePersonalInfo = async (req, res) => {
   } catch (error) {
     console.log(error);
     fError(res, "Error updating user", 500);
+  }
+};
+
+export const updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    if (newPassword !== confirmPassword)
+      return fError(res, "Passwords do not match", 400);
+    const user = await User.findById(req.user._id);
+    if (user._id.toString() !== req.user._id.toString()) {
+      return fError(res, "You are not authorized to update this user", 403);
+    }
+    if (!user) return fError(res, "User not found", 404);
+    const isMatch = await decode(currentPassword, user.password);
+    if (!isMatch) return fError(res, "Current password is incorrect", 400);
+    user.password = await encode(newPassword);
+    await user.save();
+    fMsg(res, "Password updated successfully");
+  } catch (error) {
+    fError(res, "Error updating password", 500);
   }
 };
