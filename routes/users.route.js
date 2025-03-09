@@ -1,15 +1,19 @@
 import express from 'express';
-import { getUsers, createUser, loginUser, logoutUser, getUser, deleteUser, updateUser, getVisualizationData } from '../controllers/users.controller.js';
+import { getUsers, createUser, loginUser, logoutUser, getUser, deleteUser, updateUser, getVisualizationData, updatePersonalInfo } from '../controllers/users.controller.js';
 import { validateToken } from '../utils/validator.js';
 const router = express.Router();
 
+// Non-parameterized routes first
 router.get('/', validateToken, getUsers);
 router.get('/visualization-data', validateToken, getVisualizationData);
-router.post('/', validateToken, createUser);
+router.get('/profile', validateToken, getUser);
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
+router.post('/', validateToken, createUser);
+router.put('/personal-info', validateToken, updatePersonalInfo);
+
+// Parameterized routes last
 router.delete('/:id', validateToken, deleteUser);
-router.get('/profile', validateToken, getUser);
 router.put('/:id', validateToken, updateUser);
 
 export default router;
