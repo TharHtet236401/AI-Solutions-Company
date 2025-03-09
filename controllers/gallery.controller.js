@@ -115,3 +115,48 @@ export const deleteGallery = async (req, res) => {
         fError(res, "Error deleting gallery item", 500);
     }
 };
+
+
+export const updateGallery = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const { title, category, description } = req.body;
+      
+      // Find the gallery item
+      const gallery = await Gallery.findById(id);
+      if (!gallery) {
+          return fError(res, "Gallery item not found", 404);
+      }
+      console.log(gallery);
+
+      // Update fields
+      const updateData = {
+          title,
+          category,
+          description,
+          updatedAt: new Date()
+      };
+
+      // If new image is uploaded
+      if (req.file) {
+          // Delete old image
+          if (gallery.image) {
+              deleteFile(gallery.image);
+          }
+          // Add new image path
+          updateData.image = `/uploads/gallery/${req.file.filename}`;
+      }
+
+      // Update gallery item
+      const updatedGallery = await Gallery.findByIdAndUpdate(
+          id,
+          updateData,
+          { new: true }
+      );
+
+      fMsg(res, "Gallery item updated successfully", updatedGallery);
+  } catch (error) {
+      console.error('Error updating gallery item:', error);
+      fError(res, "Error updating gallery item", 500);
+  }
+};

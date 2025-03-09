@@ -5,7 +5,8 @@ import {
     getGallery,
     createGallery,
     getGalleryById,
-    deleteGallery
+    deleteGallery,
+    updateGallery
 } from "../controllers/gallery.controller.js";
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.get("/", getGallery);
 router.post("/", validateToken, upload.single('image'), createGallery);
 router.get("/:id", getGalleryById);
 router.delete("/:id", validateToken, deleteGallery);
+router.put("/:id", validateToken, upload.single('image'), updateGallery);
 
 export default router; 
