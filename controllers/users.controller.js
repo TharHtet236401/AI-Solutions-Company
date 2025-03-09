@@ -299,10 +299,7 @@ export const getVisualizationData = async (req, res) => {
 export const updatePersonalInfo = async (req, res) => {
   try {
     const { username} = req.body;
-    console.log(username);
-    console.log(req.user);
     const user = await User.findById(req.user._id);
-    console.log(user);
     if (!user) return fError(res, "User not found", 404);
     user.username = username;
     await user.save();
