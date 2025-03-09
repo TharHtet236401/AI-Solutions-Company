@@ -133,38 +133,45 @@ function updatePagination() {
     paginationContainer.innerHTML = paginationHTML;
 }
 
-async function handleGallerySubmit(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const formData = new FormData(form);
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalText = submitButton.innerHTML;
-    
+async function editGalleryItem(id) {
     try {
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-        submitButton.disabled = true;
-
-        const response = await fetch('/api/gallery', {
-            method: 'POST',
-            body: formData
-        });
-
+        const response = await fetch(`/api/gallery/${id}`);
         const data = await response.json();
-
+        
         if (data.con) {
-            window.showSuccess('Gallery item added successfully');
-            closeGalleryModal();
-            await fetchAndRenderGallery();
+            const gallery = data.result;
+            const modal = document.getElementById('galleryModal');
+            const form = document.getElementById('galleryForm');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            // Update modal title and form fields
+            modalTitle.textContent = 'Edit Gallery Item';
+            form.elements['title'].value = gallery.title;
+            form.elements['category'].value = gallery.category;
+            form.elements['description'].value = gallery.description || '';
+            
+            // Update image preview
+            const previewContainer = document.getElementById('imagePreview');
+            previewContainer.innerHTML = `
+                <img src="${gallery.image}" alt="Current image" class="preview-image">
+                <p class="preview-note">Upload new image to change</p>
+            `;
+            
+            // Set form mode to edit
+            form.dataset.mode = 'edit';
+            form.dataset.galleryId = id;
+            
+            // Make image upload optional for edit
+            document.getElementById('imageFile').removeAttribute('required');
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
         } else {
-            window.showError(data.msg || 'Failed to add gallery item');
+            window.showError('Failed to fetch gallery item details');
         }
     } catch (error) {
         console.error('Error:', error);
-        window.showError('Failed to add gallery item');
-    } finally {
-        submitButton.innerHTML = originalText;
-        submitButton.disabled = false;
+        window.showError('Failed to fetch gallery item details');
     }
 }
 
@@ -175,6 +182,8 @@ function openCreateGalleryModal() {
     
     // Reset form and set title
     form.reset();
+    form.dataset.mode = 'create';
+    delete form.dataset.galleryId;
     modalTitle.textContent = 'Add New Image';
     
     // Show image preview placeholder
@@ -183,12 +192,63 @@ function openCreateGalleryModal() {
         previewContainer.innerHTML = '<div class="preview-placeholder">Image Preview</div>';
     }
     
+    // Make image required for create
+    document.getElementById('imageFile').setAttribute('required', 'required');
+    
     modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+async function handleGallerySubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const isEdit = form.dataset.mode === 'edit';
+    const galleryId = form.dataset.galleryId;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    
+    try {
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        submitButton.disabled = true;
+
+        const url = isEdit ? `/api/gallery/${galleryId}` : '/api/gallery';
+        const method = isEdit ? 'PUT' : 'POST';
+
+        const response = await fetch(url, {
+            method: method,
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.con) {
+            window.showSuccess(`Gallery item ${isEdit ? 'updated' : 'added'} successfully`);
+            closeGalleryModal();
+            await fetchAndRenderGallery();
+        } else {
+            window.showError(data.msg || `Failed to ${isEdit ? 'update' : 'add'} gallery item`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        window.showError(`Failed to ${isEdit ? 'update' : 'add'} gallery item`);
+    } finally {
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+    }
 }
 
 function closeGalleryModal() {
     const modal = document.getElementById('galleryModal');
     modal.style.display = 'none';
+    document.body.style.overflow = '';
+    
+    // Reset form
+    const form = document.getElementById('galleryForm');
+    form.reset();
+    form.dataset.mode = 'create';
+    delete form.dataset.galleryId;
 }
 
 function deleteGallery(id) {
@@ -231,12 +291,20 @@ async function confirmDelete() {
     }
 }
 
-// Add event listener to close modal when clicking outside
+// Add event listener to close modals when clicking outside
 document.addEventListener('DOMContentLoaded', function() {
     const deleteModal = document.getElementById('deleteModal');
+    const galleryModal = document.getElementById('galleryModal');
+
     deleteModal.addEventListener('click', function(e) {
         if (e.target === deleteModal) {
             closeDeleteModal();
+        }
+    });
+
+    galleryModal.addEventListener('click', function(e) {
+        if (e.target === galleryModal) {
+            closeGalleryModal();
         }
     });
 });
