@@ -70,12 +70,12 @@ export const createUser = async (req, res) => {
     }
 
     // Validate role
-    if (role !== "admin" && role !== "staff") {
-      return res.status(400).json({
-        con: false,
-        msg: "Invalid role"
-      });
-    }
+    // if (role !== "admin" && role !== "staff") {
+    //   return res.status(400).json({
+    //     con: false,
+    //     msg: "Invalid role"
+    //   });
+    // }
 
     // Check if user already exists
     const existingUser = await User.findOne({ username });
@@ -175,7 +175,7 @@ export const deleteUser = async (req, res) => {
     const user = await User.findById(req.params.id);
     const currentUser = await User.findById(req.user._id);
     if (!user) return fError(res, "User not found", 404);
-    if (user._id.toString() === currentUser._id.toString() || currentUser.role !== "admin")
+    if (user._id.toString() === currentUser._id.toString() || currentUser.role !== "Super Admin")
       return fError(res, "You cannot delete your own account or you are not an admin", 400);
     await User.findByIdAndDelete(req.params.id);
     fMsg(res, "User deleted successfully");

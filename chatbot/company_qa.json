@@ -27,7 +27,7 @@
     {
         "category": "ai_solutions",
         "question": "What AI solutions do you offer?",
-        "answer": "Our AI solutions include: Natural Language Processing (chatbots, text analysis, sentiment analysis), Computer Vision (image recognition, object detection, video analytics), Machine Learning (predictive analytics, recommendation systems, anomaly detection), and Deep Learning applications. We provide both custom solutions and pre-trained models.",
+        "answer": "Our AI solutions portfolio includes:\n\n1. Natural Language Processing (NLP):\n- Enterprise chatbots and virtual assistants\n- Sentiment analysis and social media monitoring\n- Document understanding and text analytics\n- Multilingual support and translation\n\n2. Computer Vision:\n- Real-time object detection and tracking\n- Facial recognition and emotion analysis\n- Quality control and defect detection\n- Medical image analysis\n\n3. Machine Learning:\n- Predictive maintenance and analytics\n- Customer behavior analysis\n- Fraud detection systems\n- Recommendation engines\n\n4. Deep Learning:\n- Neural network optimization\n- Transfer learning solutions\n- AutoML platforms\n- Custom model development\n\nAll solutions include implementation support, training, and ongoing maintenance.",
         "patterns": [
             "What are your AI capabilities?",
             "Tell me about your AI services",
@@ -39,14 +39,34 @@
             "Types of AI?",
             "AI tools available?",
             
-            "artificial intellignce",
-            "machine learing",
-            "AI technolgies",
+            "artificial intelligence",
+            "machine learning",
+            "AI technologies",
             
             "AI systems",
             "neural networks",
             "deep learning",
-            "ML solutions"
+            "ML solutions",
+            
+            "cognitive computing",
+            "intelligent automation",
+            "smart algorithms",
+            "AI-powered solutions",
+            
+            "predictive analytics",
+            "natural language processing",
+            "computer vision",
+            "machine intelligence",
+            
+            "AI use cases",
+            "enterprise AI",
+            "business intelligence",
+            "automated systems",
+            
+            "AI capabilities",
+            "intelligent systems",
+            "AI infrastructure",
+            "AI platforms"
         ]
     },
     {
