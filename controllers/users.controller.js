@@ -298,15 +298,21 @@ export const getVisualizationData = async (req, res) => {
 
 export const updatePersonalInfo = async (req, res) => {
   try {
-    const { username} = req.body;
+    const { username } = req.body;
     const user = await User.findById(req.user._id);
     if (!user) return fError(res, "User not found", 404);
+    console.log('User IDs:', user._id.toString(), req.user._id.toString());
+    // Compare the string values of the ObjectIds
+    if(user._id.toString() !== req.user._id.toString()) {
+      return fError(res, "You are not authorized to update this user", 403);
+    }
     user.username = username;
     await user.save();
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
     fMsg(res, "User updated successfully", userWithoutPassword);
   } catch (error) {
+    console.log(error);
     fError(res, "Error updating user", 500);
   }
 };

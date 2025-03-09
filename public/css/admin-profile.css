@@ -156,6 +156,18 @@
     cursor: not-allowed;
 }
 
+.form-group input.readonly-input {
+    background-color: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    color: #666;
+    cursor: default;
+    pointer-events: none;
+}
+
+.form-group input.readonly-input:disabled {
+    opacity: 0.8;
+}
+
 .form-actions {
     display: flex;
     gap: 1rem;

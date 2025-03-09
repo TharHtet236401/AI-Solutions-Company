@@ -18,19 +18,68 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Form submission handlers
-    const forms = {
-        profile: document.getElementById('profileForm'),
-        security: document.getElementById('securityForm')
-    };
+    const profileForm = document.getElementById('profileForm');
+    const securityForm = document.getElementById('securityForm');
 
-    Object.entries(forms).forEach(([formName, form]) => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your form submission logic here
-            console.log(`${formName} form submitted`);
-            // After successful submission
-            cancelEdit(formName);
-        });
+    profileForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitButton = this.querySelector('.save-btn');
+        const originalText = submitButton.innerHTML;
+
+        try {
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            submitButton.disabled = true;
+
+            const formData = {
+                username: this.querySelector('input[name="username"]').value
+            };
+
+            const response = await fetch('/api/users/personal-info/', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+           
+
+            if (data.con) {
+                // Update the form with the returned data
+                const user = data.result;
+                const usernameInput = this.querySelector('input[name="username"]');
+                const roleInput = this.querySelector('input[name="role"]');
+
+                // Keep the form value as the new default since username isn't in response
+                usernameInput.value = formData.username;
+                usernameInput.defaultValue = formData.username;
+
+                // Update role if it's in the response
+                if (user.role) {
+                    roleInput.value = user.role;
+                    roleInput.defaultValue = user.role;
+                }
+
+                showSuccess(data.msg || 'Profile updated successfully');
+                cancelEdit('profile');
+            } else {
+                showError(data.msg || 'Failed to update profile');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            showError('Failed to update profile');
+        } finally {
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+        }
+    });
+
+    securityForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add your security form submission logic here
+        // After successful submission
+        cancelEdit('security');
     });
 });
 
@@ -43,21 +92,26 @@ async function loadUserProfile() {
             const user = data.result;
             
             // Update profile form fields
-            document.querySelector('#profileForm input[name="username"]').value = user.username;
-            document.querySelector('#profileForm input[name="role"]').value = user.role;
+            const usernameInput = document.querySelector('#profileForm input[name="username"]');
+            const roleInput = document.querySelector('#profileForm input[name="role"]');
             
-            // You might want to update other fields if available in the API response
+            usernameInput.value = user.username;
+            usernameInput.defaultValue = user.username;
+            
+            roleInput.value = user.role;
+            roleInput.defaultValue = user.role;
         } else {
-            console.error('Error loading profile:', data.msg);
+            showError('Error loading profile: ' + data.msg);
         }
     } catch (error) {
         console.error('Error fetching profile:', error);
+        showError('Error loading profile');
     }
 }
 
 function toggleEdit(formId) {
     const form = document.getElementById(`${formId}Form`);
-    const inputs = form.querySelectorAll('input:not([type="file"])');
+    const inputs = form.querySelectorAll('input:not([type="file"]):not([readonly])');
     const actions = form.querySelector('.form-actions');
     
     inputs.forEach(input => {
@@ -69,7 +123,7 @@ function toggleEdit(formId) {
 
 function cancelEdit(formId) {
     const form = document.getElementById(`${formId}Form`);
-    const inputs = form.querySelectorAll('input:not([type="file"])');
+    const inputs = form.querySelectorAll('input:not([type="file"]):not([readonly])');
     const actions = form.querySelector('.form-actions');
     
     inputs.forEach(input => {
@@ -78,4 +132,5 @@ function cancelEdit(formId) {
     });
     
     actions.style.display = 'none';
-} 
+}
+
