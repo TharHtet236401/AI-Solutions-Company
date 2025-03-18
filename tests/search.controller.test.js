@@ -63,7 +63,15 @@ describe('Search Controller Tests', () => {
             // Mock file reading
             fs.promises.readFile.mockResolvedValue(mockHtml);
 
-            // Mock cheerio
+            // Mock cheerio with proper each implementation
+            const mockSections = [{
+                attribs: { class: 'content-section' },
+                children: [{
+                    name: 'h2',
+                    children: [{ data: 'Test Section' }]
+                }]
+            }];
+
             const mockCheerio = {
                 remove: vi.fn(),
                 text: vi.fn().mockReturnValue('This is a test content with the word test in it.'),
@@ -75,12 +83,22 @@ describe('Search Controller Tests', () => {
                 })
             };
 
-            const $ = () => mockCheerio;
+            // Add each method to the sections selection
+            mockCheerio.each = (callback) => {
+                mockSections.forEach((section, index) => {
+                    callback(index, section);
+                });
+                return mockCheerio;
+            };
+
+            const $ = (selector) => {
+                if (selector === 'section, div[class*="-section"], div[class*="-container"]') {
+                    return mockCheerio;
+                }
+                return mockCheerio;
+            };
             $.load = vi.fn().mockReturnValue($);
             cheerio.load = $.load;
-
-            // Mock path
-            path.join.mockReturnValue('/mock/path');
 
             await SearchController.search(mockRequest, mockResponse);
 
@@ -106,7 +124,15 @@ describe('Search Controller Tests', () => {
             // Mock file reading
             fs.promises.readFile.mockResolvedValue(mockHtml);
 
-            // Mock cheerio
+            // Mock cheerio with proper each implementation
+            const mockSections = [{
+                attribs: { class: 'content-section' },
+                children: [{
+                    name: 'h2',
+                    children: [{ data: 'Test Section' }]
+                }]
+            }];
+
             const mockCheerio = {
                 remove: vi.fn(),
                 text: vi.fn().mockReturnValue('This content does not contain the search term.'),
@@ -118,7 +144,20 @@ describe('Search Controller Tests', () => {
                 })
             };
 
-            const $ = () => mockCheerio;
+            // Add each method to the sections selection
+            mockCheerio.each = (callback) => {
+                mockSections.forEach((section, index) => {
+                    callback(index, section);
+                });
+                return mockCheerio;
+            };
+
+            const $ = (selector) => {
+                if (selector === 'section, div[class*="-section"], div[class*="-container"]') {
+                    return mockCheerio;
+                }
+                return mockCheerio;
+            };
             $.load = vi.fn().mockReturnValue($);
             cheerio.load = $.load;
 
