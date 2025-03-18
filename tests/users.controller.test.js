@@ -1,21 +1,19 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import mongoose from 'mongoose';
-import { jest } from '@jest/globals';
 import User from '../models/users.model.js';
 import * as userController from '../controllers/users.controller.js';
-import { encode, decode ,generateTokenAndSetCookie,fMsg,fError} from '../utils/libby.js';
-
-
+import { encode, decode, generateTokenAndSetCookie, fMsg, fError } from '../utils/libby.js';
 
 // Mock the User model
-jest.mock('../models/users.model.js');
+vi.mock('../models/users.model.js');
 
 // Mock the libby utilities
-jest.mock('../utils/libby.js', () => ({
-  encode: jest.fn(),
-  decode: jest.fn(),
-  fMsg: jest.fn(),
-  fError: jest.fn(),
-  generateTokenAndSetCookie: jest.fn()
+vi.mock('../utils/libby.js', () => ({
+  encode: vi.fn(),
+  decode: vi.fn(),
+  fMsg: vi.fn(),
+  fError: vi.fn(),
+  generateTokenAndSetCookie: vi.fn()
 }));
 
 describe('User Controller Tests', () => {
@@ -34,13 +32,13 @@ describe('User Controller Tests', () => {
     };
 
     mockResponse = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-      cookie: jest.fn()
+      status: vi.fn().mockReturnThis(),
+      json: vi.fn(),
+      cookie: vi.fn()
     };
 
     // Reset all mocks before each test
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('getUsers', () => {
@@ -52,10 +50,10 @@ describe('User Controller Tests', () => {
 
       User.countDocuments.mockResolvedValue(2);
       User.find.mockReturnValue({
-        sort: jest.fn().mockReturnThis(),
-        skip: jest.fn().mockReturnThis(),
-        limit: jest.fn().mockReturnThis(),
-        select: jest.fn().mockResolvedValue(mockUsers)
+        sort: vi.fn().mockReturnThis(),
+        skip: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockReturnThis(),
+        select: vi.fn().mockResolvedValue(mockUsers)
       });
 
       await userController.getUsers(mockRequest, mockResponse);
@@ -84,13 +82,9 @@ describe('User Controller Tests', () => {
 
       mockRequest.body = mockUser;
       
-      // Mock User.findOne to return null (user doesn't exist)
       User.findOne.mockResolvedValue(null);
-      
-      // Mock encode to return hashed password
       encode.mockResolvedValue('hashedPassword');
 
-      // Create a mock saved user with toObject method
       const mockSavedUser = {
         ...mockUser,
         _id: 'mockId',
@@ -102,10 +96,9 @@ describe('User Controller Tests', () => {
         })
       };
 
-      // Mock the User constructor and save method
       const mockUserInstance = {
         ...mockSavedUser,
-        save: jest.fn().mockResolvedValue(mockSavedUser)
+        save: vi.fn().mockResolvedValue(mockSavedUser)
       };
       
       User.mockImplementation(() => mockUserInstance);
@@ -250,7 +243,7 @@ describe('User Controller Tests', () => {
       const mockUser = {
         _id: 'mockUserId',
         username: 'oldUsername',
-        save: jest.fn(),
+        save: vi.fn(),
         toObject: () => ({
           _id: 'mockUserId',
           username: 'newUsername'
@@ -285,7 +278,7 @@ describe('User Controller Tests', () => {
       const mockUser = {
         _id: 'mockUserId',
         password: 'oldHashedPassword',
-        save: jest.fn()
+        save: vi.fn()
       };
 
       mockRequest.body = {
