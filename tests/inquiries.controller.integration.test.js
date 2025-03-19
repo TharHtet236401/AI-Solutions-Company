@@ -31,6 +31,28 @@ vi.mock('../email/mailtrap/email.js', () => ({
     sendInquiryReplyEmail: vi.fn()
 }));
 
+// Mock excel and json2csv
+vi.mock('exceljs', () => ({
+    default: {
+        Workbook: vi.fn().mockImplementation(() => ({
+            addWorksheet: vi.fn().mockReturnThis(),
+            getRow: vi.fn().mockReturnThis(),
+            getColumn: vi.fn().mockReturnThis(),
+            columns: [],
+            addRow: vi.fn(),
+            xlsx: {
+                write: vi.fn().mockImplementation((res) => Promise.resolve())
+            }
+        }))
+    }
+}));
+
+vi.mock('json2csv', () => ({
+    Parser: vi.fn().mockImplementation(() => ({
+        parse: vi.fn().mockReturnValue('mock csv data')
+    }))
+}));
+
 describe('Inquiry Controller Integration Tests', () => {
     let testUser;
     let testInquiry;
@@ -351,11 +373,9 @@ describe('Inquiry Controller Integration Tests', () => {
                     format: 'csv'
                 }
             };
-            const res = {
-                setHeader: vi.fn(),
-                status: vi.fn().mockReturnThis(),
-                send: vi.fn()
-            };
+            const res = mockResponse();
+            res.setHeader = vi.fn();
+            res.send = vi.fn();
 
             await inquiryController.exportInquiries(req, res);
 
@@ -364,22 +384,52 @@ describe('Inquiry Controller Integration Tests', () => {
                 'Content-Disposition',
                 'attachment; filename=inquiries-export.csv'
             );
+            expect(res.send).toHaveBeenCalled();
         });
 
         it('should export inquiries as Excel', async () => {
+            // Create some test data
+            await Inquiry.create([
+                {
+                    name: 'Test User 1',
+                    email: 'test1@example.com',
+                    phoneNumber: '+1234567890',
+                    companyName: 'Test Company 1',
+                    country: 'Test Country 1',
+                    jobTitle: 'Test Job 1',
+                    jobDetails: 'Test Details 1',
+                    status: 'pending'
+                },
+                {
+                    name: 'Test User 2',
+                    email: 'test2@example.com',
+                    phoneNumber: '+1234567891',
+                    companyName: 'Test Company 2',
+                    country: 'Test Country 2',
+                    jobTitle: 'Test Job 2',
+                    jobDetails: 'Test Details 2',
+                    status: 'in-progress'
+                }
+            ]);
+
             const req = {
                 query: {
                     format: 'excel'
                 }
             };
+
+            // Create a more complete mock response object
             const res = {
                 setHeader: vi.fn(),
                 status: vi.fn().mockReturnThis(),
-                send: vi.fn()
+                json: vi.fn(),
+                write: vi.fn(),
+                end: vi.fn()
             };
 
             await inquiryController.exportInquiries(req, res);
 
+            // Verify headers were set
             expect(res.setHeader).toHaveBeenCalledWith(
                 'Content-Type',
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -387,6 +437,45 @@ describe('Inquiry Controller Integration Tests', () => {
             expect(res.setHeader).toHaveBeenCalledWith(
                 'Content-Disposition',
                 'attachment; filename=inquiries-export.xlsx'
+            );
+        });
+
+        it('should handle invalid export format', async () => {
+            const req = {
+                query: {
+                    format: 'invalid'
+                }
+            };
+            const res = mockResponse();
+
+            await inquiryController.exportInquiries(req, res);
+
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'Invalid export format'
+                })
+            );
+        });
+
+        it('should handle empty data set', async () => {
+            // Clear all inquiries
+            await Inquiry.deleteMany({});
+
+            const req = {
+                query: {
+                    format: 'csv'
+                }
+            };
+            const res = mockResponse();
+
+            await inquiryController.exportInquiries(req, res);
+
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'No data to export'
+                })
             );
         });
     });
