@@ -1,0 +1,10 @@
+[
+  {
+    "_id": "67e171c60e63047fcca0ba84",
+    "username": "admin",
+    "password": "$2b$12$MddbeNCjg0hRXqRW.LI4B.PMaK85JLdYbxW4vaA4OCgyJnZK/dnmG",
+    "role": "Super Admin",
+    "createdAt": "2025-03-24T14:52:54.451Z",
+    "__v": 0
+  }
+]

@@ -1,19 +1,48 @@
 import fs from 'fs';
-
-import Inquiry from "../models/inquiries.model.js";
-
+import db from "../utils/dbs.js";
 
 
-export const backup = async () => {
+const writeFile = async (file, data) => {
+    await fs.promises.writeFile(file, JSON.stringify(data, null, 2));
+}
+
+const storage =  (file)=>{
+    return `./migration/backups/${file}.json` // extracting the file path
+}
+
+const checkBackupExists = (file) => {
     try {
-        const inquiries = await Inquiry.find();
-        const file = "./migration/backups/inquiries.json";
-        await fs.promises.writeFile(file, JSON.stringify(inquiries, null, 2));
-        console.log("Inquiries backup completed");
+        return fs.existsSync(storage(file));
     } catch (error) {
-        console.error("Error during backup:", error);
+        return false;
+    }
+}
+
+export const migrator= async (db,file) => {
+    try {
+        if (checkBackupExists(file)) {
+            console.log(`${file} backup already exists, skipping...`);
+            return;
+        }
+        const data = await db.find();
+        // Ensure backup directory exists
+        fs.mkdirSync('./migration/backups', { recursive: true });
+        await writeFile(storage(file), data);
+        console.log(`${file} backup completed`);
+    } catch (error) {
+        console.error("Error during backup:", error); 
         throw error;
     }
 }
 
+
+
+export const backup = async () => {
+    await migrator(db.inquiries, "inquiries");
+    await migrator(db.blogs, "blogs");
+    await migrator(db.gallery, "gallery");
+    await migrator(db.users, "users");
+}
+
+// backup();
 

@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "67c2ca1da22c766c3628e3e7",
+    "title": "Event At Sunderland",
+    "category": "event",
+    "description": "Tech Innovation at Sunderland",
+    "image": "/uploads/gallery/image-1740818973834-94465760.jpg",
+    "poster": "679f9d3a79b312dcdcca5a75",
+    "createdAt": "2025-03-01T08:49:33.837Z",
+    "updatedAt": "2025-03-01T08:49:33.837Z",
+    "__v": 0
+  },
+  {
+    "_id": "67c2cb9ca22c766c3628e414",
+    "title": "Tech we support",
+    "category": "product",
+    "description": "Our teach with GOOGLE",
+    "image": "/uploads/gallery/image-1740819356035-280790947.jpg",
+    "poster": "679f9d3a79b312dcdcca5a75",
+    "createdAt": "2025-03-01T08:55:56.039Z",
+    "updatedAt": "2025-03-01T08:55:56.039Z",
+    "__v": 0
+  }
+]
