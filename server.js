@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import { connectMongo } from './config/connectMongo.js';
 import { mkdirSync } from 'fs';
+import {backup} from './migration/migrator.js';
 dotenv.config();
 const app = express();
 
@@ -60,5 +61,6 @@ app.use((err, req, res, next) => {
 // Start the server
 app.listen(process.env.PORT, () => {
   connectMongo();
+  backup();
   console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
