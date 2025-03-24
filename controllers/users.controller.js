@@ -70,12 +70,12 @@ export const createUser = async (req, res) => {
     }
 
     // Validate role
-    if (role == "Super Admin") {
-      return res.status(400).json({
-        con: false,
-        msg: "You cannot create a Super Admin account",
-      });
-    }
+    // if (role == "Super Admin") {
+    //   return res.status(400).json({
+    //     con: false,
+    //     msg: "You cannot create a Super Admin account",
+    //   });
+    // }
 
     // Check if user already exists
     const existingUser = await User.findOne({ username });
@@ -161,7 +161,7 @@ export const logoutUser = async (req, res) => {
     fError(res, "Error logging out user", 500);
   }
 };
-
+//MVC  --m  model  --v  view  --c  controller
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");

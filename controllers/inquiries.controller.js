@@ -212,6 +212,7 @@ export const verifyInquiry = async (req, res) => {
         status: sentInquiry.status,
     });
     await sentInquiry.deleteOne();
+    
     await sendThankYouEmail(inquiry.email, inquiry.name);
     fMsg(res, "Inquiry verified successfully", inquiry, 200);
   } catch (error) {
