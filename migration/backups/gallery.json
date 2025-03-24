@@ -14,11 +14,33 @@
     "_id": "67c2cb9ca22c766c3628e414",
     "title": "Tech we support",
     "category": "product",
-    "description": "Our teach with GOOGLE",
+    "description": "Our tech with GOOGLE",
     "image": "/uploads/gallery/image-1740819356035-280790947.jpg",
     "poster": "679f9d3a79b312dcdcca5a75",
     "createdAt": "2025-03-01T08:55:56.039Z",
-    "updatedAt": "2025-03-01T08:55:56.039Z",
+    "updatedAt": "2025-03-24T16:13:33.094Z",
+    "__v": 0
+  },
+  {
+    "_id": "67e1849705ee80cb998d662b",
+    "title": "Share Meeting 2024",
+    "category": "team",
+    "description": "Meeting at London",
+    "image": "/uploads/gallery/image-1742832791001-864635810.jpg",
+    "poster": "67e171c60e63047fcca0ba84",
+    "createdAt": "2025-03-24T16:13:11.012Z",
+    "updatedAt": "2025-03-24T16:13:11.012Z",
+    "__v": 0
+  },
+  {
+    "_id": "67e187c805ee80cb998d664a",
+    "title": "Staff Meeting",
+    "category": "team",
+    "description": "Monthly Performance Evaluation Meeting",
+    "image": "/uploads/gallery/image-1742833608572-574510907.jpg",
+    "poster": "67e171c60e63047fcca0ba84",
+    "createdAt": "2025-03-24T16:26:48.575Z",
+    "updatedAt": "2025-03-24T16:26:48.575Z",
     "__v": 0
   }
 ]
