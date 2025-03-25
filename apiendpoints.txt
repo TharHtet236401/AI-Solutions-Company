@@ -1,46 +1,71 @@
 Base URL: http://localhost:3000/api
 
 # Authentication Routes
-POST    /users/login         - Login user
-POST    /users/logout        - Logout user
+POST    /users/login                 - Login user
+POST    /users/logout                - Logout user
+GET     /users/profile              - Get current user profile
+GET     /users                      - Get all users (protected)
+POST    /users                      - Create new user (protected)
+PUT     /users/personal-info        - Update personal information (protected)
+PUT     /users/update-password      - Update password (protected)
+DELETE  /users/:id                  - Delete user (protected)
+PUT     /users/:id                  - Update user (protected)
+GET     /users/visualization-data   - Get user visualization data (protected)
 
 # Blog Routes
-GET     /blogs              - Get all blogs
-GET     /blogs/:id          - Get single blog
-POST    /blogs              - Create new blog
-PUT     /blogs/:id          - Update blog
-DELETE  /blogs/:id          - Delete blog
-PATCH   /blogs/status/:id   - Update blog status
+GET     /blogs                      - Get all blogs
+GET     /blogs/:id                  - Get single blog
+POST    /blogs                      - Create new blog (protected)
+PUT     /blogs/:id                  - Update blog (protected)
+DELETE  /blogs/:id                  - Delete blog (protected)
+PATCH   /blogs/status/:id           - Update blog status (protected)
 
 # Gallery Routes
-GET     /gallery            - Get all gallery items
-GET     /gallery/:id        - Get single gallery item
-POST    /gallery            - Add new gallery item
-DELETE  /gallery/:id        - Delete gallery item
+GET     /gallery                    - Get all gallery items
+GET     /gallery/:id                - Get single gallery item
+POST    /gallery                    - Add new gallery item (protected)
+PUT     /gallery/:id                - Update gallery item (protected)
+DELETE  /gallery/:id                - Delete gallery item (protected)
 
 # Inquiry Routes
-GET     /inquiries          - Get all inquiries
-GET     /inquiries/overview - Get dashboard statistics
-GET     /inquiries/export   - Export inquiries (CSV/Excel)
-GET     /inquiries/:id      - Get single inquiry
-POST    /inquiries          - Create new inquiry
-DELETE  /inquiries/:id      - Delete inquiry
-PATCH   /inquiries/status/:id - Update inquiry status
+GET     /inquiries                  - Get all inquiries
+GET     /inquiries/overview         - Get dashboard statistics
+GET     /inquiries/visualization-data - Get visualization data
+GET     /inquiries/export           - Export inquiries (CSV/Excel)
+GET     /inquiries/:id              - Get single inquiry
+POST    /inquiries                  - Create new inquiry
+POST    /inquiries/verify           - Verify inquiry with OTP
+POST    /inquiries/reply/:id        - Reply to an inquiry
+DELETE  /inquiries/:id              - Delete inquiry
+PATCH   /inquiries/status/:id       - Update inquiry status (protected)
 
-# Page Routes (Frontend Views)
-GET     /                   - Home page
-GET     /solutions          - Solutions page
-GET     /industries         - Industries page
-GET     /feedback          - Feedback page
-GET     /blog              - Blog page
-GET     /gallery           - Gallery page
-GET     /contact           - Contact page
+# Chat Routes
+POST    /chat                       - Send message to chatbot
 
-# Admin Routes (Frontend Views)
+# Frontend Page Routes
+GET     /                           - Home page
+GET     /solutions                  - Solutions page
+GET     /industries                 - Industries page
+GET     /feedback                   - Feedback page
+GET     /blog                       - Blog page
+GET     /blog/:id                   - Single blog page
+GET     /gallery                    - Gallery page
+GET     /about                      - About page
+GET     /contact                    - Contact page
+GET     /search                     - Search page
+GET     /otp-verification          - OTP verification page
+
+# Admin Routes
+GET     /admin/login               - Admin login page
 GET     /admin/dashboard           - Admin dashboard
-GET     /admin/inquiries          - Inquiries management
-GET     /admin/blog-management    - Blog management
-GET     /admin/gallery-management - Gallery management
-GET     /admin/profile           - Admin profile
-GET     /admin/settings          - Admin settings
-GET     /admin/logout            - Admin logout
+GET     /admin/inquiries           - Inquiries management
+GET     /admin/inquiry/:id         - Single inquiry detail
+GET     /admin/blog-management     - Blog management
+GET     /admin/gallery-management  - Gallery management
+GET     /admin/profile            - Admin profile
+GET     /admin/settings           - Admin settings
+GET     /admin/visualization      - Data visualization
+GET     /admin/user-management    - User management
+GET     /admin/logout             - Admin logout
+
+Note: Routes marked with (protected) require authentication token.
