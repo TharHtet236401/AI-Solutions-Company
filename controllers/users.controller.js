@@ -195,7 +195,7 @@ export const deleteUser = async (req, res) => {
     )
       return fError(
         res,
-        "You cannot delete your own account or you are not an admin",
+        "You cannot delete your own account as Super Admin",
         400
       );
     await User.findByIdAndDelete(req.params.id);

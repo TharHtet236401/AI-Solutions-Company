@@ -416,7 +416,7 @@ describe('User Controller Tests', () => {
 
       expect(fError).toHaveBeenCalledWith(
         mockResponse,
-        "You cannot delete your own account or you are not an admin",
+        "You cannot delete your own account as Super Admin",
         400
       );
     });
