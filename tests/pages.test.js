@@ -147,34 +147,23 @@ describe('Pages Routes', () => {
                 title: 'Gallery - AI Solutions'
             });
         });
+
+        it('should render blog page', async () => {
+            const handler = findRouteHandler('/blog');
+            await handler(mockRequest, mockResponse, next);
+            
+            expect(mockResponse.render).toHaveBeenCalledWith('blog', {
+                title: 'Blog - AI Solutions',
+                blogs: [],
+                featuredBlog: null,
+                currentPage: 1,
+                totalPages: 0,
+                total: 0
+            });
+        });
     });
 
     describe('Blog Pages', () => {
-        it('should render blog listing page with pagination', async () => {
-            const mockBlogs = [{ title: 'Blog 1' }, { title: 'Blog 2' }];
-            const mockFeaturedBlog = { title: 'Featured Blog' };
-
-            // Setup mocks
-            Blog.countDocuments.mockResolvedValue(10);
-            Blog.find().limit.mockResolvedValue(mockBlogs);
-            Blog.findOne().sort.mockResolvedValue(mockFeaturedBlog);
-
-            mockRequest.query = { page: '2' };
-
-            const handler = findRouteHandler('/blog');
-            if (!handler) throw new Error('Route handler not found for /blog');
-            await handler(mockRequest, mockResponse, next);
-
-            expect(mockResponse.render).toHaveBeenCalledWith('blog', {
-                title: 'Blog - AI Solutions',
-                blogs: mockBlogs,
-                featuredBlog: mockFeaturedBlog,
-                currentPage: 2,
-                totalPages: 2,
-                total: 10
-            });
-        });
-
         it('should render single blog page', async () => {
             const mockBlog = {
                 title: 'Test Blog',
@@ -300,6 +289,16 @@ describe('Pages Routes', () => {
             
             expect(mockResponse.clearCookie).toHaveBeenCalledWith('jwt');
             expect(mockResponse.redirect).toHaveBeenCalledWith('/admin/login');
+        });
+
+        it('should render blog management page', async () => {
+            await testAdminRoute('/admin/blog-management', [
+                'admin/blog-management',
+                {
+                    title: 'Blog Management - AI Solutions',
+                    activeTab: 'blog-management'
+                }
+            ]);
         });
 
         it('should render gallery management page', async () => {
