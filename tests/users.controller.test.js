@@ -76,7 +76,7 @@ describe('User Controller Tests', () => {
     it('should create user successfully', async () => {
       const mockUser = {
         username: 'testuser',
-        password: 'password123',
+        password: 'Test123@pass',
         role: 'Admin'
       };
 
@@ -117,6 +117,33 @@ describe('User Controller Tests', () => {
           role: mockUser.role
         })
       });
+    });
+
+    it('should reject weak passwords', async () => {
+      const weakPasswords = [
+        'short',                 // Too short
+        'onlylowercase123',      // No uppercase
+        'ONLYUPPERCASE123',      // No lowercase
+        'NoSpecialChar123',      // No special characters
+        'NoNumbers@abc',         // No numbers
+        'Test@abc'               // Too short with all requirements
+      ];
+
+      for (const password of weakPasswords) {
+        mockRequest.body = {
+          username: 'testuser',
+          password: password,
+          role: 'Admin'
+        };
+
+        await userController.createUser(mockRequest, mockResponse);
+
+        expect(mockResponse.status).toHaveBeenCalledWith(400);
+        expect(mockResponse.json).toHaveBeenCalledWith({
+          con: false,
+          msg: "Password must be at least 8 characters long and include uppercase, lowercase, number and special character"
+        });
+      }
     });
 
     it('should handle missing required fields', async () => {

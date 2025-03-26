@@ -101,7 +101,7 @@ describe('User Controller Integration Tests', () => {
             const req = {
                 body: {
                     username: 'newuser',
-                    password: 'newpass123',
+                    password: 'Test123@pass',
                     role: 'Sales'
                 }
             };
@@ -120,6 +120,52 @@ describe('User Controller Integration Tests', () => {
                     })
                 })
             );
+        });
+
+        it('should reject weak passwords in user creation', async () => {
+            const testCases = [
+                {
+                    password: 'short',
+                    description: 'too short'
+                },
+                {
+                    password: 'onlylowercase123@',
+                    description: 'missing uppercase'
+                },
+                {
+                    password: 'ONLYUPPERCASE123@',
+                    description: 'missing lowercase'
+                },
+                {
+                    password: 'NoSpecialChars123',
+                    description: 'missing special character'
+                },
+                {
+                    password: 'NoNumbers@abcDEF',
+                    description: 'missing numbers'
+                }
+            ];
+
+            for (const testCase of testCases) {
+                const req = {
+                    body: {
+                        username: 'testuser',
+                        password: testCase.password,
+                        role: 'Sales'
+                    }
+                };
+                const res = mockResponse();
+
+                await userController.createUser(req, res);
+
+                expect(res.status).toHaveBeenCalledWith(400);
+                expect(res.json).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        con: false,
+                        msg: 'Password must be at least 8 characters long and include uppercase, lowercase, number and special character'
+                    })
+                );
+            }
         });
 
         it('should prevent creating duplicate usernames', async () => {
