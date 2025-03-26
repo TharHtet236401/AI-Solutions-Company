@@ -3,19 +3,12 @@ const limit = 8;
 let totalPages = 1;
 let currentSort = '-createdAt';
 let currentCategory = '';
-let currentSearch = '';
 let blogToDelete = null;
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchAndRenderBlogs();
     
     // Add event listeners for filters
-    document.getElementById('searchInput').addEventListener('input', debounce(async (e) => {
-        currentSearch = e.target.value;
-        currentPage = 1;
-        await fetchAndRenderBlogs();
-    }, 300));
-
     document.getElementById('categoryFilter').addEventListener('change', async (e) => {
         currentCategory = e.target.value;
         console.log('Category changed to:', currentCategory);
@@ -51,10 +44,9 @@ async function fetchAndRenderBlogs() {
             page: currentPage,
             limit,
             sort: currentSort,
-            category: currentCategory,
-            search: currentSearch
+            category: currentCategory
         });
-        const response = await fetch(`/api/blogs?page=${currentPage}&limit=${limit}&sort=${currentSort}&category=${currentCategory}&search=${currentSearch}`);
+        const response = await fetch(`/api/blogs?page=${currentPage}&limit=${limit}&sort=${currentSort}&category=${currentCategory}`);
         const data = await response.json();
         console.log('Response:', data);
         
@@ -301,7 +293,6 @@ async function resetFilters() {
     refreshBtn.classList.add('spinning');
 
     // Reset all filters
-    document.getElementById('searchInput').value = '';
     document.getElementById('categoryFilter').value = '';
     document.getElementById('sortOrder').value = '-createdAt';
 
@@ -309,7 +300,6 @@ async function resetFilters() {
     currentPage = 1;
     currentSort = '-createdAt';
     currentCategory = '';
-    currentSearch = '';
 
     // Fetch blogs with reset filters
     await fetchAndRenderBlogs();

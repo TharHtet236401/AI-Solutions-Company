@@ -3,19 +3,12 @@ const limit = 12;
 let totalPages = 1;
 let currentSort = '-createdAt';
 let currentCategory = '';
-let currentSearch = '';
 let galleryToDelete = null;
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchAndRenderGallery();
     
     // Add event listeners for filters
-    document.getElementById('searchInput').addEventListener('input', debounce(async (e) => {
-        currentSearch = e.target.value;
-        currentPage = 1;
-        await fetchAndRenderGallery();
-    }, 300));
-
     document.getElementById('categoryFilter').addEventListener('change', async (e) => {
         currentCategory = e.target.value;
         currentPage = 1;
@@ -31,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 async function fetchAndRenderGallery() {
     try {
-        const response = await fetch(`/api/gallery?page=${currentPage}&limit=${limit}&sort=${currentSort}&category=${currentCategory}&search=${currentSearch}`);
+        const response = await fetch(`/api/gallery?page=${currentPage}&limit=${limit}&sort=${currentSort}&category=${currentCategory}`);
         const data = await response.json();
         
         if (data.con) {

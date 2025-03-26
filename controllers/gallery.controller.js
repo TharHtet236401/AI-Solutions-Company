@@ -25,22 +25,11 @@ export const getGallery = async (req, res) => {
     const skip = (page - 1) * limit;
     const category = req.query.category;
     const sort = req.query.sort || '-createdAt';
-    const search = req.query.search;
 
-    // Build query based on category and search
+    // Build query based on category
     let query = {};
     if (category && category !== 'all') {
       query.category = category;
-    }
-
-    // Add search functionality
-    if (search) {
-      const searchRegex = new RegExp(search, 'i');
-      query.$or = [
-        { title: searchRegex },
-        { description: searchRegex },
-        { category: searchRegex }
-      ];
     }
 
     // Get total count for pagination with category filter
