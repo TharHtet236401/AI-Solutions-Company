@@ -217,7 +217,7 @@ export const updateUser = async (req, res) => {
     const { username, password, role } = req.body;
 
     if (req.user.role !== "Super Admin") {
-      return fError(res, "You are not authorized to update the users", 403);
+      return fError(res, "You are not authorized to update users", 403);
     }
 
     // Find user

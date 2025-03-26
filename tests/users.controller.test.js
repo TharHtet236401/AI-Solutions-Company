@@ -70,10 +70,30 @@ describe('User Controller Tests', () => {
         }
       });
     });
+
+    it('should filter users by role', async () => {
+      const mockUsers = [
+        { _id: '1', username: 'admin1', role: 'Admin' },
+        { _id: '2', username: 'admin2', role: 'Admin' }
+      ];
+
+      mockRequest.query.role = 'Admin';
+      User.countDocuments.mockResolvedValue(2);
+      User.find.mockReturnValue({
+        sort: vi.fn().mockReturnThis(),
+        skip: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockReturnThis(),
+        select: vi.fn().mockResolvedValue(mockUsers)
+      });
+
+      await userController.getUsers(mockRequest, mockResponse);
+
+      expect(User.find).toHaveBeenCalledWith({ role: 'Admin' });
+    });
   });
 
   describe('createUser', () => {
-    it('should create user successfully', async () => {
+    it('should create user successfully when user is Super Admin', async () => {
       const mockUser = {
         username: 'testuser',
         password: 'Test123@pass',
@@ -81,6 +101,7 @@ describe('User Controller Tests', () => {
       };
 
       mockRequest.body = mockUser;
+      mockRequest.user.role = 'Super Admin';
       
       User.findOne.mockResolvedValue(null);
       encode.mockResolvedValue('hashedPassword');
@@ -116,6 +137,44 @@ describe('User Controller Tests', () => {
           username: mockUser.username,
           role: mockUser.role
         })
+      });
+    });
+
+    it('should prevent non-Super Admin from creating users', async () => {
+      const mockUser = {
+        username: 'testuser',
+        password: 'Test123@pass',
+        role: 'Admin'
+      };
+
+      mockRequest.body = mockUser;
+      mockRequest.user.role = 'Admin'; // Non-Super Admin role
+
+      await userController.createUser(mockRequest, mockResponse);
+
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        con: false,
+        msg: "You are not authorized to create a user"
+      });
+    });
+
+    it('should prevent creating Super Admin account', async () => {
+      const mockUser = {
+        username: 'testuser',
+        password: 'Test123@pass',
+        role: 'Super Admin'
+      };
+
+      mockRequest.body = mockUser;
+      mockRequest.user.role = 'Super Admin';
+
+      await userController.createUser(mockRequest, mockResponse);
+
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        con: false,
+        msg: "You cannot create a Super Admin account"
       });
     });
 
@@ -173,22 +232,6 @@ describe('User Controller Tests', () => {
       expect(mockResponse.json).toHaveBeenCalledWith({
         con: false,
         msg: "Username already exists"
-      });
-    });
-
-    it('should prevent creating Super Admin account', async () => {
-      mockRequest.body = {
-        username: 'testuser',
-        password: 'password123',
-        role: 'Super Admin'
-      };
-
-      await userController.createUser(mockRequest, mockResponse);
-
-      expect(mockResponse.status).toHaveBeenCalledWith(400);
-      expect(mockResponse.json).toHaveBeenCalledWith({
-        con: false,
-        msg: "You cannot create a Super Admin account"
       });
     });
   });
@@ -359,25 +402,106 @@ describe('User Controller Tests', () => {
     });
   });
 
+  describe('updateUser', () => {
+    it('should allow Super Admin to update any user', async () => {
+      const mockUser = {
+        _id: 'targetUserId',
+        username: 'targetuser',
+        role: 'Admin',
+        save: vi.fn().mockResolvedValue({
+          _id: 'targetUserId',
+          username: 'updateduser',
+          role: 'Content',
+          toObject: () => ({
+            _id: 'targetUserId',
+            username: 'updateduser',
+            role: 'Content'
+          })
+        }),
+        toObject: () => ({
+          _id: 'targetUserId',
+          username: 'updateduser',
+          role: 'Content'
+        })
+      };
+
+      mockRequest.params.id = 'targetUserId';
+      mockRequest.body = {
+        username: 'updateduser',
+        role: 'Content'
+      };
+      mockRequest.user.role = 'Super Admin';
+
+      User.findById.mockResolvedValue(mockUser);
+
+      await userController.updateUser(mockRequest, mockResponse);
+
+      expect(mockUser.save).toHaveBeenCalled();
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        con: true,
+        msg: "User updated successfully",
+        result: expect.objectContaining({
+          username: 'updateduser',
+          role: 'Content'
+        })
+      });
+    });
+
+    it('should prevent non-Super Admin from updating users', async () => {
+      mockRequest.params.id = 'targetUserId';
+      mockRequest.body = {
+        username: 'updateduser',
+        role: 'Content'
+      };
+      mockRequest.user.role = 'Admin'; // Non-Super Admin role
+
+      await userController.updateUser(mockRequest, mockResponse);
+
+      expect(fError).toHaveBeenCalledWith(
+        mockResponse,
+        "You are not authorized to update users",
+        403
+      );
+    });
+
+    it('should handle user not found during update', async () => {
+      mockRequest.params.id = 'nonexistentId';
+      mockRequest.body = {
+        username: 'updateduser',
+        role: 'Content'
+      };
+      mockRequest.user.role = 'Super Admin';
+
+      User.findById.mockResolvedValue(null);
+
+      await userController.updateUser(mockRequest, mockResponse);
+
+      expect(fError).toHaveBeenCalledWith(
+        mockResponse,
+        "User not found",
+        404
+      );
+    });
+  });
+
   describe('deleteUser', () => {
-    it('should delete user successfully', async () => {
+    it('should allow Super Admin to delete any user except themselves', async () => {
       const mockUserToDelete = {
         _id: 'userToDeleteId',
         toString: () => 'userToDeleteId'
       };
 
-      const mockCurrentUser = {
-        _id: 'currentUserId',
+      mockRequest.params.id = 'userToDeleteId';
+      mockRequest.user = { 
+        _id: 'currentUserId', 
         role: 'Super Admin',
         toString: () => 'currentUserId'
       };
 
-      mockRequest.params = { id: 'userToDeleteId' };
-      mockRequest.user = { _id: 'currentUserId', role: 'Super Admin' };
-
       User.findById
         .mockResolvedValueOnce(mockUserToDelete)
-        .mockResolvedValueOnce(mockCurrentUser);
+        .mockResolvedValueOnce(mockRequest.user);
       
       User.findByIdAndDelete.mockResolvedValue(true);
 
@@ -387,26 +511,18 @@ describe('User Controller Tests', () => {
       expect(fMsg).toHaveBeenCalledWith(mockResponse, "User deleted successfully");
     });
 
-    it('should handle unauthorized deletion', async () => {
-      mockRequest.user = { role: 'Admin' };
-
-      await userController.deleteUser(mockRequest, mockResponse);
-
-      expect(fError).toHaveBeenCalledWith(
-        mockResponse,
-        "You are not authorized to delete the users",
-        403
-      );
-    });
-
-    it('should prevent self-deletion', async () => {
+    it('should prevent Super Admin from deleting their own account', async () => {
       const mockUser = {
         _id: 'userId',
         toString: () => 'userId'
       };
 
-      mockRequest.params = { id: 'userId' };
-      mockRequest.user = { _id: 'userId', role: 'Super Admin' };
+      mockRequest.params.id = 'userId';
+      mockRequest.user = { 
+        _id: 'userId', 
+        role: 'Super Admin',
+        toString: () => 'userId'
+      };
 
       User.findById
         .mockResolvedValueOnce(mockUser)
@@ -418,6 +534,18 @@ describe('User Controller Tests', () => {
         mockResponse,
         "You cannot delete your own account as Super Admin",
         400
+      );
+    });
+
+    it('should prevent non-Super Admin from deleting users', async () => {
+      mockRequest.user = { role: 'Admin' }; // Non-Super Admin role
+
+      await userController.deleteUser(mockRequest, mockResponse);
+
+      expect(fError).toHaveBeenCalledWith(
+        mockResponse,
+        "You are not authorized to delete the users",
+        403
       );
     });
   });
