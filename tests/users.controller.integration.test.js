@@ -103,6 +103,9 @@ describe('User Controller Integration Tests', () => {
                     username: 'newuser',
                     password: 'Test123@pass',
                     role: 'Sales'
+                },
+                user: {
+                    role: 'Super Admin'
                 }
             };
             const res = mockResponse();
@@ -157,6 +160,9 @@ describe('User Controller Integration Tests', () => {
                         username: testCase.username,
                         password: testCase.password,
                         role: 'Sales'
+                    },
+                    user: {
+                        role: 'Super Admin'
                     }
                 };
                 const res = mockResponse();
@@ -179,6 +185,9 @@ describe('User Controller Integration Tests', () => {
                     username: 'testuser', // Already exists
                     password: 'newpass123',
                     role: 'Sales'
+                },
+                user: {
+                    role: 'Super Admin'
                 }
             };
             const res = mockResponse();
