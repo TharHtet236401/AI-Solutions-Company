@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('categoryFilter').addEventListener('change', async (e) => {
         currentCategory = e.target.value;
+        console.log('Category changed to:', currentCategory);
         currentPage = 1;
         await fetchAndRenderBlogs();
     });
@@ -46,8 +47,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 async function fetchAndRenderBlogs() {
     try {
+        console.log('Fetching blogs with filters:', {
+            page: currentPage,
+            limit,
+            sort: currentSort,
+            category: currentCategory,
+            search: currentSearch
+        });
         const response = await fetch(`/api/blogs?page=${currentPage}&limit=${limit}&sort=${currentSort}&category=${currentCategory}&search=${currentSearch}`);
         const data = await response.json();
+        console.log('Response:', data);
         
         if (data.con) {
             const { items: blogs, currentPage: page, totalPages: pages } = data.result;
