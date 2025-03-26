@@ -138,6 +138,15 @@ describe('Pages Routes', () => {
                 title: 'Contact'
             });
         });
+
+        it('should render gallery page', async () => {
+            const handler = findRouteHandler('/gallery');
+            await handler(mockRequest, mockResponse, next);
+            
+            expect(mockResponse.render).toHaveBeenCalledWith('gallery', {
+                title: 'Gallery - AI Solutions'
+            });
+        });
     });
 
     describe('Blog Pages', () => {
@@ -145,18 +154,10 @@ describe('Pages Routes', () => {
             const mockBlogs = [{ title: 'Blog 1' }, { title: 'Blog 2' }];
             const mockFeaturedBlog = { title: 'Featured Blog' };
 
-            // Setup mocks with proper chaining
-            const findChain = Blog.find();
-            findChain.populate.mockReturnThis();
-            findChain.sort.mockReturnThis();
-            findChain.skip.mockReturnThis();
-            findChain.limit.mockResolvedValue(mockBlogs);
-
-            const findOneChain = Blog.findOne();
-            findOneChain.populate.mockReturnThis();
-            findOneChain.sort.mockResolvedValue(mockFeaturedBlog);
-
+            // Setup mocks
             Blog.countDocuments.mockResolvedValue(10);
+            Blog.find().limit.mockResolvedValue(mockBlogs);
+            Blog.findOne().sort.mockResolvedValue(mockFeaturedBlog);
 
             mockRequest.query = { page: '2' };
 
@@ -180,10 +181,7 @@ describe('Pages Routes', () => {
                 content: 'Test Content'
             };
 
-            // Setup mock with proper chaining
-            const findByIdChain = Blog.findById();
-            findByIdChain.populate.mockResolvedValue(mockBlog);
-
+            Blog.findById().populate.mockResolvedValue(mockBlog);
             mockRequest.params = { id: 'testBlogId' };
 
             const handler = findRouteHandler('/blog/:id');
@@ -197,10 +195,7 @@ describe('Pages Routes', () => {
         });
 
         it('should handle non-existent blog', async () => {
-            // Setup mock
-            const findByIdChain = Blog.findById();
-            findByIdChain.populate.mockResolvedValue(null);
-
+            Blog.findById().populate.mockResolvedValue(null);
             mockRequest.params = { id: 'nonExistentId' };
 
             const handler = findRouteHandler('/blog/:id');
@@ -305,6 +300,16 @@ describe('Pages Routes', () => {
             
             expect(mockResponse.clearCookie).toHaveBeenCalledWith('jwt');
             expect(mockResponse.redirect).toHaveBeenCalledWith('/admin/login');
+        });
+
+        it('should render gallery management page', async () => {
+            await testAdminRoute('/admin/gallery-management', [
+                'admin/gallery-management',
+                {
+                    title: 'Gallery Management - AI Solutions',
+                    activeTab: 'gallery-management'
+                }
+            ]);
         });
     });
 
