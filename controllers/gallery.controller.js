@@ -87,7 +87,11 @@ export const createGallery = async (req, res) => {
       poster: req.user._id
     });
     
-    fMsg(res, "Gallery item created successfully", gallery);
+    return res.status(201).json({
+      con: true,
+      msg: "Gallery item created successfully",
+      result: gallery
+    });
   } catch (error) {
     console.error("Error creating gallery item:", error);
     fError(res, "Error creating gallery item", 500);
