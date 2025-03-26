@@ -125,22 +125,27 @@ describe('User Controller Integration Tests', () => {
         it('should reject weak passwords in user creation', async () => {
             const testCases = [
                 {
+                    username: 'weakpass1',
                     password: 'short',
                     description: 'too short'
                 },
                 {
+                    username: 'weakpass2',
                     password: 'onlylowercase123@',
                     description: 'missing uppercase'
                 },
                 {
+                    username: 'weakpass3',
                     password: 'ONLYUPPERCASE123@',
                     description: 'missing lowercase'
                 },
                 {
+                    username: 'weakpass4',
                     password: 'NoSpecialChars123',
                     description: 'missing special character'
                 },
                 {
+                    username: 'weakpass5',
                     password: 'NoNumbers@abcDEF',
                     description: 'missing numbers'
                 }
@@ -149,7 +154,7 @@ describe('User Controller Integration Tests', () => {
             for (const testCase of testCases) {
                 const req = {
                     body: {
-                        username: 'testuser',
+                        username: testCase.username,
                         password: testCase.password,
                         role: 'Sales'
                     }
