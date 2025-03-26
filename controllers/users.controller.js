@@ -69,6 +69,12 @@ export const createUser = async (req, res) => {
       });
     }
 
+    if(req.user.role !== "Super Admin"){
+      return res.status(400).json({
+        con: false,
+        msg: "You are not authorized to create a user",
+      });
+    }
     // Validate role first
     if (role === "Super Admin") {
       return res.status(400).json({
@@ -210,9 +216,9 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, password, role } = req.body;
 
-    // if (req.user.role !== "Super Admin") {
-    //   return fError(res, "You are not authorized to update the users", 403);
-    // }
+    if (req.user.role !== "Super Admin") {
+      return fError(res, "You are not authorized to update the users", 403);
+    }
 
     // Find user
     const user = await User.findById(id);
