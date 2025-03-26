@@ -277,6 +277,93 @@ describe('User Controller Integration Tests', () => {
                     })
                 })
             );
+
+            // Verify the update in database
+            const updatedUser = await User.findById(testUserId);
+            expect(updatedUser.username).toBe('updateduser');
+            expect(updatedUser.role).toBe('Sales');
+        });
+
+        it('should prevent non-Super Admin from updating users', async () => {
+            const req = {
+                params: { id: testUserId },
+                body: {
+                    username: 'updateduser',
+                    role: 'Sales'
+                },
+                user: { role: 'Admin' }
+            };
+            const res = mockResponse();
+
+            await userController.updateUser(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(403);
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'You are not authorized to update users'
+                })
+            );
+
+            // Verify no changes in database
+            const unchangedUser = await User.findById(testUserId);
+            expect(unchangedUser.username).toBe('testuser');
+            expect(unchangedUser.role).toBe('Customer Support');
+        });
+
+        it('should handle updating non-existent user', async () => {
+            const req = {
+                params: { id: new mongoose.Types.ObjectId() },
+                body: {
+                    username: 'updateduser',
+                    role: 'Sales'
+                },
+                user: { role: 'Super Admin' }
+            };
+            const res = mockResponse();
+
+            await userController.updateUser(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'User not found'
+                })
+            );
+        });
+
+        it('should prevent updating to existing username', async () => {
+            // Create another user first
+            const otherUser = await User.create({
+                username: 'existinguser',
+                password: await encode('testpass123'),
+                role: 'Customer Support'
+            });
+
+            const req = {
+                params: { id: testUserId },
+                body: {
+                    username: 'existinguser',
+                    role: 'Sales'
+                },
+                user: { role: 'Super Admin' }
+            };
+            const res = mockResponse();
+
+            await userController.updateUser(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'Username already exists'
+                })
+            );
+
+            // Verify no changes in database
+            const unchangedUser = await User.findById(testUserId);
+            expect(unchangedUser.username).toBe('testuser');
         });
     });
 
@@ -321,6 +408,54 @@ describe('User Controller Integration Tests', () => {
                 expect.objectContaining({
                     con: false,
                     msg: 'You are not authorized to delete the users'
+                })
+            );
+
+            // Verify user still exists in database
+            const existingUser = await User.findById(testUserId);
+            expect(existingUser).not.toBeNull();
+        });
+
+        it('should prevent Super Admin from deleting their own account', async () => {
+            const req = {
+                params: { id: superAdminUser._id },
+                user: {
+                    _id: superAdminUser._id,
+                    role: 'Super Admin'
+                }
+            };
+            const res = mockResponse();
+
+            await userController.deleteUser(req, res);
+
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'You cannot delete your own account as Super Admin'
+                })
+            );
+
+            // Verify Super Admin still exists in database
+            const existingSuperAdmin = await User.findById(superAdminUser._id);
+            expect(existingSuperAdmin).not.toBeNull();
+        });
+
+        it('should handle deleting non-existent user', async () => {
+            const req = {
+                params: { id: new mongoose.Types.ObjectId() },
+                user: {
+                    _id: superAdminUser._id,
+                    role: 'Super Admin'
+                }
+            };
+            const res = mockResponse();
+
+            await userController.deleteUser(req, res);
+
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    con: false,
+                    msg: 'User not found'
                 })
             );
         });
