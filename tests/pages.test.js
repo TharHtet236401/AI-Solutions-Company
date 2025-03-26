@@ -6,19 +6,22 @@ import router from '../routes/pages.js';
 
 // Mock the Blog model
 vi.mock('../models/blogs.model.js', () => {
-    const mockBlogChain = {
-        populate: vi.fn().mockReturnThis(),
-        sort: vi.fn().mockReturnThis(),
-        skip: vi.fn().mockReturnThis(),
-        limit: vi.fn().mockReturnThis()
-    };
-
     return {
         default: {
-            countDocuments: vi.fn(),
-            find: vi.fn(() => mockBlogChain),
-            findOne: vi.fn(() => mockBlogChain),
-            findById: vi.fn(() => mockBlogChain)
+            countDocuments: vi.fn().mockResolvedValue(0),
+            find: vi.fn().mockReturnValue({
+                populate: vi.fn().mockReturnThis(),
+                sort: vi.fn().mockReturnThis(),
+                skip: vi.fn().mockReturnThis(),
+                limit: vi.fn().mockResolvedValue([])
+            }),
+            findOne: vi.fn().mockReturnValue({
+                populate: vi.fn().mockReturnThis(),
+                sort: vi.fn().mockResolvedValue(null)
+            }),
+            findById: vi.fn().mockReturnValue({
+                populate: vi.fn().mockResolvedValue(null)
+            })
         }
     };
 });
@@ -149,12 +152,30 @@ describe('Pages Routes', () => {
         });
 
         it('should render blog page', async () => {
+            // Mock Blog.countDocuments to return 0
+            Blog.countDocuments.mockResolvedValue(0);
+
+            // Mock the chain for Blog.find()
+            const mockBlogs = [];
+            Blog.find.mockReturnValue({
+                populate: vi.fn().mockReturnThis(),
+                sort: vi.fn().mockReturnThis(),
+                skip: vi.fn().mockReturnThis(),
+                limit: vi.fn().mockResolvedValue(mockBlogs)
+            });
+
+            // Mock the chain for Blog.findOne()
+            Blog.findOne.mockReturnValue({
+                populate: vi.fn().mockReturnThis(),
+                sort: vi.fn().mockResolvedValue(null)
+            });
+
             const handler = findRouteHandler('/blog');
             await handler(mockRequest, mockResponse, next);
             
             expect(mockResponse.render).toHaveBeenCalledWith('blog', {
                 title: 'Blog - AI Solutions',
-                blogs: [],
+                blogs: mockBlogs,
                 featuredBlog: null,
                 currentPage: 1,
                 totalPages: 0,
