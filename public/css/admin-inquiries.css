@@ -45,8 +45,7 @@
 
 .filter-actions {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 1rem;
 }
 
@@ -55,6 +54,22 @@
     gap: 12px;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.filter-group-top {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.filter-group-bottom {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .filter-select {
@@ -1175,8 +1190,19 @@
 @media (min-width: 768px) {
     .filter-actions {
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
+    }
+
+    .filter-group {
+        flex: 1;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-group-top,
+    .filter-group-bottom {
+        width: 100%;
     }
 
     .search-input-wrapper {
