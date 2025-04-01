@@ -6,8 +6,8 @@ import mongoose from 'mongoose'
 const generateFakeInquiries = async (count = 50) => {
     try {
         // Generate a random date between 2022-2024
-        const startDate = new Date('2025-02-01T00:00:00.000Z');
-        const endDate = new Date('2025-02-31T23:59:59.999Z');
+        const startDate = new Date('2023-02-01T00:00:00.000Z');
+        const endDate = new Date('2025-03-31T23:59:59.999Z');
         
 
 
