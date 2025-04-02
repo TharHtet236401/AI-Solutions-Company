@@ -1,10 +1,10 @@
 /* Data Visualization Styles */
 .visualization-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin: 2rem 0;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+    margin: clamp(1rem, 2vw, 2rem) 0;
+    padding: clamp(0.5rem, 1vw, 1rem);
 }
 
 .error-message {
@@ -21,10 +21,12 @@
 
 .chart-card {
     background: var(--card-bg, #ffffff);
-    padding: 2rem;
+    padding: clamp(1rem, 2vw, 2rem);
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    height: 400px;
+    min-height: 300px;
+    height: auto;
+    aspect-ratio: 4/3;
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -38,8 +40,8 @@
 
 .chart-card h3 {
     color: var(--text-primary, #2c3e50);
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
+    margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
     font-weight: 600;
     text-align: center;
     padding-bottom: 0.75rem;
@@ -49,28 +51,29 @@
 .chart-card canvas {
     flex: 1;
     width: 100% !important;
-    height: 100% !important;
-    max-height: 300px;
+    height: auto !important;
+    max-height: none;
+    aspect-ratio: 16/9;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem 0;
+    margin-bottom: clamp(1.5rem, 3vw, 3rem);
+    padding: clamp(1rem, 2vw, 2rem) 0;
     background: linear-gradient(to right, rgba(41,98,255,0.1), rgba(0,0,0,0));
     border-radius: 12px;
 }
 
 .section-header h2 {
     color: var(--text-primary, #2c3e50);
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .section-header p {
     color: var(--text-secondary, #666);
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.1vw, 1.1rem);
 }
 
 .metrics-grid {
@@ -128,15 +131,10 @@
     font-weight: 500;
 }
 
-/* Responsive Styles */
+/* Updated Responsive Styles */
 @media (max-width: 1200px) {
     .visualization-grid {
-        grid-template-columns: 1fr;
         gap: 1.5rem;
-    }
-
-    .chart-card {
-        height: 350px;
     }
 }
 
@@ -147,22 +145,30 @@
     }
 
     .chart-card {
-        padding: 1.5rem;
-        height: 300px;
+        aspect-ratio: 3/2;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-card {
+        aspect-ratio: 1/1;
+        min-height: 250px;
     }
 
-    .section-header h2 {
-        font-size: 1.75rem;
+    .visualization-grid {
+        gap: 1rem;
     }
 
-    .section-header p {
-        font-size: 1rem;
+    .dashboard-content {
+        padding: 0.75rem;
     }
 }
 
 .dashboard-content {
-    padding: 2rem;
+    padding: clamp(1rem, 2vw, 2rem);
     max-width: 1400px;
     margin: 0 auto;
     background-color: var(--bg-color, #f8f9fa);
+    width: 100%;
+    box-sizing: border-box;
 } 
