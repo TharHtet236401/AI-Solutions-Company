@@ -619,6 +619,64 @@
             padding: 8px;
             font-size: 0.95rem;
         }
+
+        /* Add responsive styles */
+        @media screen and (max-width: 768px) {
+            .filter-select {
+                min-width: 100%;
+                width: 100%;
+            }
+
+            .search-input-wrapper {
+                width: 100%;
+                min-width: 100%;
+            }
+
+            .date-filter {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .date-filter input[type="date"] {
+                width: 100%;
+            }
+
+            .toast {
+                min-width: auto;
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            .delete-modal-content {
+                width: 90%;
+                margin: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .users-table th,
+            .users-table td {
+                padding: 8px;
+            }
+
+            .role-badge {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+
+            .action-btn {
+                width: 28px;
+                height: 28px;
+            }
+
+            .toast {
+                padding: 12px 16px;
+            }
+
+            .toast-message {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 <body>
