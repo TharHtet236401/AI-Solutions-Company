@@ -79,31 +79,20 @@ async function loadUsers(params = {}) {
 
 // Render users table
 function renderUsers(users) {
-    const tbody = document.getElementById('usersTableBody');
-    tbody.innerHTML = '';
-
+    const tableBody = document.getElementById('usersTableBody');
+    const cardsContainer = document.getElementById('usersCards');
+    
+    // Clear existing content
+    tableBody.innerHTML = '';
+    cardsContainer.innerHTML = '';
+    
+    // Update total count
+    document.getElementById('staffCount').textContent = users.length;
+    
+    // Render both table rows and cards
     users.forEach(user => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td class="col-username">
-                <div class="user-info">
-                    <span>${user.username}</span>
-                </div>
-            </td>
-            <td class="col-role"><span class="role-badge ${user.role}">${user.role}</span></td>
-            <td class="col-created">${formatDate(user.createdAt)}</td>
-            <td class="col-actions">
-                <div class="action-buttons">
-                    <button class="action-btn edit-btn" onclick="editUser('${user._id}')">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn delete-btn" onclick="deleteUser('${user._id}')">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-        `;
-        tbody.appendChild(tr);
+        tableBody.innerHTML += createTableRow(user);
+        cardsContainer.innerHTML += createCard(user);
     });
 }
 
@@ -316,10 +305,11 @@ function resetFilters() {
 
 // Utility functions
 function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
     });
 }
 
@@ -388,4 +378,51 @@ function togglePassword(inputId) {
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
     }
+}
+
+// Function to create table row
+function createTableRow(user) {
+    return `
+        <tr>
+            <td>${user.username}</td>
+            <td><span class="role-badge ${user.role.toLowerCase().replace(' ', '-')}">${user.role}</span></td>
+            <td>${formatDate(user.createdAt)}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="action-btn edit-btn" onclick="openEditUserModal('${user._id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete-btn" onclick="openDeleteModal('${user._id}')">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `;
+}
+
+// Function to create card
+function createCard(user) {
+    return `
+        <div class="user-card">
+            <div class="user-card-header">
+                <span class="user-card-name">${user.username}</span>
+                <span class="role-badge ${user.role.toLowerCase().replace(' ', '-')}">${user.role}</span>
+            </div>
+            <div class="user-card-content">
+                <div class="user-card-item">
+                    <span class="user-card-label">Created:</span>
+                    <span class="user-card-value">${formatDate(user.createdAt)}</span>
+                </div>
+            </div>
+            <div class="user-card-actions">
+                <button class="action-btn edit-btn" onclick="openEditUserModal('${user._id}')">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn" onclick="openDeleteModal('${user._id}')">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    `;
 } 
