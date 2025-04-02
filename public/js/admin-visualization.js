@@ -125,19 +125,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                                 pointStyle: 'circle'
                             }
                         },
-                        title: {
-                            display: true,
-                            text: 'Inquiry Status Distribution',
-                            font: {
-                                size: 16,
-                                family: "'Segoe UI', sans-serif",
-                                weight: '600'
-                            },
-                            padding: {
-                                top: 10,
-                                bottom: 30
-                            }
-                        },
                         tooltip: {
                             backgroundColor: 'rgba(255, 255, 255, 0.9)',
                             titleColor: '#333',
@@ -217,19 +204,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                     plugins: {
                         legend: {
                             display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Inquiries by Year (Since 2022)',
-                            font: {
-                                size: 16,
-                                family: "'Segoe UI', sans-serif",
-                                weight: '600'
-                            },
-                            padding: {
-                                top: 10,
-                                bottom: 30
-                            }
                         },
                         tooltip: {
                             backgroundColor: 'rgba(255, 255, 255, 0.9)',
