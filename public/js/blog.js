@@ -49,10 +49,6 @@ function createBlogCard(blog) {
                         <i class="far fa-calendar"></i>
                         ${new Date(blog.createdAt).toLocaleDateString()}
                     </span>
-                    <span class="blog-category">
-                        <i class="fas fa-tag"></i>
-                        ${blog.category}
-                    </span>
                 </div>
                 <h3 class="blog-title">${blog.title}</h3>
                 <p class="blog-excerpt">${blog.content.substring(0, 150)}...</p>
